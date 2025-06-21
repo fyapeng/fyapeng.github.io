@@ -20,8 +20,8 @@ title: research
 
   <li>
     <span><strong>不必要的医疗需求：道德风险与说服误导</strong>（2025）</span>
-    <button class="toggle-abstract" onclick="toggleAbstract('abstract1')">摘要</button>
-    <div id="abstract1" class="abstract-content">
+    <button class="toggle-abstract" onclick="toggleAbstract('abstract0')">摘要</button>
+    <div id="abstract0" class="abstract-content">
       <p>我利用贝叶斯说服方法研究患者不必要的医疗需求的来源，并将其分解为需求方道德风险与供给方说服误导。医生效用是患者效用和收入激励的加权组合，能够向患者有选择地披露信息以误导患者对自身病情的信念。患者的行动空间连续时，医生选择不披露信息或如实告知病情；患者行动空间离散时（低治疗与高治疗），医生说服部分低病情患者采取高治疗行为。医疗保险能够减少医患间利益冲突以削弱说服误导比例，但导致了更大的道德风险与误导需求。消除信息不对称或医生收入激励能够避免误导，但后者可能损害患者健康。</p>
     </div>
   </li>

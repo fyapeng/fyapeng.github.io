@@ -4,7 +4,7 @@ permalink: /activity-zh/index.html
 title: Activity
 ---
 
-> 更新时间：2024年7月19日&nbsp;  [English Version (英文)](https://fyapeng.com/activity/)
+> 更新时间：2025年6月19日&nbsp;  [English Version (英文)](https://fyapeng.com/activity/)
 
 
 
@@ -15,6 +15,7 @@ title: Activity
 <br>
 ## 学术活动
 
+- **05/2025**: 第十一届中国组织经济学研讨会
 - **07/2024**: 第八届中国劳动经济学者论坛年会
 - **06/2024**: 第二届香樟社会保障论坛
 - **09/2023**: 第十八届“挑战杯”大学生全国课外学术科技作品竞赛

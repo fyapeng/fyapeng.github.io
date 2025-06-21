@@ -18,8 +18,8 @@ You can click on the “abstract” button to view the abstract of each paper an
 
   <li>
     <span><strong>Misleading or Not: Moral Hazard and Persuasion in Healthcare</strong> (2025)</span>
-    <button class="toggle-abstract" onclick="toggleAbstract('abstract1')">abstract</button>
-    <div id="abstract1" class="abstract-content">
+    <button class="toggle-abstract" onclick="toggleAbstract('abstract0')">abstract</button>
+    <div id="abstract0" class="abstract-content">
       <p>I utilize a Bayesian persuasion framework to study the sources of unnecessary patient demand for healthcare and decompose them into demand-side moral hazard and supply-side persuasive misinformation. Physician utility, a weighted combination of patient utility and income incentives, is able to selectively disclose information to patients in order to mislead them about their beliefs about their condition. When the patient's action space is continuous, physicians choose not to disclose information or to be truthful about their condition; when the patient's action space is discrete (low-treatment vs. high-treatment), physicians persuade some low-condition patients to adopt high-treatment behaviors. Health insurance reduces the conflict of interest between doctors and patients to reduce the proportion of persuasive misinformation, but leads to greater moral hazard and demand for misinformation. Eliminating information asymmetries or physician income incentives can avoid misinformation, but the latter can be detrimental to patient health.</p>
     </div>
   </li>

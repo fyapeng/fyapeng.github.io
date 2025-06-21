@@ -3,8 +3,7 @@ layout: page
 permalink: /awards-zh/index.html
 title: Awards
 ---
-
-> 更新时间：2024年7月19日&nbsp;  [English Version (英文)](https://fyapeng.com/awards/)
+> 更新时间：2025年6月19日&nbsp;  [English Version (英文)](https://fyapeng.com/awards/)
 
 
 

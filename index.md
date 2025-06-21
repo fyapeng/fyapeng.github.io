@@ -2,7 +2,7 @@
 layout: page
 ---
 
-> Lastest Update: 19th July 2024&nbsp;  [中文版本 (Chinese Version)](https://fyapeng.com/main-zh/)
+> Lastest Update: 19th June 2025&nbsp;  [中文版本 (Chinese Version)](https://fyapeng.com/main-zh/)
 
 
 
@@ -39,7 +39,6 @@ Learn more about me at my **CV**[(English Version)](https://fyapeng.com/cv/cv_en
   
 My research interests focus on social security, microeconomic theory, health economics and public economics. Recently, I have been working on some research related to public policy evaluation, mathematical methods of economics, medical insurance research, fiscal and tax policies, etc.
 
-One of my early research proposal [(July 2023, 中文Chinese Version)](https://fyapeng.com/file/proposal-yapeng-2023.pdf)🔗 focused on the land finance in China, and the relationship between the government and the market, while I thought I would probably continue to do this research in the future. 
 
 ---
 

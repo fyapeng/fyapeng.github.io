@@ -4,12 +4,13 @@ permalink: /activity/index.html
 title: Activity
 ---
 
-> Lastest Update: 19th July 2024&nbsp;  [中文版本 (Chinese Version)](https://fyapeng.com/activity-zh/)
+> Lastest Update: 19th June 2025&nbsp;  [中文版本 (Chinese Version)](https://fyapeng.com/activity-zh/)
 
 
 
 ## Academic Activities
 
+- **05/2025**: The 11th China Conference on Organizational Economics
 - **07/2024**: The 8th Annual Meeting of the China Labor Economics Scholars Forum
 - **06/2024**: The 2nd Camphor Forum for Social Security 
 - **09/2023**: "Challenge Cup" National College Student Curricular Academic Science and Technology Works Competition
