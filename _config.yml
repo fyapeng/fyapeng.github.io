@@ -19,8 +19,8 @@ jekyll-minifier:
     harmony: true
 
 # 重要的网站URL配置
-#url: "https://fyapeng.com" # 确保是 https 和您的自定义域名
-#baseurl: "" # 必须是空字符串，不是 "/"
+url: "https://fyapeng.com" # 确保是 https 和您的自定义域名
+baseurl: "" # 必须是空字符串，不是 "/"
 
 # Default configurations for pages
 defaults:
