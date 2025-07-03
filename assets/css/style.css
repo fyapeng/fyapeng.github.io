@@ -186,3 +186,84 @@ body {
   flex: 0 0 220px; /* 固定图片容器的宽度 */
   margin-top: 5px; /* 微调，让图片和第一行文字对齐更好看 */
 }
+
+
+/* 通用内容板块样式 */
+.content-section {
+  margin-bottom: 60px;
+}
+
+/* Education Section Styles */
+.education-list {
+  max-width: 800px; /* 限制列表最大宽度，使其居中且易读 */
+  margin: 0 auto;
+}
+.education-item {
+  display: flex;
+  gap: 20px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+.education-item:last-child {
+  border-bottom: none;
+}
+.education-duration {
+  flex: 0 0 200px; /* 固定日期部分的宽度 */
+  font-weight: 600;
+  color: var(--secondary-color);
+  text-align: right;
+}
+.education-details {
+  flex: 1;
+}
+.education-degree {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.education-institution {
+  color: var(--secondary-color);
+}
+
+/* Research Interests Section Styles */
+.interests-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center; /* 让内容居中 */
+}
+.interest-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 15px;
+  margin-bottom: 25px;
+}
+.interest-list li {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  padding: 5px 15px;
+  border-radius: 20px; /* 圆角标签样式 */
+  font-size: 0.95rem;
+  color: var(--secondary-color);
+}
+.interest-description {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--secondary-color);
+  text-align: left; /* 描述段落左对齐 */
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .education-item {
+    flex-direction: column; /* 在窄屏幕上，日期和详情堆叠显示 */
+    gap: 5px;
+    align-items: flex-start;
+  }
+  .education-duration {
+    text-align: left;
+    font-size: 0.9rem;
+  }
+}
