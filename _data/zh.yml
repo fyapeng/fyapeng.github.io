@@ -62,7 +62,7 @@ resources:
       title: "NBER 工作论文"
       description: "每周追踪并展示美国国家经济研究局发布的最新工作论文。"
       url: "./nber"
-    - icon: "fab fa-arxiv"
+    - icon: "fas fa-atom"
       title: "arXiv 经济学论文"
       description: "每日追踪并展示 arXiv (Econ) 分类下的最新学术预印本文章。"
       url: "/arxiv"
