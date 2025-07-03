@@ -58,15 +58,15 @@ resources:
     - icon: "fas fa-landmark"
       title: "Top 5 Econ Journals Tracker"
       description: "Automatically updates with the latest articles from AER, JPE, QJE, RES, Econometrica."
-      url: "#"
+      url: "/top5papers"
     - icon: "far fa-file-alt"
       title: "NBER Working Papers"
       description: "Weekly tracking and display of the latest working papers from NBER."
-      url: "#"
+      url: "/nber"
     - icon: "fab fa-arxiv"
       title: "arXiv Economics Papers"
       description: "Daily tracking and display of the latest preprints from the arXiv (Econ) category."
-      url: "#"
+      url: "/arxiv"
 
 research_page:
   title: "Research"
@@ -80,4 +80,4 @@ research_page:
   doi_btn: "[DOI]"
 
 footer:
-  copyright: "© 2024 Ya-Peng Fu. All Rights Reserved."
+  copyright: "© 2025 Ya-Peng Fu. All Rights Reserved."
