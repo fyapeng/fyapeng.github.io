@@ -31,7 +31,7 @@ defaults:
     values:
       lang: "en"
       # Example of setting a permalink structure for English pages
-      permalink: /en/:basename/
+      # permalink: /en/:basename/
   -
     scope:
       path: ""
