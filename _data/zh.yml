@@ -4,6 +4,7 @@ nav:
   about: "关于我"
   research: "我的研究"
   resources: "资源项目"
+  resources_url: "https://fyapeng.com/resources"
   lang_switch: "English"
   lang_switch_url: "/en/"
 
