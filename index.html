@@ -64,13 +64,15 @@
 </section>
 
   <!-- Research Highlights Section -->
-  <section id="research-highlights" class="highlights-section">
-    <h1 class="section-title">{{ t.research_highlights.title }}</h1>
-    <p class="section-description">{{ t.research_highlights.description }}</p>
-    <div class="text-center">
-      <a href="{{ '/research.html' | relative_url }}" class="button-primary">{{ t.research_highlights.button }}</a>
-    </div>
-  </section>
+  <section id="research-highlights" class="content-section"> <!-- 改为 content-section 以统一间距 -->
+  <h1 class="section-title">{{ t.research_highlights.title }}</h1>
+  <div class="interests-container"> <!-- 复用 interests-container 来居中 -->
+    <p class="interest-description" style="text-align: center; margin-bottom: 30px;">
+      {{ t.research_highlights.description }}
+    </p>
+    <a href="{{ '/research.html' | relative_url }}" class="button-primary">{{ t.research_highlights.button }}</a>
+  </div>
+</section>
 
   <!-- Resources Section -->
   <section id="resources" class="resources-section">
