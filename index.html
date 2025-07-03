@@ -34,6 +34,35 @@
 </div>
   </section>
 
+<!-- ==================== Education Section ==================== -->
+<section id="education" class="content-section">
+  <h1 class="section-title">{{ t.education.title }}</h1>
+  <div class="education-list">
+    {% for item in t.education.items %}
+      <div class="education-item">
+        <div class="education-duration">{{ item.duration }}</div>
+        <div class="education-details">
+          <p class="education-degree">{{ item.degree }}</p>
+          <p class="education-institution">{{ item.institution }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ==================== Research Interests Section ==================== -->
+<section id="research-interests" class="content-section">
+    <h1 class="section-title">{{ t.research_interests.title }}</h1>
+    <div class="interests-container">
+        <ul class="interest-list">
+            {% for interest in t.research_interests.keywords %}
+                <li>{{ interest }}</li>
+            {% endfor %}
+        </ul>
+        <p class="interest-description">{{ t.research_interests.description }}</p>
+    </div>
+</section>
+
   <!-- Research Highlights Section -->
   <section id="research-highlights" class="highlights-section">
     <h1 class="section-title">{{ t.research_highlights.title }}</h1>
