@@ -2,8 +2,8 @@
 nav:
   home: "首页"
   about: "关于我"
-  research: "我的研究"
-  resources: "资源项目"
+  research: "研究"
+  resources: "资源"
   resources_url: "https://fyapeng.com/resources"
   lang_switch: "English"
   lang_switch_url: "/en/"
@@ -14,17 +14,37 @@ profile:
   cv_button: "我的简历 (中文)"
   cv_link: "/assets/cv/cv_zh.pdf" # 替换为你的中文简历链接
   location: "中国, 北京"
-  wechat_id: "feichunya"
+  wechat_id: "yapengf | 公众号：芾椿YA"
 
 about:
   title: "关于我"
   intro: |
-    这里是 **付亚鹏 (Evan, 付亚鹏)**。
+    我是 **付亚鹏 (Evan)**。
     
-    我于2024年6月在中国社会科学院大学经济学院获得经济学学士学位，并将继续在该校攻读经济学博士学位。我的主要研究兴趣包括宏观经济学、家庭金融和行为经济学。
+    本科毕业于中国社会科学院大学（UCASS）经济学院——我也将继续在这里攻读经济学博士学位（西方经济学，直博），研究方向为微观经济理论与公共政策、健康经济学。
     
     您可以通过我的 [CV_LINK] 了解更多信息。如果您对我的任何方面感兴趣，我非常乐意与您交流合作，请通过邮件或微信与我联系。
   cv_link_text: "简历" 
+
+education:
+  title: "教育背景"
+  items:
+    - duration: "2024.09 - 2029.06 (预计)"
+      degree: "经济学博士（直博生在读）"
+      institution: "中国社会科学院大学"
+    - duration: "2020.09 - 2024.06"
+      degree: "经济学学士"
+      institution: "中国社会科学院大学"
+
+research_interests:
+  title: "研究兴趣"
+  keywords:
+    - "劳动经济学"
+    - "社会保障"
+    - "微观经济理论"
+    - "健康经济学"
+    - "公共经济学"
+  description: "我的研究兴趣主要集中在社会保障、微观经济理论、卫生经济学和公共经济学。最近，我正在从事一些与公共政策评估、医疗保险研究、财政和税收政策等有关的研究。"
 
 research_highlights:
   title: "研究亮点"
