@@ -63,7 +63,7 @@ resources:
       title: "NBER Working Papers"
       description: "Weekly tracking and display of the latest working papers from NBER."
       url: "/nber"
-    - icon: "fab fa-arxiv"
+    - icon: "fas fa-atom"
       title: "arXiv Economics Papers"
       description: "Daily tracking and display of the latest preprints from the arXiv (Econ) category."
       url: "/arxiv"
