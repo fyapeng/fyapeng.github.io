@@ -19,13 +19,19 @@
       </ul>
     </div>
     <div class="about-content">
-      <h1 class="section-title-left">{{ t.about.title }}</h1>
-      <div class="prose">
-  {%- assign cv_link_html = '<a href="' | append: t.profile.cv_link | append: '">' | append: t.about.cv_link_text | append: '</a>' -%}
-  {{ t.about.intro | markdownify | replace: '[CV_LINK]', cv_link_html }}
-      </div>
+  <h1 class="section-title-left">{{ t.about.title }}</h1>
+  <!-- 新增一个容器用于两栏布局 -->
+  <div class="about-grid">
+    <div class="prose">
+      {%- assign cv_link_html = '<a href="' | append: t.profile.cv_link | append: '">' | append: t.about.cv_link_text | append: '</a>' -%}
+      {{ t.about.intro | markdownify | replace: '[CV_LINK]', cv_link_html }}
+    </div>
+    <!-- 将图片移到文字的同级，并赋予新class -->
+    <div class="about-photo-container">
       <img src="{{ '/assets/img/photo.png' | relative_url }}" alt="{{ t.profile.name }} formal" class="about-image">
     </div>
+  </div>
+</div>
   </section>
 
   <!-- Research Highlights Section -->
