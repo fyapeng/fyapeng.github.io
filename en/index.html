@@ -21,7 +21,8 @@
     <div class="about-content">
       <h1 class="section-title-left">{{ t.about.title }}</h1>
       <div class="prose">
-        {{ t.about.intro | markdownify }}
+  {%- assign cv_link_html = '<a href="' | append: t.profile.cv_link | append: '">' | append: t.about.cv_link_text | append: '</a>' -%}
+  {{ t.about.intro | markdownify | replace: '[CV_LINK]', cv_link_html }}
       </div>
       <img src="{{ '/assets/img/photo.png' | relative_url }}" alt="{{ t.profile.name }} formal" class="about-image">
     </div>
