@@ -9,11 +9,11 @@
   {%- endif -%}
 
   <div class="wrapper">
-    {% include header.html, t: t %}
+    {% include header.html t=t %}
     <main class="page-content" aria-label="Content">
       {{ content }}
     </main>
-    {% include footer.html, t: t %}
+    {% include footer.html t=t %}
   </div>
 
   {% include scripts.html %}
