@@ -14,7 +14,7 @@ profile:
   cv_button: "My CV (English)"
   cv_link: "/assets/cv/cv_en.pdf" # Replace with your English CV link
   location: "Beijing, China"
-  wechat_id: "feichunya"
+  wechat_id: "yapengf"
 
 about:
   title: "About Me"
@@ -31,7 +31,7 @@ education:
   title: "Education"
   items:
     - duration: "2024.09 - 2029.06 (Expected)"
-      degree: "Ph.D. in Economics (Consecutive Master-Doctoral Program)"
+      degree: "Ph.D. in Economics"
       institution: "University of Chinese Academy of Social Sciences (UCASS)"
     - duration: "2020.09 - 2024.06"
       degree: "B.A. in Economics"
