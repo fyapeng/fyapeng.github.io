@@ -19,12 +19,33 @@ profile:
 about:
   title: "About Me"
   intro: |
-    I am **Ya-Peng Fu (Evan, 付亚鹏)**.
+    Here is **Ya-Peng Fu (Evan, 付亚鹏)**.
     
-    I received my bachelor's degree in economics from the School of Economics, University of Chinese Academy of Social Sciences (SOE, UCASS) in June 2024, and will continue to pursue my Ph.D. in economics at SOE, UCASS. My primary research interests include macroeconomics, household finance, and behavioral economics.
+    I received my bachelor's degree in economics from School of Economics, University of Chinese Academy of Social Sciences(SOE,UCASS) in June 2024, and will continue to pursue my Ph.D. in economics at SOE,UCASS. 
     
     Learn more from my [CV_LINK]. If you are interested in any aspect of my work, I would love to chat and collaborate. Please feel free to contact me via email or WeChat.
   cv_link_text: "CV" 
+
+
+education:
+  title: "Education"
+  items:
+    - duration: "2024.09 - 2029.06 (Expected)"
+      degree: "Ph.D. in Economics (Consecutive Master-Doctoral Program)"
+      institution: "University of Chinese Academy of Social Sciences (UCASS)"
+    - duration: "2020.09 - 2024.06"
+      degree: "B.A. in Economics"
+      institution: "University of Chinese Academy of Social Sciences (UCASS)"
+
+research_interests:
+  title: "Research Interests"
+  keywords:
+    - "Labor Economics"
+    - "Social Security"
+    - "Microeconomic Theory"
+    - "Health Economics"
+    - "Public Economics"
+  description: "My research interests primarily lie in social security, microeconomic theory, health economics, and public economics. Recently, I have been working on studies related to public policy evaluation, health insurance research, and fiscal & tax policy."
 
 research_highlights:
   title: "Research Highlights"
