@@ -3,8 +3,8 @@ title: "付亚鹏的个人主页"
 author: "付亚鹏 (Ya-Peng Fu)"
 description: "付亚鹏 (Ya-Peng Fu) 的个人学术主页，研究方向为经济学。"
 # 您的邮箱，将用于JS保护，不会直接暴露在源码中
-email: "yapeng@outlook.com"
-github_username: "your-github-username" # 替换为您的GitHub用户名
+email: "fuyapeng@ucass.edu.cn"
+github_username: "fyapeng" # 替换为您的GitHub用户名
 
 # Jekyll Plugins
 plugins:
@@ -17,6 +17,10 @@ jekyll-minifier:
   exclude: ['CNAME', 'LICENSE']
   uglifier_args:
     harmony: true
+
+# 重要的网站URL配置
+url: "https://fyapeng.com" # 确保是 https 和您的自定义域名
+baseurl: "" # 必须是空字符串，不是 "/"
 
 # Default configurations for pages
 defaults:
