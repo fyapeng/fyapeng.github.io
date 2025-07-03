@@ -1,4 +1,30 @@
 ---
+# 无需任何配置
 ---
-{%- assign t = site.data.en -%}
-{%- include research_content.html t=t -%}
+{%- assign t = site.data[page.lang] -%}
+{%- assign r_data = site.data.research -%}
+
+<div class="container page-content">
+  <h1 class="section-title">{{ t.research_page.title }}</h1>
+
+  <!-- 发表论文 Section -->
+  {% if r_data.publications and r_data.publications.size > 0 %}
+    <h2 class="subsection-title">{{ t.research_page.publications_title }}</h2>
+    <ul class="paper-list">
+      {% for paper in r_data.publications %}
+        {% include paper_item.html paper=paper t=t %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+  
+  <!-- 工作论文 Section -->
+  {% if r_data.working_papers and r_data.working_papers.size > 0 %}
+    <h2 class="subsection-title">{{ t.research_page.working_papers_title }}</h2>
+    <ul class="paper-list">
+      {% for paper in r_data.working_papers %}
+        {% include paper_item.html paper=paper t=t %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+</div>
