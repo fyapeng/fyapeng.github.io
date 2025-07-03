@@ -1,1 +1,13 @@
+# .gitignore
+# Jekyll
+_site/
+.sass-cache/
+.jekyll-metadata
+Gemfile.lock
 
+# Bundler
+.bundle/
+vendor/
+
+# macOS
+.DS_Store

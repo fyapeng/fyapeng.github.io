@@ -1,0 +1,54 @@
+---
+# This file is for the Chinese homepage.
+# It uses the default layout and language settings from _config.yml
+---
+{%- assign t = site.data.zh -%}
+<div class="container">
+
+  <!-- About Me Section -->
+  <section id="about" class="about-section">
+    <div class="profile-sidebar">
+      <img src="{{ '/assets/img/bio.png' | relative_url }}" alt="{{ t.profile.name }}" class="profile-pic">
+      <h2>{{ t.profile.name }}</h2>
+      <p>{{ t.profile.title }}</p>
+      <ul class="contact-info">
+        <li><i class="fas fa-envelope"></i> <span id="email-placeholder">[加载中...]</span></li>
+        <li><i class="fas fa-file-pdf"></i> <a href="{{ t.profile.cv_link | relative_url }}" target="_blank">{{ t.profile.cv_button }}</a></li>
+        <li><i class="fas fa-map-marker-alt"></i> {{ t.profile.location }}</li>
+        <li><i class="fab fa-weixin"></i> {{ t.profile.wechat_id }}</li>
+      </ul>
+    </div>
+    <div class="about-content">
+      <h1 class="section-title-left">{{ t.about.title }}</h1>
+      <div class="prose">
+        {{ t.about.intro | markdownify }}
+      </div>
+      <img src="{{ '/assets/img/photo.png' | relative_url }}" alt="{{ t.profile.name }} formal" class="about-image">
+    </div>
+  </section>
+
+  <!-- Research Highlights Section -->
+  <section id="research-highlights" class="highlights-section">
+    <h1 class="section-title">{{ t.research_highlights.title }}</h1>
+    <p class="section-description">{{ t.research_highlights.description }}</p>
+    <div class="text-center">
+      <a href="{{ '/research.html' | relative_url }}" class="button-primary">{{ t.research_highlights.button }}</a>
+    </div>
+  </section>
+
+  <!-- Resources Section -->
+  <section id="resources" class="resources-section">
+    <h1 class="section-title">{{ t.resources.title }}</h1>
+    <div class="resources-grid">
+      {% for item in t.resources.items %}
+      <a href="{{ item.url }}" class="resource-card" target="_blank" rel="noopener noreferrer">
+        <div class="card-icon"><i class="{{ item.icon }}"></i></div>
+        <h3 class="card-title">{{ item.title }}</h3>
+        <p class="card-description">{{ item.description }}</p>
+        <div class="card-footer">查看项目 →</div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+</div>

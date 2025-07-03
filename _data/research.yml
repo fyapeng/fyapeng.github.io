@@ -1,0 +1,26 @@
+# _data/research.yml
+working_papers:
+  - title: "The Impact of A on B: Evidence from China"
+    authors: "Ya-Peng Fu (付亚鹏), Collaborator A"
+    status: "Working Paper"
+    abstract: "This is the abstract of the paper. It describes the main research question, methodology, and findings in English..."
+    pdf_link: "/papers/paper_1.pdf"
+    slides_link: "/slides/slides_1.pdf"
+    code_link: "https://github.com/your-username/repo"
+
+  - title: "家庭金融资产配置的决定因素研究"
+    authors: "付亚鹏"
+    status: "投稿中 (Under Review)"
+    abstract: "这是另一篇论文的摘要，摘要内容可以用中文或英文书写..."
+    pdf_link: "/papers/paper_2.pdf"
+
+publications:
+  # - title: "A Published Paper Title"
+  #   authors: "Ya-Peng Fu, Collaborator B"
+  #   journal: "Journal of Economic Perspectives"
+  #   year: 2025
+  #   volume: 39
+  #   issue: 1
+  #   pages: "1-20"
+  #   doi_link: "https://doi.org/10.1257/jep.39.1.1"
+  #   pdf_link: "/papers/pub_1.pdf"

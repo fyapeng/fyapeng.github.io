@@ -1,0 +1,39 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // Email protection
+    const emailPlaceholder = document.getElementById('email-placeholder');
+    if (emailPlaceholder) {
+        // This is a simple way to hide email from basic bots
+        const user = "{{ site.email | split: '@' | first }}";
+        const domain = "{{ site.email | split: '@' | last }}";
+        const email = user + "@" + domain;
+        emailPlaceholder.innerHTML = `<a href="mailto:${email}">${email}</a>`;
+    }
+
+    // Abstract toggle for research page
+    document.querySelectorAll('.toggle-abstract').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const abstractDiv = this.closest('.paper-item').querySelector('.paper-abstract');
+            if (abstractDiv) {
+                const isHidden = abstractDiv.style.display === 'none' || abstractDiv.style.display === '';
+                abstractDiv.style.display = isHidden ? 'block' : 'none';
+                // Optional: Change button text
+                // this.textContent = isHidden ? '[Hide Abstract]' : '[Show Abstract]';
+            }
+        });
+    });
+});
+</script>

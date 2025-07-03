@@ -1,1 +1,60 @@
+# _data/en.yml
+nav:
+  home: "Home"
+  about: "About Me"
+  research: "Research"
+  resources: "Resources"
+  lang_switch: "中文"
+  lang_switch_url: "/"
 
+profile:
+  name: "Ya-Peng Fu"
+  title: "Ph.D. Student in Economics"
+  cv_button: "My CV (English)"
+  cv_link: "/assets/cv/cv_en.pdf" # Replace with your English CV link
+  location: "Beijing, China"
+  wechat_id: "feichunya"
+
+about:
+  title: "About Me"
+  intro: |
+    I am **Ya-Peng Fu (Evan, 付亚鹏)**.
+    
+    I received my bachelor's degree in economics from the School of Economics, University of Chinese Academy of Social Sciences (SOE, UCASS) in June 2024, and will continue to pursue my Ph.D. in economics at SOE, UCASS. My primary research interests include macroeconomics, household finance, and behavioral economics.
+    
+    Learn more from my [CV]({{ "cv_link" | t_var }}). If you are interested in any aspect of my work, I would love to chat and collaborate. Please feel free to contact me via email or WeChat.
+
+research_highlights:
+  title: "Research Highlights"
+  description: "My research focuses on the impact of macroeconomic policies on household decisions. Below are some of my works. Discussions are welcome."
+  button: "View All Research →"
+
+resources:
+  title: "Resources & Projects"
+  items:
+    - icon: "fas fa-landmark"
+      title: "Top 5 Econ Journals Tracker"
+      description: "Automatically updates with the latest articles from AER, JPE, QJE, RES, Econometrica."
+      url: "#"
+    - icon: "far fa-file-alt"
+      title: "NBER Working Papers"
+      description: "Weekly tracking and display of the latest working papers from NBER."
+      url: "#"
+    - icon: "fab fa-arxiv"
+      title: "arXiv Economics Papers"
+      description: "Daily tracking and display of the latest preprints from the arXiv (Econ) category."
+      url: "#"
+
+research_page:
+  title: "Research"
+  working_papers_title: "Working Papers"
+  publications_title: "Publications"
+  # Button labels
+  abstract_btn: "[Abstract]"
+  pdf_btn: "[PDF]"
+  slides_btn: "[Slides]"
+  code_btn: "[Code/Data]"
+  doi_btn: "[DOI]"
+
+footer:
+  copyright: "© 2024 Ya-Peng Fu. All Rights Reserved."

@@ -1,1 +1,40 @@
+# _config.yml
+title: "付亚鹏的个人主页"
+author: "付亚鹏 (Ya-Peng Fu)"
+description: "付亚鹏 (Ya-Peng Fu) 的个人学术主页，研究方向为经济学。"
+# 您的邮箱，将用于JS保护，不会直接暴露在源码中
+email: "yapeng@outlook.com"
+github_username: "your-github-username" # 替换为您的GitHub用户名
 
+# Jekyll Plugins
+plugins:
+  - jekyll-minifier
+  - jekyll-seo-tag
+
+# Jekyll-Minifier Configuration
+# This will automatically run when building on GitHub Pages
+jekyll-minifier:
+  exclude: ['CNAME', 'LICENSE']
+  uglifier_args:
+    harmony: true
+
+# Default configurations for pages
+defaults:
+  -
+    scope:
+      path: "" # Apply to all files
+    values:
+      layout: "default" # Use the default layout
+  -
+    scope:
+      path: "en" # For all files inside the /en/ directory
+    values:
+      lang: "en"
+      # Example of setting a permalink structure for English pages
+      permalink: /en/:basename/
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      lang: "zh" # Default language for top-level pages is Chinese
