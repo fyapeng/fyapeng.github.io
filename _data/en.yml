@@ -22,7 +22,8 @@ about:
     
     I received my bachelor's degree in economics from the School of Economics, University of Chinese Academy of Social Sciences (SOE, UCASS) in June 2024, and will continue to pursue my Ph.D. in economics at SOE, UCASS. My primary research interests include macroeconomics, household finance, and behavioral economics.
     
-    Learn more from my [CV]({{ "cv_link" | t_var }}). If you are interested in any aspect of my work, I would love to chat and collaborate. Please feel free to contact me via email or WeChat.
+    Learn more from my [CV_LINK]. If you are interested in any aspect of my work, I would love to chat and collaborate. Please feel free to contact me via email or WeChat.
+  cv_link_text: "CV" 
 
 research_highlights:
   title: "Research Highlights"
