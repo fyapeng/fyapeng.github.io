@@ -1,0 +1,14 @@
+<!-- _includes/paper_item.html -->
+<li class="paper-item">
+  <p class="paper-title">{{ paper.title }}</p>
+  <p class="paper-authors">{{ paper.authors }}</p>
+  {% if paper.status %}<p class="paper-status"><em>Status: {{ paper.status }}</em></p>{% endif %}
+  <div class="paper-links">
+    {% if paper.abstract %}<a href="javascript:void(0)" class="paper-link toggle-abstract">{{ t.research_page.abstract_btn }}</a>{% endif %}
+    {% if paper.pdf_link %}<a href="{{ paper.pdf_link | relative_url }}" class="paper-link" target="_blank">{{ t.research_page.pdf_btn }}</a>{% endif %}
+    {% if paper.slides_link %}<a href="{{ paper.slides_link | relative_url }}" class="paper-link" target="_blank">{{ t.research_page.slides_btn }}</a>{% endif %}
+    {% if paper.code_link %}<a href="{{ paper.code_link }}" class="paper-link" target="_blank" rel="noopener noreferrer">{{ t.research_page.code_btn }}</a>{% endif %}
+    {% if paper.doi_link %}<a href="{{ paper.doi_link }}" class="paper-link" target="_blank" rel="noopener noreferrer">{{ t.research_page.doi_btn }}</a>{% endif %}
+  </div>
+  {% if paper.abstract %}<div class="paper-abstract" style="display: none;"><p>{{ paper.abstract | markdownify }}</p></div>{% endif %}
+</li>
