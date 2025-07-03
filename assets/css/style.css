@@ -20,7 +20,8 @@ body {
   background-color: var(--bg-color);
   -webkit-font-smoothing: antialiased;
 }
-.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
 .section-title { font-size: 2.5rem; font-weight: 600; color: var(--primary-color); margin-bottom: 40px; text-align: center; }
 .section-title-left { text-align: left; font-size: 2.2rem; margin-bottom: 20px; }
 .section-description { text-align: center; max-width: 600px; margin: -20px auto 40px; color: var(--secondary-color); }
@@ -49,11 +50,11 @@ body {
 .lang-switch:hover { background-color: var(--card-bg-color); }
 
 /* Main Content and Sections */
-.page-content { padding: 80px 0; }
-.about-section, .highlights-section, .resources-section { margin-bottom: 80px; }
+.page-content { padding: 60px 0; }
+.about-section, .highlights-section, .resources-section { margin-bottom: 60px; }
 
 /* About Section */
-.about-section { display: flex; gap: 50px; align-items: flex-start; }
+.about-section { display: flex; gap: 40px; align-items: flex-start; }
 .profile-sidebar {
   flex: 0 0 300px;
   text-align: center;
@@ -71,12 +72,12 @@ body {
 .contact-info a { color: var(--primary-color); text-decoration: none; }
 .contact-info a:hover { text-decoration: underline; }
 .about-content { flex: 1; }
-.prose { font-size: 1.1rem; color: var(--secondary-color); }
+.prose { flex: 1; font-size: 1.05rem; color: var(--secondary-color); }
 .prose p { margin-bottom: 1.2em; }
 .prose strong { color: var(--primary-color); font-weight: 600; }
 .prose a { color: var(--accent-color); text-decoration: none; font-weight: 500; }
 .prose a:hover { text-decoration: underline; }
-.about-image { max-width: 100%; border-radius: 8px; margin-top: 30px; }
+.about-image { max-width: 100%; border-radius: 8px; }
 
 /* Button */
 .button-primary {
@@ -151,7 +152,12 @@ body {
 /* Responsive Design */
 @media (max-width: 992px) {
   .about-section { flex-direction: column; }
-  .profile-sidebar { flex: 0 0 auto; width: 100%; margin-bottom: 40px; }
+  .profile-sidebar {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 450px; /* 在平板等中等屏幕上，限制最大宽度，避免过宽 */
+    margin: 0 auto 40px auto; /* 居中并添加底部间距 */
+  }
 }
 @media (max-width: 768px) {
   html { font-size: 15px; }
@@ -159,4 +165,24 @@ body {
   .site-nav { margin: 10px 0 0; }
   .site-nav .page-link { margin: 0 10px; }
   .page-content { padding: 40px 0; }
+
+  .about-grid {
+    flex-direction: column; /* 让图片堆叠到文字下方 */
+    gap: 25px;
+  }
+  .about-photo-container {
+    flex-basis: auto; /* 重置宽度 */
+    width: 100%;
+  }
+}
+
+.about-grid {
+  display: flex;
+  gap: 30px; /* 文字和图片之间的间距 */
+  align-items: flex-start;
+}
+
+.about-photo-container {
+  flex: 0 0 220px; /* 固定图片容器的宽度 */
+  margin-top: 5px; /* 微调，让图片和第一行文字对齐更好看 */
 }
