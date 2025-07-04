@@ -69,7 +69,7 @@ resources:
       url: "/arxiv"
 
 research_page:
-  title: "Research"
+  #title: "Research"
   working_papers_title: "Working Papers"
   publications_title: "Publications"
   # Button labels
