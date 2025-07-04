@@ -372,11 +372,11 @@ body {
   }
 }
 
-/* Active Navigation Link Style */
+/* Active Navigation Link Style (背景色块高亮) */
 .site-nav .page-link.active {
-  color: var(--accent-color); /* 让激活的链接文字也使用强调色 */
-  font-weight: 600; /* 可以加粗以示突出 */
-  border-bottom: 2px solid var(--accent-color);
-  padding-bottom: 3px; /* 让下划线和文字之间有一点距离 */
+  background-color: var(--card-bg-color); /* 使用我们定义的卡片背景色作为高亮色 */
+  color: var(--primary-color); /* 高亮时文字颜色变为深色，以保证对比度 */
+  font-weight: 600; /* 保持加粗 */
+  border-radius: 5px; /* 添加轻微的圆角，让色块更柔和 */
+  padding: 5px 12px; /* 调整内边距，让色块大小适中 */
 }
-
