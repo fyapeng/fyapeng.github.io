@@ -3,8 +3,9 @@ nav:
   home: "Home"
   home_url: "/en/" # 指向英文版首页
   research: "Research"
+  research_url: "/en/research.html"
   resources: "Labs"
-  resources_url: "https://fyapeng.com/en/resources"
+  resources_url: "https://fyapeng.com/resources"
   lang_switch: "中文"
   lang_switch_url: "/"
 
