@@ -3,7 +3,7 @@ nav:
   home: "首页"
   home_url: "/" 
   research: "研究"
-  resources: "资源"
+  resources: "Labs"
   resources_url: "https://fyapeng.com/resources"
   lang_switch: "English"
   lang_switch_url: "/en/"
@@ -13,7 +13,7 @@ profile:
   title: "经济学博士在读"
   cv_button: "我的简历 (中文)"
   cv_link: "/assets/cv/cv_zh.pdf" # 替换为你的中文简历链接
-  location: "中国, 北京"
+  location: "中国社会科学院大学，经济学院"
   wechat_id: "yapengf | 公众号：芾椿YA"
 
 about:
@@ -52,7 +52,7 @@ research_highlights:
   button: "查看所有研究成果 →"
 
 resources:
-  title: "资源 & 项目"
+  title: "创意项目"
   items:
     - icon: "fas fa-landmark"
       title: "经济学五大刊追踪"
