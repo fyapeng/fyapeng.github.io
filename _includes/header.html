@@ -1,11 +1,25 @@
+<!-- _includes/header.html -->
 <header class="site-header">
   <div class="container header-container">
-    <a class="site-title" rel="author" href="{{ t.nav.home_url | default: '/' | relative_url }}">{{ t.profile.name }}</a>
+    <a class="site-title" rel="author" href="{{ t.nav.home_url | relative_url }}">{{ t.profile.name }}</a>
     <nav class="site-nav">
-      <a class="page-link" href="{{ t.nav.home_url | relative_url }}">{{ t.nav.home }}</a>
-      <a class="page-link" href="{{ '/research.html' | relative_url }}">{{ t.nav.research }}</a>
-      <a class="page-link" href="{{ t.nav.resources_url }}" target="_blank" rel="noopener noreferrer">{{ t.nav.resources }}</a>
-      <a class="page-link lang-switch" href="{{ t.nav.lang_switch_url | relative_url }}">{{ t.nav.lang_switch }}</a>
+      
+      <!-- 首页链接：判断当前URL是否为'/'或'/en/' -->
+      <a class="page-link {% if page.url == '/' or page.url == '/en/' %}active{% endif %}" 
+         href="{{ t.nav.home_url | relative_url }}">{{ t.nav.home }}</a>
+      
+      <!-- 研究链接：判断当前URL是否为研究页面 -->
+      <a class="page-link {% if page.url == '/research.html' or page.url == '/en/research.html' %}active{% endif %}" 
+         href="{{ t.nav.research_url | default: '/research.html' | relative_url }}">{{ t.nav.research }}</a>
+
+      <!-- 资源链接 (外部链接，通常不设为active) -->
+      <a class="page-link" 
+         href="{{ t.nav.resources_url }}" target="_blank" rel="noopener noreferrer">{{ t.nav.resources }}</a>
+
+      <!-- 语言切换链接 -->
+      <a class="page-link lang-switch" 
+         href="{{ t.nav.lang_switch_url | relative_url }}">{{ t.nav.lang_switch }}</a>
+
     </nav>
   </div>
 </header>
