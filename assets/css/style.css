@@ -141,30 +141,79 @@ body {
 .interest-description { font-size: 1.05rem; line-height: 1.8; color: var(--secondary-color); text-align: left; }
 
 
-/* ---------- 3.4 Research Page Styles ---------- */
+/* ---------- 3.4 Research Page Styles (紧凑布局) ---------- */
 .subsection-title {
-  font-size: 2rem;
+  font-size: 1.8rem; /* 减小“工作论文”等标题的大小 */
   font-weight: 600;
-  margin-top: 60px;
-  margin-bottom: 30px;
+  margin-top: 50px; /* 减小与上方内容的距离 */
+  margin-bottom: 25px; /* 减小与下方列表的距离 */
   border-bottom: 2px solid var(--accent-color);
-  padding-bottom: 10px;
+  padding-bottom: 8px;
 }
+
 .paper-list { list-style: none; padding-left: 0; }
+
 .paper-item {
-  margin-bottom: 40px;
-  padding: 25px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  transition: box-shadow 0.3s;
+  display: flex;
+  flex-wrap: wrap; /* 允许摘要换行 */
+  justify-content: space-between; /* 核心：让左右两部分分开 */
+  align-items: flex-start; /* 顶部对齐 */
+  margin-bottom: 25px; /* 减小论文条目之间的距离 */
+  padding: 20px 0; /* 移除左右内边距，只保留上下 */
+  border-bottom: 1px solid var(--border-color); /* 用下划线分隔，更紧凑 */
+  /* 移除原有的边框和背景 */
 }
-.paper-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-.paper-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 5px; }
-.paper-authors, .paper-status, .paper-journal { font-size: 1rem; color: var(--secondary-color); margin-bottom: 10px; }
-.paper-links { margin-bottom: 10px; margin-top: 15px; }
-.paper-link { margin-right: 15px; font-weight: 500; color: var(--accent-color); text-decoration: none; }
-.paper-link:hover { text-decoration: underline; }
+.paper-item:last-child {
+  border-bottom: none;
+}
+
+.paper-main-content {
+  flex: 1; /* 占据大部分空间 */
+  padding-right: 20px; /* 和右侧链接保持距离 */
+}
+
+.paper-title {
+  font-size: 1.15rem; /* 减小标题字体 */
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.paper-authors, .paper-status, .paper-journal {
+  font-size: 0.95rem; /* 减小作者等信息字体 */
+  color: var(--secondary-color);
+  margin-bottom: 5px;
+}
+
+.paper-links {
+  flex-shrink: 0; /* 防止链接部分被压缩 */
+  display: flex;
+  flex-direction: column; /* 让链接按钮垂直排列 */
+  align-items: flex-end; /* 靠右对齐 */
+  gap: 8px; /* 按钮之间的垂直间距 */
+}
+
+.paper-link-button {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent-color);
+  text-decoration: none;
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  padding: 5px 12px;
+  border-radius: 5px;
+  text-align: center;
+  min-width: 80px; /* 确保按钮有最小宽度 */
+  transition: all 0.2s ease;
+}
+.paper-link-button:hover {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
 .paper-abstract {
+  flex-basis: 100%; /* 关键：让摘要占据一整行 */
   background-color: #f8f9faef;
   padding: 15px;
   border-radius: 5px;
@@ -262,7 +311,7 @@ body {
   html { font-size: 15px; }
   .page-content { padding: 40px 0; }
 
-   .site-nav .page-link {
+  .site-nav .page-link {
     font-size: 0.9rem; /* 缩小字体大小 */
     margin-left: 12px; /* 减小链接之间的间距 */
   }
@@ -298,6 +347,21 @@ body {
     padding-top: 0;
     font-weight: 500;
   }
+
+  /* 响应式调整 for Research Page */
+
+  .paper-item {
+    flex-direction: column; /* 在手机上，让链接部分移动到标题下方 */
+    align-items: flex-start;
+  }
+  .paper-links {
+    width: 100%;
+    flex-direction: row; /* 在手机上，让按钮水平排列 */
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-top: 10px;
+  }
+  
 }
 
 /* Active Navigation Link Style */
@@ -307,3 +371,4 @@ body {
   border-bottom: 2px solid var(--accent-color);
   padding-bottom: 3px; /* 让下划线和文字之间有一点距离 */
 }
+
