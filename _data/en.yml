@@ -3,7 +3,7 @@ nav:
   home: "Home"
   home_url: "/en/" # 指向英文版首页
   research: "Research"
-  resources: "Resources"
+  resources: "Labs"
   resources_url: "https://fyapeng.com/resources"
   lang_switch: "中文"
   lang_switch_url: "/"
@@ -53,7 +53,7 @@ research_highlights:
   button: "View All Research →"
 
 resources:
-  title: "Resources & Projects"
+  title: "Labs"
   items:
     - icon: "fas fa-landmark"
       title: "Top 5 Econ Journals Tracker"
