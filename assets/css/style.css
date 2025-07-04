@@ -262,6 +262,15 @@ body {
   html { font-size: 15px; }
   .page-content { padding: 40px 0; }
 
+   .site-nav .page-link {
+    font-size: 0.9rem; /* 缩小字体大小 */
+    margin-left: 12px; /* 减小链接之间的间距 */
+  }
+  .lang-switch {
+    padding: 4px 10px; /* 缩小语言切换按钮的内边距 */
+  }
+}
+
   /* Header on Mobile */
   .header-container { flex-direction: column; gap: 15px; }
   .site-nav { margin: 10px 0 0; }
@@ -289,4 +298,12 @@ body {
     padding-top: 0;
     font-weight: 500;
   }
+}
+
+/* Active Navigation Link Style */
+.site-nav .page-link.active {
+  color: var(--accent-color); /* 让激活的链接文字也使用强调色 */
+  font-weight: 600; /* 可以加粗以示突出 */
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 3px; /* 让下划线和文字之间有一点距离 */
 }
