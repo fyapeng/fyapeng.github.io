@@ -68,7 +68,7 @@ resources:
       url: "/arxiv"
 
 research_page:
-  title: "研究成果"
+  #title: "研究成果"
   working_papers_title: "工作论文"
   publications_title: "已发表论文"
   # 按钮标签
