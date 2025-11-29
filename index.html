@@ -63,16 +63,39 @@
     </div>
 </section>
 
-  <!-- Research Highlights Section -->
-  <section id="research-highlights" class="content-section"> <!-- 改为 content-section 以统一间距 -->
-  <h1 class="section-title">{{ t.research_highlights.title }}</h1>
-  <div class="interests-container"> <!-- 复用 interests-container 来居中 -->
-    <p class="interest-description" style="text-align: left; margin-bottom: 30px;">
-      {{ t.research_highlights.description }}
-    </p>
-    <a href="{{ '/research.html' | relative_url }}" class="button-primary">{{ t.research_highlights.button }}</a>
-  </div>
-</section>
+  <!-- ==================== Research Highlights Section (图文网格布局) ==================== -->
+  <section id="research-highlights" class="content-section">
+    <h1 class="section-title">{{ t.research_highlights.title }}</h1>
+    
+    <!-- 1. 显示总的描述文字 (可选) -->
+    {% if t.research_highlights.description %}
+    <div class="interests-container" style="margin-bottom: 30px;">
+        <p class="interest-description">{{ t.research_highlights.description }}</p>
+    </div>
+    {% endif %}
+    
+    <!-- 2. 显示具体的图文网格 (这里是核心修改) -->
+    <div class="highlights-grid">
+      {% for item in t.research_highlights.items %}
+      <div class="highlight-item">
+        <!-- 标题 -->
+        <h3 class="highlight-title">{{ item.title }}</h3>
+        
+        <!-- 图片 -->
+        <div class="highlight-img-container">
+            <!-- relative_url 会自动补全路径，确保图片能显示 -->
+            <img src="{{ item.image | relative_url }}" alt="{{ item.title }}">
+        </div>
+        
+        <!-- 结论描述 -->
+        <p class="highlight-desc">
+          {{ item.description }}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+    
+  </section>
 
   <!-- 动态加载简历脚本 -->
 <script>
