@@ -49,24 +49,15 @@ research_interests:
 
 research_highlights:
   title: "研究动态"
-  description: "我最近的研究主要关注不必要的医疗需求问题，通过贝叶斯说服模型将其分解为道德风险与医生的说服误导。此外，我也在研究医保支付方式改革对医疗控费的实际效果。欢迎通过下方按钮查看我的所有工作论文。"
-  button: "查看所有研究成果 →"
-
-resources:
-  title: "创意项目"
+  description: "我最近的研究主要关注不必要的医疗需求问题，通过贝叶斯说服模型将其分解为道德风险与医生的说服误导。此外，我也在研究医保支付方式改革对医疗控费的实际效果。"
   items:
-    - icon: "fas fa-landmark"
-      title: "经济学五大刊追踪"
-      description: "自动更新 AER, JPE, QJE, RES, Econometrica 等顶刊的最新论文。"
-      url: "/top5papers"
-    - icon: "far fa-file-alt"
-      title: "NBER 工作论文"
-      description: "每周追踪并展示美国国家经济研究局发布的最新工作论文。"
-      url: "./nber"
-    - icon: "fas fa-atom"
-      title: "arXiv 经济学论文"
-      description: "每日追踪并展示 arXiv (Econ) 分类下的最新学术预印本文章。"
-      url: "/arxiv"
+    - title: "DIP改革控费效应分解"
+      image: "assets/img/res1.png"   # 请确保图片文件存在
+      description: "医生说服性高套编码行为将增加患者费用成本，这可能导致DIP（医保按病种分支付费）改革的控费效应大打折扣。"
+      
+    - title: "DRG改革的异质性"
+      image: "assets/img/res2.png"
+      description: "使用Bunching-DID方法，发现DRG改革可能增加起付线左侧患者医疗费用"
 
 research_page:
   #title: "研究成果"
