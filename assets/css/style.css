@@ -177,6 +177,40 @@ body {
   text-align: justify; /* 两端对齐 */
 }
 
+/* 1. 标题链接样式 */
+.highlight-link {
+  color: inherit; /* 继承父元素颜色（也就是之前的深红色） */
+  text-decoration: none; /* 去掉下划线 */
+  transition: opacity 0.2s ease;
+}
+
+.highlight-link:hover {
+  opacity: 0.8; /* 鼠标悬停时稍微变浅，提示可点击 */
+  /* 或者也可以加下划线: text-decoration: underline; */
+}
+
+/* 2. 图片容器样式增强 */
+.highlight-img-container a {
+  display: block; /* 让链接包裹整个图片 */
+  cursor: pointer;
+}
+
+/* 图片悬停效果：轻微放大或变亮 */
+.highlight-img-container img {
+  width: 100%;
+  height: auto;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 添加过渡动画 */
+}
+
+/* 当鼠标悬停在图片上时 */
+.highlight-img-container a:hover img {
+  transform: translateY(-3px); /* 图片轻微上浮 */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15); /* 阴影加深 */
+}
+
 
 /* ---------- 3.5 Research Page Styles (单独的研究列表页) ---------- */
 .paper-item {
