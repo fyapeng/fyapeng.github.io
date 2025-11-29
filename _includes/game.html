@@ -51,19 +51,23 @@ function initGame() {
 
 // 绘制玩家 (可以用你的头像代替fillRect)
 function drawPlayer() {
-    ctx.fillStyle = '#007bff'; // 蓝色方块代表你
-    ctx.fillRect(player.x, player.y, player.w, player.h);
+    ctx.font = "30px Arial"; // 设置大小
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("🦖", player.x + player.w/2, player.y + player.h/2 + 2);
+    if (player.grounded) ctx.fillText("🦖", ...); // 在地上
+    else ctx.fillText("🦅", ...); // 跳起来变成老鹰
     
-    // 如果想用图片，注释掉上面两行，解开下面：
-    // let img = new Image(); img.src = '/assets/img/bio.png';
-    // ctx.drawImage(img, player.x, player.y, player.w, player.h);
 }
 
 // 绘制障碍物
 function drawObstacles() {
     ctx.fillStyle = '#c0392b'; // 红色障碍物
     obstacles.forEach(obs => {
-        ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
+        // 方案A：画成红色的 "DDL" 文字
+        ctx.fillStyle = '#c0392b';
+        ctx.font = "bold 16px Arial";
+        ctx.fillText("DDL", obs.x, obs.y + 15);
     });
 }
 
