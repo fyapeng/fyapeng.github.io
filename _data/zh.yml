@@ -57,7 +57,7 @@ research_highlights:
       
     - title: "DRG改革的异质性"
       image: "assets/img/res2.png"
-      description: "使用Bunching-DID方法，发现DRG（医保按疾病诊断组付费）改革可能增加起付线左侧患者医疗费用"
+      description: "使用Bunching-DID方法，发现DRG（医保按疾病诊断组付费）改革可能增加起付线左侧患者医疗费用导致患者福利损失。"
 
 research_page:
   #title: "研究成果"
