@@ -78,16 +78,23 @@
     <div class="highlights-grid">
       {% for item in t.research_highlights.items %}
       <div class="highlight-item">
-        <!-- 标题 -->
-        <h3 class="highlight-title">{{ item.title }}</h3>
         
-        <!-- 图片 -->
+        <!-- 1. 标题变成链接 -->
+        <!-- 注意：这里我加了一个 class="highlight-link" 用于去掉下划线 -->
+        <h3 class="highlight-title">
+            <a href="{{ '/research.html' | relative_url }}" class="highlight-link">
+                {{ item.title }}
+            </a>
+        </h3>
+        
+        <!-- 2. 图片也变成链接 -->
         <div class="highlight-img-container">
-            <!-- relative_url 会自动补全路径，确保图片能显示 -->
-            <img src="{{ item.image | relative_url }}" alt="{{ item.title }}">
+            <a href="{{ '/research.html' | relative_url }}">
+                <img src="{{ item.image | relative_url }}" alt="{{ item.title }}">
+            </a>
         </div>
         
-        <!-- 结论描述 -->
+        <!-- 结论描述 (保持不变，通常描述文字不需要点击) -->
         <p class="highlight-desc">
           {{ item.description }}
         </p>
