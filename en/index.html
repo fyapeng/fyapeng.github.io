@@ -63,45 +63,40 @@
     </div>
 </section>
   
-  <!-- ==================== Research Highlights Section (图文网格布局) ==================== -->
+<!-- ==================== Research Highlights Section (双列瀑布流修正版) ==================== -->
   <section id="research-highlights" class="content-section">
     <h1 class="section-title">{{ t.research_highlights.title }}</h1>
     
-    <!-- 1. 显示总的描述文字 (可选) -->
     {% if t.research_highlights.description %}
     <div class="interests-container" style="margin-bottom: 30px;">
         <p class="interest-description">{{ t.research_highlights.description }}</p>
     </div>
     {% endif %}
     
-    <!-- 2. 显示具体的图文网格 (这里是核心修改) -->
+    <!-- 这里的容器变成了 Flex 布局 -->
     <div class="highlights-grid">
-      {% for item in t.research_highlights.items %}
-      <div class="highlight-item">
-        
-        <!-- 1. 标题变成链接 -->
-        <!-- 注意：这里我加了一个 class="highlight-link" 用于去掉下划线 -->
-        <h3 class="highlight-title">
-            <a href="{{ '/en/research.html' | relative_url }}" class="highlight-link">
-                {{ item.title }}
-            </a>
-        </h3>
-        
-        <!-- 2. 图片也变成链接 -->
-        <div class="highlight-img-container">
-            <a href="{{ '/en/research.html' | relative_url }}">
-                <img src="{{ item.image | relative_url }}" alt="{{ item.title }}">
-            </a>
-        </div>
-        
-        <!-- 结论描述 (保持不变，通常描述文字不需要点击) -->
-        <p class="highlight-desc">
-          {{ item.description }}
-        </p>
+      
+      <!-- === 左侧列：只显示第 1, 3, 5... 个项目 === -->
+      <div class="highlight-column">
+        {% for item in t.research_highlights.items %}
+          {% assign mod = forloop.index0 | modulo: 2 %}
+          {% if mod == 0 %} <!-- 偶数索引（即第1,3,5个） -->
+            {% include highlight_card.html item=item %}
+          {% endif %}
+        {% endfor %}
       </div>
-      {% endfor %}
+
+      <!-- === 右侧列：只显示第 2, 4, 6... 个项目 === -->
+      <div class="highlight-column">
+        {% for item in t.research_highlights.items %}
+          {% assign mod = forloop.index0 | modulo: 2 %}
+          {% if mod == 1 %} <!-- 奇数索引（即第2,4,6个） -->
+            {% include highlight_card.html item=item %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
     </div>
-    
   </section>
 
   <!-- 动态加载简历脚本 -->
