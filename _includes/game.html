@@ -26,7 +26,7 @@ const highScoreEl = document.getElementById('highScore');
 const restartBtn = document.getElementById('restartBtn');
 
 // 游戏配置
-let gameSpeed = 4;
+let gameSpeed = 5;
 let score = 0;
 let highScore = localStorage.getItem('dinoHighScore') || 0;
 let isGameOver = false;
@@ -36,26 +36,29 @@ let frame = 0;
 // 玩家对象
 let player = {
     x: 50,
-    y: 110,     // 初始地面位置
-    w: 30,      // 碰撞箱宽度
-    h: 30,      // 碰撞箱高度
-    dy: 0,      // 垂直速度
-    jumpPower: -11, // 跳跃力度
-    gravity: 0.6,   // 重力
-    grounded: false // 是否在地面
+    y: 110,
+    w: 30,
+    h: 30,
+    dy: 0,
+    jumpPower: -10, // 跳跃力度
+    gravity: 0.5,   // 重力 (改小了一点，滞空更久，更简单)
+    grounded: false,
+    jumpCount: 0,   // 当前跳了几次
+    maxJumps: 3     // ⭐ 允许最大跳跃次数 (三连跳)
 };
 
 let obstacles = [];
 
-// 初始化/重置游戏
 function initGame() {
     isGameOver = false;
     score = 0;
-    gameSpeed = 5; // 初始速度
+    gameSpeed = 5;
     obstacles = [];
     frame = 0;
+    
     player.y = 110;
     player.dy = 0;
+    player.jumpCount = 0; // 重置跳跃次数
     
     restartBtn.style.display = 'none';
     scoreEl.innerText = score;
@@ -64,76 +67,65 @@ function initGame() {
     animate();
 }
 
-// --- 🎨 核心绘制函数 ---
-
-// 1. 绘制玩家 (恐龙/老鹰)
+// 1. 绘制玩家 (机器人 -> 鬼魂 -> 火箭)
 function drawPlayer() {
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
     
-    if (player.grounded) {
-        // 在地面：显示恐龙
-        ctx.font = "35px Arial"; // 稍微比碰撞箱大一点，视觉效果更好
-        ctx.fillText("🤖", player.x - 2, player.y - 5); 
-    } else {
-        // 在空中：显示老鹰
-        ctx.font = "38px Arial"; 
-        ctx.fillText("👻", player.x - 5, player.y - 8);
+    // 根据状态切换 Emoji
+    let emoji = "🤖"; // 默认地面状态
+    
+    if (!player.grounded) {
+        if (player.jumpCount >= 2) {
+            emoji = "🚀"; // 二段/三段跳变火箭
+        } else {
+            emoji = "👻"; // 一段跳变鬼魂
+        }
     }
     
-    // 调试模式：取消下面注释可以看到实际的碰撞箱（红色框）
-    // ctx.strokeStyle = "red"; ctx.strokeRect(player.x, player.y, player.w, player.h);
+    ctx.font = "35px Arial"; 
+    ctx.fillText(emoji, player.x - 2, player.y - 5); 
 }
 
-// 2. 绘制障碍物 (DDL)
+// 2. 绘制障碍物
 function drawObstacles() {
     obstacles.forEach(obs => {
-        ctx.fillStyle = '#c0392b'; // 深红色，代表危险
+        ctx.fillStyle = '#c0392b';
         ctx.font = "bold 20px Verdana";
         ctx.textAlign = "left";
         ctx.textBaseline = "top";
-        
-        ctx.fillText("DDL", obs.x, obs.y + 2); // 绘制文字
-        
-        // 装饰：加一条下划线让它看起来更像文件
+        ctx.fillText("DDL", obs.x, obs.y + 2); 
         ctx.fillRect(obs.x, obs.y + 22, obs.w, 3);
-        
-        // 调试模式：碰撞箱
-        // ctx.strokeStyle = "blue"; ctx.strokeRect(obs.x, obs.y, obs.w, obs.h);
     });
 }
-
-// --- ⚙️ 物理逻辑 ---
 
 function update() {
     // 1. 玩家物理
     player.dy += player.gravity;
     player.y += player.dy;
 
-    // 地面检测 (110 是地面 Y 坐标)
+    // 地面检测
     if (player.y > 110) {
         player.y = 110;
         player.dy = 0;
         player.grounded = true;
+        player.jumpCount = 0; // ⭐ 落地后重置跳跃次数，恢复为 0
     } else {
         player.grounded = false;
     }
 
-    // 2. 生成障碍物
+    // 2. 生成障碍物 (间隔稍微调大了一点，降低难度)
     frame++;
-    // 随机生成间隔，随着分数提高，间隔稍微变短
-    let spawnRate = Math.floor(90 + Math.random() * 60);
+    let spawnRate = Math.floor(100 + Math.random() * 70); 
     if (frame % spawnRate === 0) {
-        // 随机高度的 DDL (有些需要小跳，有些需要大跳)
-        // 地面是 110，障碍物高度随机浮动
-        let isHigh = Math.random() > 0.8; // 20% 几率生成高空 DDL
-        let obsY = isHigh ? 80 : 110; 
+        let isHigh = Math.random() > 0.75; 
+        let obsY = isHigh ? 75 : 110; 
         
         obstacles.push({
             x: canvas.width,
             y: obsY,
-            w: 45, // "DDL" 文字的大致宽度
-            h: 25  // "DDL" 文字的大致高度
+            w: 45,
+            h: 25
         });
     }
 
@@ -142,20 +134,16 @@ function update() {
         let obs = obstacles[i];
         obs.x -= gameSpeed;
 
-        // 移除屏幕外的
         if (obs.x + obs.w < 0) {
             obstacles.splice(i, 1);
             score++;
             scoreEl.innerText = score;
             i--;
-            
-            // 🔥 难度递增：每得 5 分，速度加快
-            if (score % 5 === 0) gameSpeed += 0.4; 
+            if (score % 5 === 0) gameSpeed += 0.3; // 加速稍微慢一点
         }
 
-        // 💥 碰撞检测 (AABB 算法)
-        // 稍微缩小一点玩家的判定范围 (padding)，让游戏不要太难
-        let padding = 4; 
+        // 碰撞判定 (稍微缩小判定范围，更容易躲)
+        let padding = 8; 
         if (
             player.x + padding < obs.x + obs.w &&
             player.x + player.w - padding > obs.x &&
@@ -168,10 +156,8 @@ function update() {
 }
 
 function draw() {
-    // 清空画布
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // 画地面线
     ctx.beginPath();
     ctx.moveTo(0, 140);
     ctx.lineTo(canvas.width, 140);
@@ -191,12 +177,9 @@ function animate() {
 
 function gameOver() {
     isGameOver = true;
-    
-    // 绘制半透明遮罩
     ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    // 绘制文字
     ctx.fillStyle = '#333';
     ctx.font = "bold 30px Arial";
     ctx.textAlign = "center";
@@ -215,11 +198,13 @@ function gameOver() {
     }
 }
 
-// 跳跃控制
+// ⭐ 核心修改：三连跳逻辑
 function jump() {
-    if (player.grounded) {
-        player.dy = player.jumpPower;
+    // 只要当前跳跃次数小于最大次数 (3)，就可以跳
+    if (player.jumpCount < player.maxJumps) {
+        player.dy = player.jumpPower; // 给一个向上的速度
         player.grounded = false;
+        player.jumpCount++; // 消耗一次跳跃机会
     }
 }
 
@@ -233,7 +218,7 @@ document.addEventListener('keydown', function(e) {
 });
 
 canvas.addEventListener('touchstart', function(e) {
-    e.preventDefault(); // 防止手机滚动
+    e.preventDefault();
     if (isGameOver) initGame();
     else jump();
 }, {passive: false});
