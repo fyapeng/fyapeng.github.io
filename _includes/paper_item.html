@@ -1,20 +1,53 @@
-<!-- _includes/paper_item.html (新布局) -->
 <li class="paper-item">
   <div class="paper-main-content">
-    <p class="paper-title">{{ paper.title }}</p>
-    <p class="paper-authors">{{ paper.authors }}</p>
-    {% if paper.status %}<p class="paper-status"><em>Status: {{ paper.status }}</em></p>{% endif %}
-  </div>
-  <div class="paper-links">
-    {% if paper.abstract %}<a href="javascript:void(0)" class="paper-link-button toggle-abstract">{{ t.research_page.abstract_btn }}</a>{% endif %}
-    {% if paper.pdf_link %}<a href="{{ paper.pdf_link | relative_url }}" class="paper-link-button" target="_blank">{{ t.research_page.pdf_btn }}</a>{% endif %}
-    {% if paper.slides_link %}<a href="{{ paper.slides_link | relative_url }}" class="paper-link-button" target="_blank">{{ t.research_page.slides_btn }}</a>{% endif %}
-    {% if paper.code_link %}<a href="{{ paper.code_link }}" class="paper-link-button" target="_blank" rel="noopener noreferrer">{{ t.research_page.code_btn }}</a>{% endif %}
-    {% if paper.doi_link %}<a href="{{ paper.doi_link }}" class="paper-link-button" target="_blank" rel="noopener noreferrer">{{ t.research_page.doi_btn }}</a>{% endif %}
-  </div>
-  {% if paper.abstract %}
-    <div class="paper-abstract" style="display: none;">
-      <p>{{ paper.abstract | markdownify }}</p>
+    <!-- 1. 这里的变量名从 item 改成了 paper -->
+    <div class="paper-title">{{ include.paper.title }}</div>
+    <div class="paper-authors">{{ include.paper.authors }}</div>
+    
+    {% if include.paper.journal %}
+    <div class="paper-journal"><em>{{ include.paper.journal }}</em>, {{ include.paper.year }}</div>
+    {% endif %}
+
+    <!-- 摘要区域 -->
+    <!-- 这里的逻辑是：如果有摘要内容，就显示摘要 -->
+    {% if include.paper.abstract %}
+    <div class="paper-abstract">
+        {{ include.paper.abstract }}
     </div>
-  {% endif %}
+    {% endif %}
+  </div>
+
+  <!-- 按钮区域 -->
+  <div class="paper-links">
+    
+    <!-- PDF 按钮 -->
+    <!-- 注意：这里检查的是 include.paper.pdf -->
+    {% if include.paper.pdf and include.paper.pdf != "" %}
+    <a href="{{ include.paper.pdf | relative_url }}" class="paper-link-button" target="_blank">
+      <i class="fas fa-file-pdf"></i> {{ include.t.research_page.pdf_btn | default: "[PDF]" }}
+    </a>
+    {% endif %}
+
+    <!-- Slides 幻灯片按钮 -->
+    {% if include.paper.slides and include.paper.slides != "" %}
+    <a href="{{ include.paper.slides | relative_url }}" class="paper-link-button" target="_blank">
+      <i class="fas fa-desktop"></i> {{ include.t.research_page.slides_btn | default: "[Slides]" }}
+    </a>
+    {% endif %}
+
+    <!-- Code 代码按钮 -->
+    {% if include.paper.code and include.paper.code != "" %}
+    <a href="{{ include.paper.code }}" class="paper-link-button" target="_blank">
+      <i class="fab fa-github"></i> {{ include.t.research_page.code_btn | default: "[Code]" }}
+    </a>
+    {% endif %}
+
+    <!-- DOI 链接按钮 -->
+    {% if include.paper.doi and include.paper.doi != "" %}
+    <a href="{{ include.paper.doi }}" class="paper-link-button" target="_blank">
+      <i class="ai ai-doi"></i> {{ include.t.research_page.doi_btn | default: "[DOI]" }}
+    </a>
+    {% endif %}
+
+  </div>
 </li>
