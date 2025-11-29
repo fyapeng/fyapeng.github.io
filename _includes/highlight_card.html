@@ -1,0 +1,17 @@
+<div class="highlight-item">
+  <h3 class="highlight-title">
+      <a href="{{ '/research.html' | relative_url }}" class="highlight-link">
+          {{ include.item.title }}
+      </a>
+  </h3>
+  
+  <div class="highlight-img-container">
+      <a href="{{ '/research.html' | relative_url }}">
+          <img src="{{ include.item.image | relative_url }}" alt="{{ include.item.title }}">
+      </a>
+  </div>
+  
+  <p class="highlight-desc">
+    {{ include.item.description }}
+  </p>
+</div>
