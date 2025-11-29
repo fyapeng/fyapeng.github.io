@@ -1,0 +1,186 @@
+<!-- _includes/game.html -->
+<section id="fun-zone" class="content-section" style="text-align: center; margin-top: 80px;">
+  <h2 class="section-title" style="font-size: 1.5rem; color: #555;">🏃 课间休息 (按空格或点击跳跃)</h2>
+  <canvas id="dinoGame" width="600" height="150" style="border-bottom: 2px solid #333; background: #fafafa; max-width: 100%; touch-action: none;"></canvas>
+  <p style="font-size: 0.8rem; color: #999; margin-top: 10px;">当前得分: <span id="score">0</span> | 最高分: <span id="highScore">0</span></p>
+  <button id="restartBtn" class="button-primary" style="display: none; margin-top: 10px;" onclick="initGame()">再玩一次</button>
+</section>
+
+<script>
+const canvas = document.getElementById('dinoGame');
+const ctx = canvas.getContext('2d');
+const scoreEl = document.getElementById('score');
+const highScoreEl = document.getElementById('highScore');
+const restartBtn = document.getElementById('restartBtn');
+
+let gameSpeed = 5;
+let score = 0;
+let highScore = localStorage.getItem('dinoHighScore') || 0;
+let isGameOver = false;
+let animationId;
+
+// 游戏对象
+let player = {
+    x: 50,
+    y: 100,
+    w: 30, // 宽度
+    h: 30, // 高度
+    dy: 0, // 垂直速度
+    jumpPower: -10, // 跳跃力度
+    gravity: 0.6, // 重力
+    grounded: false
+};
+
+let obstacles = [];
+let frame = 0;
+
+// 初始化/重置游戏
+function initGame() {
+    isGameOver = false;
+    score = 0;
+    gameSpeed = 5;
+    obstacles = [];
+    frame = 0;
+    player.y = 100;
+    player.dy = 0;
+    restartBtn.style.display = 'none';
+    scoreEl.innerText = score;
+    highScoreEl.innerText = highScore;
+    animate();
+}
+
+// 绘制玩家 (可以用你的头像代替fillRect)
+function drawPlayer() {
+    ctx.fillStyle = '#007bff'; // 蓝色方块代表你
+    ctx.fillRect(player.x, player.y, player.w, player.h);
+    
+    // 如果想用图片，注释掉上面两行，解开下面：
+    // let img = new Image(); img.src = '/assets/img/bio.png';
+    // ctx.drawImage(img, player.x, player.y, player.w, player.h);
+}
+
+// 绘制障碍物
+function drawObstacles() {
+    ctx.fillStyle = '#c0392b'; // 红色障碍物
+    obstacles.forEach(obs => {
+        ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
+    });
+}
+
+// 核心物理逻辑
+function update() {
+    // 1. 玩家跳跃物理
+    player.dy += player.gravity;
+    player.y += player.dy;
+
+    // 地面碰撞检测
+    if (player.y + player.h > canvas.height) {
+        player.y = canvas.height - player.h;
+        player.dy = 0;
+        player.grounded = true;
+    } else {
+        player.grounded = false;
+    }
+
+    // 2. 生成障碍物 (随机间隔)
+    frame++;
+    if (frame % Math.floor(100 + Math.random() * 50) === 0) {
+        // 随机高度和宽度的障碍物
+        let h = Math.floor(Math.random() * 30) + 20; 
+        obstacles.push({
+            x: canvas.width,
+            y: canvas.height - h,
+            w: 20,
+            h: h
+        });
+    }
+
+    // 3. 移动障碍物 & 碰撞检测
+    for (let i = 0; i < obstacles.length; i++) {
+        let obs = obstacles[i];
+        obs.x -= gameSpeed;
+
+        // 移除屏幕外的障碍物
+        if (obs.x + obs.w < 0) {
+            obstacles.splice(i, 1);
+            score++;
+            scoreEl.innerText = score;
+            i--;
+            
+            // ⭐️ 核心玩法：随着得分增加，速度越来越快
+            if (score % 5 === 0) gameSpeed += 0.5; 
+        }
+
+        // 简单的矩形碰撞检测
+        if (
+            player.x < obs.x + obs.w &&
+            player.x + player.w > obs.x &&
+            player.y < obs.y + obs.h &&
+            player.y + player.h > obs.y
+        ) {
+            gameOver();
+        }
+    }
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawPlayer();
+    drawObstacles();
+}
+
+function animate() {
+    if (isGameOver) return;
+    update();
+    draw();
+    animationId = requestAnimationFrame(animate);
+}
+
+function gameOver() {
+    isGameOver = true;
+    ctx.fillStyle = 'rgba(0,0,0,0.5)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'white';
+    ctx.font = '20px Arial';
+    ctx.fillText("Game Over!", canvas.width / 2 - 50, canvas.height / 2);
+    
+    restartBtn.style.display = 'inline-block';
+    
+    if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('dinoHighScore', highScore);
+        highScoreEl.innerText = highScore;
+    }
+}
+
+// 跳跃动作
+function jump() {
+    if (player.grounded) {
+        player.dy = player.jumpPower;
+        player.grounded = false;
+    }
+}
+
+// 监听键盘空格和点击/触摸事件
+document.addEventListener('keydown', function(e) {
+    if (e.code === 'Space') {
+        e.preventDefault(); // 防止网页滚动
+        if (isGameOver) initGame();
+        else jump();
+    }
+});
+
+canvas.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    if (isGameOver) initGame();
+    else jump();
+});
+
+canvas.addEventListener('mousedown', function(e) {
+    if (isGameOver) initGame();
+    else jump();
+});
+
+// 启动游戏
+initGame();
+</script>
