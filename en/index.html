@@ -13,7 +13,7 @@
       <p>{{ t.profile.title }}</p>
       <ul class="contact-info">
         <li><i class="fas fa-envelope"></i> <span id="email-placeholder">[Loading...]</span></li>
-        <li><i class="fas fa-file-pdf"></i> <a href="{{ t.profile.cv_link | relative_url }}" target="_blank">{{ t.profile.cv_button }}</a></li>
+        <li><i class="fas fa-file-pdf"></i> <a id="cv-link-sidebar" class="cv-dynamic-link" href="#" target="_blank">{{ t.profile.cv_button }}</a></li>
         <li><i class="fas fa-map-marker-alt"></i> {{ t.profile.location }}</li>
         <li><i class="fab fa-weixin"></i> {{ t.profile.wechat_id }}</li>
       </ul>
@@ -23,7 +23,7 @@
   <!-- 新增一个容器用于两栏布局 -->
   <div class="about-grid">
     <div class="prose">
-      {%- assign cv_link_html = '<a href="' | append: t.profile.cv_link | append: '">' | append: t.about.cv_link_text | append: '</a>' -%}
+      {%- assign cv_link_html = '<a href="#" class="cv-dynamic-link">' | append: t.about.cv_link_text | append: '</a>' -%}
       {{ t.about.intro | markdownify | replace: '[CV_LINK]', cv_link_html }}
     </div>
     <!-- 将图片移到文字的同级，并赋予新class -->
@@ -89,4 +89,27 @@
     </div>
   </section>
 
+  <!-- 动态加载简历脚本 -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. 读取 profile.json
+    fetch('/profile.json?t=' + new Date().getTime()) // 加个时间戳防止json本身被缓存
+        .then(response => response.json())
+        .then(data => {
+            // 获取所有带有 'cv-dynamic-link' 类的标签 (包括侧边栏和正文里的)
+            const cvLinks = document.querySelectorAll('.cv-dynamic-link');
+            
+            // 2. 拼接带版本号的链接 (防PDF缓存)
+            const finalLink = data.cv_en + "?v=" + data.version;
+
+            // 3. 批量替换
+            cvLinks.forEach(link => {
+                link.href = finalLink;
+            });
+            
+            console.log("简历已更新为英文版:", finalLink);
+        })
+        .catch(error => console.error('简历加载失败:', error));
+});
+</script>
 </div>
