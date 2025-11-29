@@ -74,21 +74,6 @@
   </div>
 </section>
 
-  <!-- Resources Section -->
-  <section id="resources" class="resources-section">
-    <h1 class="section-title">{{ t.resources.title }}</h1>
-    <div class="resources-grid">
-      {% for item in t.resources.items %}
-      <a href="{{ item.url }}" class="resource-card" target="_blank" rel="noopener noreferrer">
-        <div class="card-icon"><i class="{{ item.icon }}"></i></div>
-        <h3 class="card-title">{{ item.title }}</h3>
-        <p class="card-description">{{ item.description }}</p>
-        <div class="card-footer">查看项目 →</div>
-      </a>
-      {% endfor %}
-    </div>
-  </section>
-
   <!-- 动态加载简历脚本 -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
