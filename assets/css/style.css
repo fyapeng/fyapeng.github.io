@@ -1,20 +1,18 @@
 /* =============================================================================
    Final Consolidated Stylesheet for fyapeng.com
-   Version: 2.0
-   Description: This file combines all previous edits, resolves conflicts,
-                and provides a clean, organized, and final set of styles.
+   Version: 3.0 (Updated for Research Highlights Grid)
    ========================================================================== */
 
 /* -------------------- 1. CSS Variables & Global Resets -------------------- */
 :root {
   --primary-color: #212529;
   --secondary-color: #495057;
-  --accent-color: #007bff;
+  --accent-color: #007bff;     /* 链接和图标的主色调 */
+  --highlight-title-color: #c0392b; /* 研究成果标题的深红色 */
   --bg-color: #ffffff;
   --card-bg-color: #f8f9fa;
   --border-color: #dee2e6;
   --font-family-sans-serif: 'Poppins', 'Noto Sans SC', sans-serif;
-  --font-family-serif: 'Georgia', 'Times New Roman', serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,7 +38,6 @@ body {
   position: sticky; top: 0;
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   z-index: 1000;
 }
 .header-container { display: flex; justify-content: space-between; align-items: center; }
@@ -53,14 +50,20 @@ body {
   font-size: 1rem;
 }
 .site-nav .page-link:hover { color: var(--accent-color); }
-.lang-switch { border: 1px solid var(--border-color); padding: 5px 12px; border-radius: 5px; }
-.lang-switch:hover { background-color: var(--card-bg-color); }
+/* 当前激活页面的高亮样式 */
+.site-nav .page-link.active {
+  background-color: var(--card-bg-color);
+  color: var(--primary-color);
+  font-weight: 600;
+  border-radius: 5px;
+  padding: 5px 12px;
+}
 
 
 /* -------------------- 3. Main Content Sections -------------------- */
 .page-content { padding: 60px 0; }
 
-/* ---------- 3.1 About Section ---------- */
+/* ---------- 3.1 About Section (个人简介) ---------- */
 .about-section { display: flex; gap: 40px; align-items: flex-start; }
 .profile-sidebar {
   flex: 0 0 300px;
@@ -73,11 +76,13 @@ body {
 .profile-pic { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; border: 4px solid var(--bg-color); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 .profile-sidebar h2 { margin-bottom: 5px; font-size: 1.6rem; }
 .profile-sidebar p { color: var(--secondary-color); margin-bottom: 25px; }
+
 .contact-info { list-style: none; text-align: left; font-size: 0.95rem; }
 .contact-info li { margin-bottom: 12px; display: flex; align-items: center; }
 .contact-info i { margin-right: 12px; color: var(--accent-color); width: 20px; text-align: center; font-size: 1.1rem; }
 .contact-info a { color: var(--primary-color); text-decoration: none; }
 .contact-info a:hover { text-decoration: underline; }
+
 .about-content { flex: 1; }
 .about-grid { display: flex; gap: 30px; align-items: flex-start; }
 .about-photo-container { flex: 0 0 220px; margin-top: 5px; }
@@ -86,17 +91,10 @@ body {
 .prose p { margin-bottom: 1.2em; }
 .prose strong { color: var(--primary-color); font-weight: 600; }
 .prose a { color: var(--accent-color); text-decoration: none; font-weight: 500; }
-.prose a:hover { text-decoration: underline; }
 
 
-/* ---------- 3.2 Education Section (Card Style) ---------- */
-.education-list {
-  max-width: 800px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
+/* ---------- 3.2 Education Section (教育背景) ---------- */
+.education-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
 .education-item {
   background-color: var(--card-bg-color);
   border: 1px solid var(--border-color);
@@ -119,16 +117,10 @@ body {
 .education-institution { color: var(--secondary-color); font-size: 1rem; }
 
 
-/* ---------- 3.3 Research Interests Section ---------- */
+/* ---------- 3.3 Research Interests (研究兴趣) ---------- */
 .interests-container { max-width: 800px; margin: 0 auto; text-align: center; }
 .interest-list {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px 15px;
-  margin-bottom: 25px;
+  list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 15px; margin-bottom: 25px;
 }
 .interest-list li {
   background-color: var(--card-bg-color);
@@ -141,56 +133,66 @@ body {
 .interest-description { font-size: 1.05rem; line-height: 1.8; color: var(--secondary-color); text-align: left; }
 
 
-/* ---------- 3.4 Research Page Styles (紧凑布局) ---------- */
-.subsection-title {
-  font-size: 1.8rem; /* 减小“工作论文”等标题的大小 */
-  font-weight: 600;
-  margin-top: 50px; /* 减小与上方内容的距离 */
-  margin-bottom: 25px; /* 减小与下方列表的距离 */
-  border-bottom: 2px solid var(--accent-color);
-  padding-bottom: 8px;
+/* ---------- 3.4 Research Highlights (NEW: 图文网格布局) ---------- */
+.highlights-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 电脑端：双列 */
+  gap: 40px;
+  margin-top: 30px;
 }
 
-.paper-list { list-style: none; padding-left: 0; }
+.highlight-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
+.highlight-title {
+  color: var(--highlight-title-color); /* 深红色 */
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.highlight-img-container {
+  width: 100%;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.highlight-img-container img {
+  width: 100%;
+  height: auto;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.highlight-desc {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+  text-align: justify; /* 两端对齐 */
+}
+
+
+/* ---------- 3.5 Research Page Styles (单独的研究列表页) ---------- */
 .paper-item {
   display: flex;
-  flex-wrap: wrap; /* 允许摘要换行 */
-  justify-content: space-between; /* 核心：让左右两部分分开 */
-  align-items: flex-start; /* 顶部对齐 */
-  margin-bottom: 25px; /* 减小论文条目之间的距离 */
-  padding: 20px 0; /* 移除左右内边距，只保留上下 */
-  border-bottom: 1px solid var(--border-color); /* 用下划线分隔，更紧凑 */
-  /* 移除原有的边框和背景 */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 25px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-color);
 }
-.paper-item:last-child {
-  border-bottom: none;
-}
-
-.paper-main-content {
-  flex: 1; /* 占据大部分空间 */
-  padding-right: 20px; /* 和右侧链接保持距离 */
-}
-
-.paper-title {
-  font-size: 1.15rem; /* 减小标题字体 */
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-
-.paper-authors, .paper-status, .paper-journal {
-  font-size: 0.95rem; /* 减小作者等信息字体 */
-  color: var(--secondary-color);
-  margin-bottom: 5px;
-}
-
-.paper-links {
-  flex-shrink: 0; /* 防止链接部分被压缩 */
-  display: flex;
-  flex-direction: column; /* 让链接按钮垂直排列 */
-  align-items: flex-end; /* 靠右对齐 */
-  gap: 8px; /* 按钮之间的垂直间距 */
-}
+.paper-item:last-child { border-bottom: none; }
+.paper-main-content { flex: 1; padding-right: 20px; }
+.paper-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 5px; }
+.paper-authors, .paper-status { font-size: 0.95rem; color: var(--secondary-color); margin-bottom: 5px; }
+.paper-links { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
 
 .paper-link-button {
   display: inline-block;
@@ -202,75 +204,20 @@ body {
   border: 1px solid var(--border-color);
   padding: 5px 12px;
   border-radius: 5px;
-  text-align: center;
-  min-width: 80px; /* 确保按钮有最小宽度 */
   transition: all 0.2s ease;
+  min-width: 80px; text-align: center;
 }
-.paper-link-button:hover {
-  background-color: var(--accent-color);
-  color: white;
-  border-color: var(--accent-color);
-}
-
+.paper-link-button:hover { background-color: var(--accent-color); color: white; border-color: var(--accent-color); }
 .paper-abstract {
-  flex-basis: 100%; /* 关键：让摘要占据一整行 */
+  flex-basis: 100%;
   background-color: #f8f9faef;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: var(--secondary-color);
+  padding: 15px; border-radius: 5px; margin-top: 15px;
+  font-size: 0.95rem; color: var(--secondary-color);
   border-left: 3px solid var(--accent-color);
 }
 
-* ---------- 3.5 Resources Section (Card Grid) ---------- */
-/* 为了和 research-highlights 区分，这里单独命名 */
-.highlights-section { margin-bottom: 60px; } 
-
-.resources-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 30px;
-}
-.resource-card {
-  background-color: var(--bg-color);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 25px;
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
-.resource-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-}
-.card-icon {
-  font-size: 2.2rem;
-  color: var(--accent-color);
-  margin-bottom: 15px;
-}
-.card-title {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  color: var(--primary-color);
-}
-.card-description {
-  font-size: 0.95rem;
-  color: var(--secondary-color);
-  flex-grow: 1; /* 让描述部分占据多余空间，把“查看项目”推到底部 */
-  margin-bottom: 15px;
-}
-.card-footer {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--accent-color);
-  align-self: flex-start;
-}
-.button-primary { /* 这个是 research-highlights 部分的按钮，顺便放在这里 */
+/* 通用按钮样式 (如 View More) */
+.button-primary {
   display: inline-block;
   background-color: var(--accent-color);
   color: white;
@@ -280,10 +227,7 @@ body {
   font-weight: 600;
   transition: background-color 0.3s, transform 0.2s;
 }
-.button-primary:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
-}
+.button-primary:hover { background-color: #0056b3; transform: translateY(-2px); }
 
 
 /* -------------------- 4. Footer -------------------- */
@@ -292,91 +236,43 @@ body {
 
 
 /* =============================================================================
-   5. Responsive Design (Consolidated)
+   5. Responsive Design (Global Adjustments)
    ========================================================================== */
 
-/* ---------- 5.1 Tablet and Smaller Desktops ---------- */
+/* Tablet & Smaller Desktop */
 @media (max-width: 992px) {
   .about-section { flex-direction: column; }
-  .profile-sidebar {
-    flex: 0 0 auto;
-    width: 100%;
-    max-width: 450px;
-    margin: 0 auto 40px auto;
-  }
+  .profile-sidebar { flex: 0 0 auto; width: 100%; max-width: 450px; margin: 0 auto 40px auto; }
 }
 
-/* ---------- 5.2 Mobile Devices (768px and down) ---------- */
+/* Mobile Devices (<= 768px) */
 @media (max-width: 768px) {
   html { font-size: 15px; }
   .page-content { padding: 40px 0; }
   
-  /* Header on Mobile: Let items wrap to the next line if needed */
-  .header-container {
-    flex-wrap: wrap; /* 允许换行 */
-    justify-content: center; /* 居中对齐 */
-    gap: 10px 20px; /* 设置行间距和列间距 */
-  }
-
-  /* About Section on Mobile */
+  /* Header */
+  .header-container { flex-wrap: wrap; justify-content: center; gap: 10px 20px; }
+  
+  /* About */
   .about-grid { flex-direction: column; gap: 25px; }
-  .about-photo-container {
-    flex-basis: auto;
-    width: 100%;
-    max-width: 350px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  .about-photo-container { width: 100%; max-width: 350px; margin: 0 auto; }
+  
+  /* Education */
+  .education-item { flex-direction: column; gap: 8px; padding: 15px 20px; }
+  .education-duration { flex-basis: auto; text-align: left; }
+  
+  /* Research Highlights: 变为单列 */
+  .highlights-grid { grid-template-columns: 1fr; gap: 30px; }
+  .highlight-desc { text-align: left; }
 
-  /* Education Section on Mobile */
-  .education-item {
-    flex-direction: column;
-    gap: 8px;
-    padding: 15px 20px;
-  }
-  .education-duration {
-    flex-basis: auto;
-    text-align: left;
-    padding-top: 0;
-    font-weight: 500;
-  }
-
-  /* Research Page on Mobile */
-  .paper-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .paper-links {
-    width: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    margin-top: 10px;
-  }
+  /* Research Page */
+  .paper-item { flex-direction: column; align-items: flex-start; }
+  .paper-links { width: 100%; flex-direction: row; flex-wrap: wrap; margin-top: 10px; }
 }
 
-/* ---------- 5.3 Very Narrow Screens (480px and down) ---------- */
+/* Very Small Screens (<= 480px) */
 @media (max-width: 480px) {
-  /* On very small screens, force header items to stack */
-  .header-container {
-    flex-direction: column;
-    gap: 15px;
-  }
-  .site-nav {
-    width: 100%;
-    display: flex;
-    justify-content: space-around; /* 让链接均匀分布 */
-  }
-  .site-nav .page-link {
-    margin: 0; /* 移除外边距 */
-  }
-}
-
-/* Active Navigation Link Style (背景色块高亮) */
-.site-nav .page-link.active {
-  background-color: var(--card-bg-color); /* 使用我们定义的卡片背景色作为高亮色 */
-  color: var(--primary-color); /* 高亮时文字颜色变为深色，以保证对比度 */
-  font-weight: 600; /* 保持加粗 */
-  border-radius: 5px; /* 添加轻微的圆角，让色块更柔和 */
-  padding: 5px 12px; /* 调整内边距，让色块大小适中 */
+  .header-container { flex-direction: column; gap: 15px; }
+  .site-nav { width: 100%; display: flex; justify-content: space-around; }
+  .site-nav .page-link { margin: 0; }
 }
