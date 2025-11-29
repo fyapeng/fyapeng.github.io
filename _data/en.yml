@@ -50,24 +50,16 @@ research_interests:
 
 research_highlights:
   title: "Rcent Research"
-  description: "My recent research focuses on the issue of unnecessary medical demand, decomposing it into moral hazard and persuasive misinformation from physicians using a Bayesian persuasion model. Additionally, I am studying the actual effects of health insurance payment reform on cost containment. Feel free to explore all my working papers via the button below."
-  button: "View All Research →"
-
-resources:
-  title: "Labs"
+  description: "My recent research focuses on the issue of unnecessary medical demand, decomposing it into moral hazard and persuasive misinformation from physicians using a Bayesian persuasion model. Additionally, I am studying the actual effects of health insurance payment reform on cost containment. "
   items:
-    - icon: "fas fa-landmark"
-      title: "Top 5 Econ Journals Tracker"
-      description: "Automatically updates with the latest articles from AER, JPE, QJE, RES, Econometrica."
-      url: "/top5papers"
-    - icon: "far fa-file-alt"
-      title: "NBER Working Papers"
-      description: "Weekly tracking and display of the latest working papers from NBER."
-      url: "/nber"
-    - icon: "fas fa-atom"
-      title: "arXiv Economics Papers"
-      description: "Daily tracking and display of the latest preprints from the arXiv (Econ) category."
-      url: "/arxiv"
+    - title: "Cost-Containment Effects of DIP Reform"
+      image: "assets/img/res1.png"
+      description: "Physicians' persuasive upcoding behavior increases patient costs, which may significantly undermine the cost-containment goals of the DIP (Diagnosis-Intervention Packet) reform."
+      
+    - title: "Heterogeneity in DRG Reform"
+      image: "assets/img/res2.png"
+      description: "Using the Bunching-DID method, we find that DRG (Diagnosis-Related Group) reform may inadvertently increase medical expenses for patients below the deductible threshold."
+
 
 research_page:
   #title: "Research"
