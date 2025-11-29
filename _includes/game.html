@@ -1,6 +1,6 @@
 <section id="fun-zone" class="content-section" style="text-align: center; margin-top: 80px; padding-bottom: 40px;">
   <h2 class="section-title" style="font-size: 1.5rem; color: #555; margin-bottom: 10px;">
-    🦖 学术生存挑战
+    🤖 学术生存挑战
   </h2>
   <p style="font-size: 0.9rem; color: #888; margin-bottom: 15px;">
     (按 <kbd style="background:#eee; padding:2px 5px; border-radius:3px;">空格</kbd> 或点击屏幕跳跃，躲避 DDL！)
@@ -74,11 +74,11 @@ function drawPlayer() {
     if (player.grounded) {
         // 在地面：显示恐龙
         ctx.font = "35px Arial"; // 稍微比碰撞箱大一点，视觉效果更好
-        ctx.fillText("🦖", player.x - 2, player.y - 5); 
+        ctx.fillText("🤖", player.x - 2, player.y - 5); 
     } else {
         // 在空中：显示老鹰
         ctx.font = "38px Arial"; 
-        ctx.fillText("🦅", player.x - 5, player.y - 8);
+        ctx.fillText("👻", player.x - 5, player.y - 8);
     }
     
     // 调试模式：取消下面注释可以看到实际的碰撞箱（红色框）
