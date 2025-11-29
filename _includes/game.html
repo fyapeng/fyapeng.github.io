@@ -13,7 +13,7 @@ const scoreEl = document.getElementById('score');
 const highScoreEl = document.getElementById('highScore');
 const restartBtn = document.getElementById('restartBtn');
 
-let gameSpeed = 5;
+let gameSpeed = 3;
 let score = 0;
 let highScore = localStorage.getItem('dinoHighScore') || 0;
 let isGameOver = false;
@@ -26,7 +26,7 @@ let player = {
     w: 30, // 宽度
     h: 30, // 高度
     dy: 0, // 垂直速度
-    jumpPower: -10, // 跳跃力度
+    jumpPower: -12, // 跳跃力度
     gravity: 0.6, // 重力
     grounded: false
 };
