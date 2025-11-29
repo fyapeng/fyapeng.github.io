@@ -54,10 +54,6 @@ research_highlights:
     - title: "DIP改革控费效应分解"
       image: "assets/img/res1.png"   # 请确保图片文件存在
       description: "医生说服性高套编码行为将增加患者费用成本，这可能导致DIP（医保按病种分值付费）改革的控费效应大打折扣。"
-      
-    - title: "DRG改革的异质性"
-      image: "assets/img/res2.png"
-      description: "使用Bunching-DID方法，发现DRG（医保按疾病诊断组付费）改革可能增加起付线左侧患者医疗费用导致患者福利损失。"
 
     - title: "DIP改革控费效应分解"
       image: "assets/img/res1.png"   # 请确保图片文件存在
