@@ -50,7 +50,7 @@ research_interests:
 
 research_highlights:
   title: "Rcent Research"
-  description: "My recent research focuses on the issue of unnecessary medical demand, decomposing it into moral hazard and persuasive misinformation from physicians using a Bayesian persuasion model. Additionally, I am studying the actual effects of health insurance payment reform on cost containment. "
+  description: "My recent research focuses on incentive mechanism design and unintended consequences in health insurance payment reforms. By integrating Bayesian persuasion frameworks, and Bunching-DID , I investigate how physicians leverage information asymmetry to induce 'treatment escalation' (supply-side induced demand) and how nonlinear payment schedules trigger strategic bunching behaviors. The goal is to uncover the complex trade-offs between cost containment, moral hazard, and quality of care under DRG/DIP reforms."
   items:
     - title: "Cost-Containment Effects of DIP Reform"
       image: "assets/img/res1.png"
