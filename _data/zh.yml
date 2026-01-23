@@ -13,7 +13,7 @@ profile:
   name: "付亚鹏"
   title: "经济学博士在读"
   cv_button: "我的简历 (中文)"
-  cv_link: "/assets/cv/cv_zh.pdf" # 替换为你的中文简历链接
+  cv_link: "/assets/cv/cv_zh.pdf" 
   location: "中国社会科学院大学，经济学院"
   wechat_id: "fyapengf | 公众号：申椿"
 
@@ -52,7 +52,7 @@ research_highlights:
   description: "我的近期研究聚焦于医保支付改革中的激励机制设计与非意图后果。结合贝叶斯说服理论、Bunching-DID等实证方法，我深入考察了信息不对称下医生如何利用信息优势进行“治疗升级”（供给侧诱导），以及医保起付线等非线性设计如何引发策略性聚束行为。研究旨在揭示DRG/DIP改革在控费目标、道德风险与医疗质量之间的复杂权衡。"
   items:
     - title: "DIP改革控费效应分解"
-      image: "assets/img/res1.png"   # 请确保图片文件存在
+      image: "assets/img/res1.png"   
       description: "医生说服性高套编码行为将增加患者费用成本，这可能导致DIP（医保按病种分值付费）改革的控费效应大打折扣。"
       
     - title: "DRG改革的异质性"
