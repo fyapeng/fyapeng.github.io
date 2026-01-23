@@ -56,9 +56,9 @@ research_highlights:
       image: "assets/img/res1.png"
       description: "Physicians' persuasive upcoding behavior increases patient costs, which may significantly undermine the cost-containment goals of the DIP (Diagnosis-Intervention Packet) reform."
       
-    - title: "Heterogeneity in DRG Reform"
+    - title: "Heterogeneity in DRG/DIP Reform"
       image: "assets/img/res2.png"
-      description: "Using the Bunching-DID method, we find that DRG (Diagnosis-Related Group) reform may inadvertently increase medical expenses for patients below the deductible threshold."
+      description: "Using the Bunching-DID approach, we observe that the effectiveness of DRG (Diagnosis Related Groups) and DIP (Diagnosis-Intervention Packet) in curbing total medical costs is limited. This is mainly because the reforms led to a sharp rise in expenses for patients below the deductible (to the left), which offsets the savings observed in other cohorts. Additionally, DRG/DIP tends to increase patients' personal financial burden, specifically causing a significant rise in out-of-pocket expenses for those just above the deductible (to the right). Conversely, the reforms showed no significant impact on patients outside these specific policy intervals."
 
 
 research_page:
