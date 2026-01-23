@@ -53,7 +53,7 @@ research_highlights:
   items:
     - title: "DIP改革控费效应分解"
       image: "assets/img/res1.png"   
-      description: "DIP（医保按病种分值付费）改革"
+      description: "对DIP（医保按病种分值付费）改革的控费效应进行分解，"
       
     - title: "DRG/DIP改革的异质性"
       image: "assets/img/res2.png"
