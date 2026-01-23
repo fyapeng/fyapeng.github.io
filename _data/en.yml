@@ -1,7 +1,7 @@
 # _data/en.yml
 nav:
   home: "Home"
-  home_url: "/en/" # 指向英文版首页
+  home_url: "/en/" 
   research: "Research"
   research_url: "/en/research.html"
   resources: "Labs"
@@ -13,7 +13,7 @@ profile:
   name: "Ya-Peng Fu"
   title: "Ph.D. Student in Economics"
   cv_button: "My CV (English)"
-  cv_link: "/assets/cv/cv_en.pdf" # Replace with your English CV link
+  cv_link: "/assets/cv/cv_en.pdf" 
   location: "Beijing, China"
   wechat_id: "fyapengf"
 
@@ -73,4 +73,4 @@ research_page:
   doi_btn: "[DOI]"
 
 footer:
-  copyright: "© 2025 Ya-Peng Fu. All Rights Reserved."
+  copyright: "© 2024-2026 Ya-Peng Fu. All Rights Reserved."
