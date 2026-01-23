@@ -55,9 +55,9 @@ research_highlights:
       image: "assets/img/res1.png"   
       description: "医生说服性高套编码行为将增加患者费用成本，这可能导致DIP（医保按病种分值付费）改革的控费效应大打折扣。"
       
-    - title: "DRG改革的异质性"
+    - title: "DRG/DIP改革的异质性"
       image: "assets/img/res2.png"
-      description: "使用Bunching-DID方法，发现DRG（医保按疾病诊断组付费）改革可能增加起付线左侧患者医疗费用导致患者福利损失。"
+      description: "使用Bunching-DID方法，发现DRG（医保按疾病诊断组付费）与DIP（按病种分值付费）对于降低总医疗费用的影响是有限的，主要原因是大幅提高了起付线左侧区间内患者的费用水平，从而导致其他群体的费用减少效果被“掩盖”；而DRG/DIP可能会增加患者的个人自付费用，尤其是处于起付线右侧区间内患者的自付费用会显著增加；同时，DRG/DIP对于群聚政策区间外患者的影响并不显著。"
 
 research_page:
   #title: "研究成果"
