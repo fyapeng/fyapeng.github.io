@@ -54,7 +54,7 @@ research_highlights:
   items:
     - title: "Cost-Containment Effects of DIP Reform"
       image: "assets/img/res1.png"
-      description: "Physicians' persuasive upcoding behavior increases patient costs, which may significantly undermine the cost-containment goals of the DIP (Diagnosis-Intervention Packet) reform."
+      description: "Overall, the DIP (Diagnosis-Intervention Packet) reform reduced medical costs by only 2.3%. Our study reveals that if hospitals' strategic adjustments (i.e., the sharp increase in surgery rates) were eliminated, the policy's cost-containment effect would reach 36%. Although effect sizes vary across diseases, the underlying pattern is consistent: the reduction in demand-side moral hazard is substituted by a rise in supplier-induced demand. This implies a critical policy paradox: stricter supply-side constraints may have consolidated the providers' dominance in clinical decision-making."
       
     - title: "Heterogeneity in DRG/DIP Reform"
       image: "assets/img/res2.png"
