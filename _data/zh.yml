@@ -53,7 +53,7 @@ research_highlights:
   items:
     - title: "DIP改革控费效应分解"
       image: "assets/img/res1.png"   
-      description: "对DIP（医保按病种分值付费）改革的控费效应进行分解，"
+      description: "DIP（医保按病种分值付费）改革后，总体来看医疗费用仅减少2.3%，如果消除医院的策略性调整行为（大幅增加手术治疗比例），政策控费效果将著降低医疗费用大约36%，具体效应大小在不同疾病间存在异质性，但方向上无差。需方道德风险的减少与供方诱导需求的增加，或许意味着更加严格的供给侧成本约束政策反而增强了供给方在治疗决策中的主导地位。"
       
     - title: "DRG/DIP改革的异质性"
       image: "assets/img/res2.png"
