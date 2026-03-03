@@ -234,10 +234,36 @@ body {
   margin-bottom: 4px;
 }
 
-.paper-authors {
-  font-size: 0.95rem;
-  color: #555;
-  margin-bottom: 6px;
+/* 1. 作者链接基础样式：告别默认蓝 */
+.paper-authors a {
+  color: var(--primary-color); /* 初始颜色跟随正文，不突兀 */
+  text-decoration: none;
+  position: relative;
+  font-weight: 500;
+  padding: 0 2px;
+  transition: all 0.3s ease; /* 平滑过渡动画 */
+  border-bottom: 1px dashed var(--accent-color); /* 优雅的虚线下划线 */
+}
+
+/* 2. 鼠标悬停动画：轻微上浮 + 颜色变亮 */
+.paper-authors a:hover {
+  color: var(--accent-color);
+  background-color: rgba(0, 123, 255, 0.05); /* 淡淡的背景色呼吸感 */
+  transform: translateY(-2px); /* 向上轻微漂浮 2 像素 */
+  display: inline-block; /* 确保 transform 生效 */
+  border-bottom: 1px solid var(--accent-color); /* 虚线变实线 */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* 增加一点立体投影 */
+}
+
+/* 3. 给链接加一个微小的“外部跳转”图标暗示 (可选) */
+.paper-authors a::after {
+  content: "\f35d"; /* FontAwesome 的外部链接图标代码 */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 0.7rem;
+  margin-left: 3px;
+  vertical-align: super;
+  opacity: 0.6;
 }
 
 /* 合并期刊和链接的一行 */
