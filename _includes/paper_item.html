@@ -12,7 +12,13 @@
     {% assign has_links = false %}
 
     {% if include.paper.pdf and include.paper.pdf != "#" and include.paper.pdf != "" %}
-      <a href="{{ include.paper.pdf | relative_url }}" target="_blank">{{ include.t.research_page.pdf_btn | default: "Manuscript" }}</a>
+      <a href="{{ include.paper.pdf | relative_url }}" target="_blank">{{ include.t.research_page.pdf_btn | default: "PDF" }}</a>
+      {% assign has_links = true %}
+    {% endif %}
+
+    {% if include.paper.doi and include.paper.doi != "#" and include.paper.doi != "" %}
+      {% if has_links %}<span class="sep">|</span>{% endif %}
+      <a href="{{ include.paper.doi }}" target="_blank">{{ include.t.research_page.doi_btn | default: "DOI" }}</a>
       {% assign has_links = true %}
     {% endif %}
 
@@ -31,11 +37,6 @@
     {% if include.paper.abstract and include.paper.abstract != "" %}
       {% if has_links %}<span class="sep">|</span>{% endif %}
       <a href="javascript:void(0)" class="abs-trigger" onclick="toggleAbs(this)">{{ include.t.research_page.abstract_btn | default: "Abstract" }}</a>
-    {% endif %}
-
-    {% if include.paper.doi %}
-      <span class="sep">|</span>
-      <a href="{{ include.paper.doi }}" target="_blank">DOI</a>
     {% endif %}
   </div>
 
