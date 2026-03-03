@@ -67,7 +67,7 @@ research_page:
   publications_title: "Publications"
   # Button labels
   abstract_btn: "Abstract"
-  pdf_btn: "PDF"
+  pdf_btn: "Manuscript"
   slides_btn: "Slides"
   code_btn: "Code/Data"
   doi_btn: "DOI"
