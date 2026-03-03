@@ -56,6 +56,9 @@
             {% endfor %}
         </ul>
         <p class="interest-description">{{ t.research_interests.description }}</p>
+        <div class="interest-description">
+          {{ t.research_interests.description | markdownify }}
+        </div>
     </div>
 </section>
 
