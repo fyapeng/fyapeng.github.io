@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: 'zh' }}">
 {% include head.html %}
+<script>
+function toggleAbstract(btn) {
+  // 找到按钮所在的元数据行，然后找到它紧邻的下一个 div（即摘要区）
+  const abstractDiv = btn.closest('.paper-meta-row').nextElementSibling;
+  
+  if (abstractDiv.style.display === "none") {
+    abstractDiv.style.display = "block";
+    btn.innerHTML = '<i class="fas fa-times"></i> Close'; // 展开后按钮文字变为 Close
+  } else {
+    abstractDiv.style.display = "none";
+    btn.innerHTML = '<i class="fas fa-notes-medical"></i> Abstract'; // 隐藏后恢复
+  }
+}
+</script>
 <body>
   {%- if page.lang == 'en' -%}
     {%- assign t = site.data.en -%}
