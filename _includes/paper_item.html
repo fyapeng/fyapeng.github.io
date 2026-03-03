@@ -2,7 +2,9 @@
   <div class="paper-main-content">
     <div class="paper-title">{{ include.paper.title }}</div>
     
-    <div class="paper-authors">{{ include.paper.authors }}</div>
+    <div class="paper-authors">
+      {{ include.paper.authors | replace: "付亚鹏", "<strong>付亚鹏</strong>" | replace: "Yapeng Fu", "<strong>Yapeng Fu</strong>" }}
+    </div>
     
     <div class="paper-meta-row">
       {% if include.paper.journal %}
