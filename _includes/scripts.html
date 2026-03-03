@@ -35,10 +35,10 @@ function toggleAbs(btn) {
         const isEn = document.documentElement.lang === 'en';
         
         if (isHidden) {
-            btn.innerHTML = isEn ? "[Close]" : "[收起摘要]";
+            btn.innerHTML = isEn ? "Close" : "收起摘要";
         } else {
             // 这里恢复原本的按钮文字
-            btn.innerHTML = isEn ? "[Abstract]" : "[摘要]";
+            btn.innerHTML = isEn ? "Abstract" : "摘要";
         }
     }
 }
