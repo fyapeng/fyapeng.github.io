@@ -218,75 +218,89 @@ body {
   text-align: justify; /* 两端对齐 */
 }
 
-/* ---------- 3.5 Research Page Styles (单独的研究列表页) ---------- */
-/* 容器整体紧凑化 */
-.paper-item-compact {
+/* ---------- 3.5 Research Page Styles (极简学术引用风格) ---------- */
+
+/* 列表容器 */
+.paper-list {
   list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.paper-entry {
   margin-bottom: 2rem;
-  line-height: 1.6;
+  line-height: 1.7;
   color: #333;
 }
 
 /* 引用文本样式 */
-.paper-citation { font-size: 1.05rem; }
-.paper-authors strong { color: #000; font-weight: 600; }
-
-/* 重点：解决链接颜色问题 */
-.paper-citation a, 
-.paper-authors a {
-  color: #666 !important; /* 统一灰色，覆盖系统默认紫色/蓝色 */
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
-  border-bottom: 1px transparent;
+.citation-text {
+  font-size: 1.05rem;
+  color: #333;
 }
 
-/* 鼠标移动到附近的微动画 */
-.paper-citation a:hover {
+/* 作者样式：加粗自己，并处理其他作者的链接 */
+.authors strong { 
+  color: #000; 
+  font-weight: 600; 
+}
+
+/* 核心颜色控制：彻底解决紫色、蓝色链接问题 */
+.paper-entry a, 
+.paper-entry a:link,
+.paper-entry a:visited,
+.paper-entry a:active {
+  color: #777 !important; /* 统一灰色，强制覆盖 YML 里的 inline 链接 */
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+  border-bottom: none !important;
+}
+
+/* 鼠标悬停动画：变黑并显示下划线 */
+.paper-entry a:hover {
   color: #000 !important;
-  text-decoration: underline;
-  transform: translateY(-1px);
-  display: inline-block;
+  text-decoration: underline !important;
 }
 
-/* 链接组样式：Chetty 风格 */
-.paper-links-minimal {
+/* 下方功能链接区域 (Manuscript | Slides 等) */
+.paper-actions {
   margin-top: 6px;
   font-size: 0.95rem;
-  color: #999;
 }
 
-.paper-links-minimal .divider {
+.paper-actions .sep {
   margin: 0 8px;
-  color: #ddd;
+  color: #ddd; /* 竖线分隔符颜色 */
   user-select: none;
 }
 
-/* 极简摘要样式 */
-.paper-abstract-simple {
+/* 摘要展示层 */
+.abs-content {
   margin-top: 12px;
   padding: 15px;
-  background-color: #fcfcfc;
-  border: 1px solid #f0f0f0;
-  font-size: 0.9rem;
+  background-color: #f9f9f9;
+  border-left: 2px solid #eee;
+  font-size: 0.92rem;
   color: #555;
   text-align: justify;
-  animation: fadeIn 0.4s ease;
+  animation: fadeIn 0.3s ease;
 }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeIn { 
+  from { opacity: 0; transform: translateY(-5px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}
 
-/* 通用按钮样式 (如 View More) */
+/* 通用按钮 (如有保留需要) */
 .button-primary {
   display: inline-block;
   background-color: var(--accent-color);
   color: white;
-  padding: 12px 25px;
-  border-radius: 5px;
+  padding: 10px 20px;
+  border-radius: 4px;
   text-decoration: none;
-  font-weight: 600;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: opacity 0.2s;
 }
-.button-primary:hover { background-color: #0056b3; transform: translateY(-2px); }
 
 
 /* -------------------- 4. Footer -------------------- */
