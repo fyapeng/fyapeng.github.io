@@ -72,8 +72,8 @@ research_page:
   abstract_btn: "摘要"
   pdf_btn: "PDF"
   slides_btn: "Slides"
-  code_btn: "[代码/数据]"
-  doi_btn: "[DOI]"
+  code_btn: "代码/数据"
+  doi_btn: "DOI"
 
 footer:
   copyright: "© 2024-2026 付亚鹏. All Rights Reserved."
