@@ -3,7 +3,7 @@
 # 发表论文 (Publications)
 publications:
   - title: "医保支付改革、道德风险与医疗控费"
-    authors: "<b>付亚鹏</b>、倪晨旭、<a href='https://www.zhenglongcong.com/' target='_blank'>丛正龙</a><sup>*</sup>、王震"
+    authors: "付亚鹏、倪晨旭、<a href='https://www.zhenglongcong.com/'>丛正龙</a><sup>*</sup>、王震"
     year: 2026
     journal: "《管理世界》"
     pdf: "#"
@@ -15,7 +15,7 @@ publications:
 # 工作论文 (Working Papers)
 working_papers:
   - title: "为“标准”付费：医保支付方式改革与供给方诱导需求"
-    authors: "<b>付亚鹏</b>、付明卫"
+    authors: "付亚鹏、付明卫<sup>*</sup>"
     year: 2025
     journal: "In Progress"
     pdf: "#"
