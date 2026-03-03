@@ -24,8 +24,6 @@ about:
 
     My research interests lie at the intersection of **microeconomic theory and public policy**, with a primary focus on policy evaluation and institutional design within **health economics**. I utilize micro-econometric methods to investigate behavioral responses in medical insurance markets, providing empirical evidence for optimizing healthcare cost-control policies. My current work examines DRG/DIP reform, moral hazard, supplier-induced demand, and physician behavior.
 
-    In terms of methodology, I am actively exploring **Structural Estimation** to recover underlying preference and cost parameters for rigorous policy counterfactual simulations. I am also fascinated by **Agent-based Modeling (ABM)** to explore emergent macro effects of policy interventions within complex systems. I rely on **Python** and **Julia** for large-scale numerical optimization and simulation.
-
     I expect to receive my Ph.D. in 2029. You can find more details in my [CV_LINK]. I am always open to academic discussions and potential collaborations—please feel free to reach out via email or WeChat.
 
     Additionally, I share my academic notes and insights on my WeChat official account: **Shen Chun (申椿)** (ID: E-SChun).
@@ -53,7 +51,10 @@ research_interests:
     - "Microeconomic Theory"
     - "Health Economics"
     - "Public Economics"
-  description: ""
+  description: |
+    My research interests lie at the intersection of **microeconomic theory and public policy**, with a primary focus on policy evaluation and institutional design within **health economics**. I utilize micro-econometric methods to investigate behavioral responses in medical insurance markets, providing empirical evidence for optimizing healthcare cost-control policies. My current work examines DRG/DIP reform, moral hazard, supplier-induced demand, and physician behavior.
+
+    In terms of methodology, I am actively exploring **Structural Estimation** to recover underlying preference and cost parameters for rigorous policy counterfactual simulations. I am also fascinated by **Agent-based Modeling (ABM)** to explore emergent macro effects of policy interventions within complex systems. I rely on **Python** and **Julia** for large-scale numerical optimization and simulation.
 
 research_highlights:
   title: "Rcent Research"
