@@ -66,11 +66,11 @@ research_page:
   working_papers_title: "Working Papers"
   publications_title: "Publications"
   # Button labels
-  abstract_btn: "[Abstract]"
-  pdf_btn: "[PDF]"
-  slides_btn: "[Slides]"
-  code_btn: "[Code/Data]"
-  doi_btn: "[DOI]"
+  abstract_btn: "Abstract"
+  pdf_btn: "PDF"
+  slides_btn: "Slides"
+  code_btn: "Code/Data"
+  doi_btn: "DOI"
 
 footer:
   copyright: "© 2024-2026 Ya-Peng Fu. All Rights Reserved."
