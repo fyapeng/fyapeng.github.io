@@ -1,53 +1,43 @@
 <li class="paper-item">
   <div class="paper-main-content">
-    <!-- 1. 这里的变量名从 item 改成了 paper -->
     <div class="paper-title">{{ include.paper.title }}</div>
+    
     <div class="paper-authors">{{ include.paper.authors }}</div>
     
-    {% if include.paper.journal %}
-    <div class="paper-journal"><em>{{ include.paper.journal }}</em>, {{ include.paper.year }}</div>
-    {% endif %}
+    <div class="paper-meta-row">
+      {% if include.paper.journal %}
+        <span class="paper-journal"><em>{{ include.paper.journal }}</em>, {{ include.paper.year }}</span>
+      {% endif %}
 
-    <!-- 摘要区域 -->
-    <!-- 这里的逻辑是：如果有摘要内容，就显示摘要 -->
+      <div class="paper-links-inline">
+        {% if include.paper.pdf and include.paper.pdf != "" %}
+        <a href="{{ include.paper.pdf | relative_url }}" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+        {% endif %}
+
+        {% if include.paper.slides and include.paper.slides != "" %}
+        <a href="{{ include.paper.slides | relative_url }}" target="_blank"><i class="fas fa-desktop"></i> Slides</a>
+        {% endif %}
+
+        {% if include.paper.code and include.paper.code != "" %}
+        <a href="{{ include.paper.code }}" target="_blank"><i class="fab fa-github"></i> Code</a>
+        {% endif %}
+
+        {% if include.paper.doi and include.paper.doi != "" %}
+        <a href="{{ include.paper.doi }}" target="_blank"><i class="ai ai-doi"></i> DOI</a>
+        {% endif %}
+
+        {% if include.paper.abstract %}
+        <a href="javascript:void(0)" class="abstract-toggle-btn" onclick="toggleAbstract(this)">
+          <i class="fas fa-notes-medical"></i> Abstract
+        </a>
+        {% endif %}
+      </div>
+    </div>
+
     {% if include.paper.abstract %}
-    <div class="paper-abstract">
+    <div class="paper-abstract-collapsible" style="display: none;">
         {{ include.paper.abstract }}
     </div>
     {% endif %}
-  </div>
-
-  <!-- 按钮区域 -->
-  <div class="paper-links">
-    
-    <!-- PDF 按钮 -->
-    <!-- 注意：这里检查的是 include.paper.pdf -->
-    {% if include.paper.pdf and include.paper.pdf != "" %}
-    <a href="{{ include.paper.pdf | relative_url }}" class="paper-link-button" target="_blank">
-      <i class="fas fa-file-pdf"></i> {{ include.t.research_page.pdf_btn | default: "[PDF]" }}
-    </a>
-    {% endif %}
-
-    <!-- Slides 幻灯片按钮 -->
-    {% if include.paper.slides and include.paper.slides != "" %}
-    <a href="{{ include.paper.slides | relative_url }}" class="paper-link-button" target="_blank">
-      <i class="fas fa-desktop"></i> {{ include.t.research_page.slides_btn | default: "[Slides]" }}
-    </a>
-    {% endif %}
-
-    <!-- Code 代码按钮 -->
-    {% if include.paper.code and include.paper.code != "" %}
-    <a href="{{ include.paper.code }}" class="paper-link-button" target="_blank">
-      <i class="fab fa-github"></i> {{ include.t.research_page.code_btn | default: "[Code]" }}
-    </a>
-    {% endif %}
-
-    <!-- DOI 链接按钮 -->
-    {% if include.paper.doi and include.paper.doi != "" %}
-    <a href="{{ include.paper.doi }}" class="paper-link-button" target="_blank">
-      <i class="ai ai-doi"></i> {{ include.t.research_page.doi_btn | default: "[DOI]" }}
-    </a>
-    {% endif %}
-
   </div>
 </li>
