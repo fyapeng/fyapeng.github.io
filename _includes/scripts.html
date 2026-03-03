@@ -20,9 +20,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const email = user + "@" + domain;
         emailPlaceholder.innerHTML = `<a href="mailto:${email}">${email}</a>`;
     }
+
+    // 3. 自动处理论文区域的链接：新窗口打开
+    document.querySelectorAll('.paper-entry a').forEach(function(link) {
+        const href = link.getAttribute('href');
+        // 排除掉“javascript”开头的脚本链接（也就是摘要开关）
+        if (href && !href.startsWith('javascript') && !href.startsWith('#')) {
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+        }
+    });
 });
 
-// 3. 论文摘要切换函数 (放在外面确保全局可用)
+// 4. 论文摘要切换函数
 function toggleAbs(btn) {
     // 找到按钮父节点后的下一个兄弟节点 (即 .abs-content)
     var content = btn.parentElement.nextElementSibling;
@@ -31,13 +41,14 @@ function toggleAbs(btn) {
         const isHidden = content.style.display === "none";
         content.style.display = isHidden ? "block" : "none";
         
-        // 获取当前语言环境
+        // 获取当前 HTML 语言设置
         const isEn = document.documentElement.lang === 'en';
         
         if (isHidden) {
+            // 展开时
             btn.innerHTML = isEn ? "Close" : "收起摘要";
         } else {
-            // 这里恢复原本的按钮文字
+            // 折叠恢复时
             btn.innerHTML = isEn ? "Abstract" : "摘要";
         }
     }
