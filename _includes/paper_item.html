@@ -1,43 +1,42 @@
-<li class="paper-item">
-  <div class="paper-main-content">
-    <div class="paper-title">{{ include.paper.title }}</div>
-    
-    <div class="paper-authors">
+<li class="paper-item-compact">
+  <div class="paper-citation">
+    <span class="paper-authors">
       {{ include.paper.authors | replace: "付亚鹏", "<strong>付亚鹏</strong>" | replace: "Yapeng Fu", "<strong>Yapeng Fu</strong>" }}
-    </div>
+    </span>
     
-    <div class="paper-meta-row">
-      {% if include.paper.journal %}
-        <span class="paper-journal"><em>{{ include.paper.journal }}</em>, {{ include.paper.year }}</span>
+    <span class="paper-year">（{{ include.paper.year }}）</span>：
+    <span class="paper-title">{{ include.paper.title }}</span>，
+    
+    <span class="paper-journal"><em>{{ include.paper.journal }}</em></span>。
+
+    <div class="paper-links-minimal">
+      {% assign first_link = true %}
+
+      {% if include.paper.pdf and include.paper.pdf != "#" and include.paper.pdf != "" %}
+        <a href="{{ include.paper.pdf | relative_url }}" target="_blank">{{ include.t.research_page.pdf_btn | default: "Manuscript" }}</a>
+        {% assign first_link = false %}
       {% endif %}
 
-      <div class="paper-links-inline">
-        {% if include.paper.pdf and include.paper.pdf != "" %}
-        <a href="{{ include.paper.pdf | relative_url }}" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        {% endif %}
+      {% if include.paper.slides and include.paper.slides != "#" and include.paper.slides != "" %}
+        {% unless first_link %} <span class="divider">|</span> {% endunless %}
+        <a href="{{ include.paper.slides | relative_url }}" target="_blank">{{ include.t.research_page.slides_btn | default: "Slides" }}</a>
+        {% assign first_link = false %}
+      {% endif %}
 
-        {% if include.paper.slides and include.paper.slides != "" %}
-        <a href="{{ include.paper.slides | relative_url }}" target="_blank"><i class="fas fa-desktop"></i> Slides</a>
-        {% endif %}
+      {% if include.paper.code and include.paper.code != "#" and include.paper.code != "" %}
+        {% unless first_link %} <span class="divider">|</span> {% endunless %}
+        <a href="{{ include.paper.code }}" target="_blank">{{ include.t.research_page.code_btn | default: "Code" }}</a>
+        {% assign first_link = false %}
+      {% endif %}
 
-        {% if include.paper.code and include.paper.code != "" %}
-        <a href="{{ include.paper.code }}" target="_blank"><i class="fab fa-github"></i> Code</a>
-        {% endif %}
-
-        {% if include.paper.doi and include.paper.doi != "" %}
-        <a href="{{ include.paper.doi }}" target="_blank"><i class="ai ai-doi"></i> DOI</a>
-        {% endif %}
-
-        {% if include.paper.abstract %}
-        <a href="javascript:void(0)" class="abstract-toggle-btn" onclick="toggleAbstract(this)">
-          <i class="fas fa-notes-medical"></i> Abstract
-        </a>
-        {% endif %}
-      </div>
+      {% if include.paper.abstract %}
+        {% unless first_link %} <span class="divider">|</span> {% endunless %}
+        <a href="javascript:void(0)" class="abstract-toggle-btn" onclick="toggleAbstract(this)">{{ include.t.research_page.abstract_btn | default: "Abstract" }}</a>
+      {% endif %}
     </div>
 
     {% if include.paper.abstract %}
-    <div class="paper-abstract-collapsible" style="display: none;">
+    <div class="paper-abstract-simple" style="display: none;">
         {{ include.paper.abstract }}
     </div>
     {% endif %}
