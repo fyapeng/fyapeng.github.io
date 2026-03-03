@@ -1,44 +1,43 @@
-<li class="paper-item-compact">
-  <div class="paper-citation">
-    <span class="paper-authors">
+<li class="paper-entry">
+  <div class="citation-text">
+    <span class="authors">
       {{ include.paper.authors | replace: "付亚鹏", "<strong>付亚鹏</strong>" | replace: "Yapeng Fu", "<strong>Yapeng Fu</strong>" }}
     </span>
     
-    <span class="paper-year">（{{ include.paper.year }}）</span>：
-    <span class="paper-title">{{ include.paper.title }}</span>，
-    
-    <span class="paper-journal"><em>{{ include.paper.journal }}</em></span>。
+    <span class="year">（{{ include.paper.year }}）</span>：
+    <span class="title">“{{ include.paper.title }}”</span>，
+    <span class="journal"><em>{{ include.paper.journal }}</em></span>。
+  </div>
 
-    <div class="paper-links-minimal">
-      {% assign first_link = true %}
+  <div class="paper-actions">
+    {% assign has_links = false %}
 
-      {% if include.paper.pdf and include.paper.pdf != "#" and include.paper.pdf != "" %}
-        <a href="{{ include.paper.pdf | relative_url }}" target="_blank">{{ include.t.research_page.pdf_btn | default: "Manuscript" }}</a>
-        {% assign first_link = false %}
-      {% endif %}
+    {% if include.paper.pdf and include.paper.pdf != "#" and include.paper.pdf != "" %}
+      <a href="{{ include.paper.pdf | relative_url }}" target="_blank">{{ include.t.research_page.pdf_btn | default: "Manuscript" }}</a>
+      {% assign has_links = true %}
+    {% endif %}
 
-      {% if include.paper.slides and include.paper.slides != "#" and include.paper.slides != "" %}
-        {% unless first_link %} <span class="divider">|</span> {% endunless %}
-        <a href="{{ include.paper.slides | relative_url }}" target="_blank">{{ include.t.research_page.slides_btn | default: "Slides" }}</a>
-        {% assign first_link = false %}
-      {% endif %}
+    {% if include.paper.slides and include.paper.slides != "#" and include.paper.slides != "" %}
+      {% if has_links %}<span class="sep">|</span>{% endif %}
+      <a href="{{ include.paper.slides | relative_url }}" target="_blank">{{ include.t.research_page.slides_btn | default: "Slides" }}</a>
+      {% assign has_links = true %}
+    {% endif %}
 
-      {% if include.paper.code and include.paper.code != "#" and include.paper.code != "" %}
-        {% unless first_link %} <span class="divider">|</span> {% endunless %}
-        <a href="{{ include.paper.code }}" target="_blank">{{ include.t.research_page.code_btn | default: "Code" }}</a>
-        {% assign first_link = false %}
-      {% endif %}
+    {% if include.paper.code and include.paper.code != "#" and include.paper.code != "" %}
+      {% if has_links %}<span class="sep">|</span>{% endif %}
+      <a href="{{ include.paper.code }}" target="_blank">{{ include.t.research_page.code_btn | default: "Code" }}</a>
+      {% assign has_links = true %}
+    {% endif %}
 
-      {% if include.paper.abstract %}
-        {% unless first_link %} <span class="divider">|</span> {% endunless %}
-        <a href="javascript:void(0)" class="abstract-toggle-btn" onclick="toggleAbstract(this)">{{ include.t.research_page.abstract_btn | default: "Abstract" }}</a>
-      {% endif %}
-    </div>
-
-    {% if include.paper.abstract %}
-    <div class="paper-abstract-simple" style="display: none;">
-        {{ include.paper.abstract }}
-    </div>
+    {% if include.paper.abstract and include.paper.abstract != "" %}
+      {% if has_links %}<span class="sep">|</span>{% endif %}
+      <a href="javascript:void(0)" class="abs-trigger" onclick="toggleAbs(this)">{{ include.t.research_page.abstract_btn | default: "Abstract" }}</a>
     {% endif %}
   </div>
+
+  {% if include.paper.abstract %}
+  <div class="abs-content" style="display: none;">
+    {{ include.paper.abstract }}
+  </div>
+  {% endif %}
 </li>
