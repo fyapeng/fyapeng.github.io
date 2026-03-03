@@ -219,102 +219,61 @@ body {
 }
 
 /* ---------- 3.5 Research Page Styles (单独的研究列表页) ---------- */
-/* 容器调整：取消之前的左右布局，改为纵向流 */
-.paper-item {
-  display: block; /* 改为块级，不再分左右 */
-  padding: 1.5rem 0;
-  border-bottom: 1px solid #eee;
-  margin-bottom: 0;
-}
-
-.paper-title {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 4px;
-}
-
-/* 1. 作者链接基础样式：告别默认蓝 */
-.paper-authors a {
-  color: var(--primary-color); /* 初始颜色跟随正文，不突兀 */
-  text-decoration: none;
-  position: relative;
-  font-weight: 500;
-  padding: 0 2px;
-  transition: all 0.3s ease; /* 平滑过渡动画 */
-  border-bottom: 1px dashed var(--accent-color); /* 优雅的虚线下划线 */
-}
-
-/* 2. 鼠标悬停动画：轻微上浮 + 颜色变亮 */
-.paper-authors a:hover {
-  color: var(--accent-color);
-  background-color: rgba(0, 123, 255, 0.05); /* 淡淡的背景色呼吸感 */
-  transform: translateY(-2px); /* 向上轻微漂浮 2 像素 */
-  display: inline-block; /* 确保 transform 生效 */
-  border-bottom: 1px solid var(--accent-color); /* 虚线变实线 */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* 增加一点立体投影 */
-}
-
-/* 3. 给链接加一个微小的“外部跳转”图标暗示 (可选) */
-.paper-authors a::after {
-  content: "\f35d"; /* FontAwesome 的外部链接图标代码 */
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  font-size: 0.7rem;
-  margin-left: 3px;
-  vertical-align: super;
-  opacity: 0.6;
-}
-
-/* 合并期刊和链接的一行 */
-.paper-meta-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 15px; /* 期刊和链接组之间的间距 */
-  font-size: 0.9rem;
-}
-
-.paper-journal {
-  color: #7f8c8d;
-}
-
-/* 链接样式：改造成小标签或简洁文字 */
-.paper-links-inline {
-  display: flex;
-  gap: 12px;
-}
-
-.paper-links-inline a {
-  color: var(--accent-color);
-  text-decoration: none;
-  font-weight: 500;
-  transition: opacity 0.2s;
-}
-
-.paper-links-inline a:hover {
-  text-decoration: underline;
-  opacity: 0.8;
-}
-
-/* 展开后的摘要样式 */
-.paper-abstract-collapsible {
-  margin-top: 15px;
-  padding: 15px;
-  background-color: #f8f9fa;
-  border-left: 3px solid var(--accent-color);
-  font-size: 0.92rem;
+/* 容器整体紧凑化 */
+.paper-item-compact {
+  list-style: none;
+  margin-bottom: 2rem;
   line-height: 1.6;
-  color: #444;
-  border-radius: 0 4px 4px 0;
-  /* 动画效果 */
-  animation: slideIn 0.3s ease-out;
+  color: #333;
 }
 
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+/* 引用文本样式 */
+.paper-citation { font-size: 1.05rem; }
+.paper-authors strong { color: #000; font-weight: 600; }
+
+/* 重点：解决链接颜色问题 */
+.paper-citation a, 
+.paper-authors a {
+  color: #666 !important; /* 统一灰色，覆盖系统默认紫色/蓝色 */
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  border-bottom: 1px transparent;
 }
+
+/* 鼠标移动到附近的微动画 */
+.paper-citation a:hover {
+  color: #000 !important;
+  text-decoration: underline;
+  transform: translateY(-1px);
+  display: inline-block;
+}
+
+/* 链接组样式：Chetty 风格 */
+.paper-links-minimal {
+  margin-top: 6px;
+  font-size: 0.95rem;
+  color: #999;
+}
+
+.paper-links-minimal .divider {
+  margin: 0 8px;
+  color: #ddd;
+  user-select: none;
+}
+
+/* 极简摘要样式 */
+.paper-abstract-simple {
+  margin-top: 12px;
+  padding: 15px;
+  background-color: #fcfcfc;
+  border: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+  color: #555;
+  text-align: justify;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 /* 通用按钮样式 (如 View More) */
 .button-primary {
