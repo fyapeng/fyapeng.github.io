@@ -69,9 +69,9 @@ research_page:
   working_papers_title: "工作论文"
   publications_title: "已发表论文"
   # 按钮标签
-  abstract_btn: "[摘要]"
-  pdf_btn: "[PDF]"
-  slides_btn: "[幻灯片]"
+  abstract_btn: "摘要"
+  pdf_btn: "PDF"
+  slides_btn: "Slides"
   code_btn: "[代码/数据]"
   doi_btn: "[DOI]"
 
