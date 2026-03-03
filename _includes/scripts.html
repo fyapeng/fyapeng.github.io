@@ -1,6 +1,6 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Smooth scroll for anchor links
+    // 1. 平滑滚动
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -12,28 +12,34 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Email protection
+    // 2. 邮箱保护
     const emailPlaceholder = document.getElementById('email-placeholder');
     if (emailPlaceholder) {
-        // This is a simple way to hide email from basic bots
         const user = "{{ site.email | split: '@' | first }}";
         const domain = "{{ site.email | split: '@' | last }}";
         const email = user + "@" + domain;
         emailPlaceholder.innerHTML = `<a href="mailto:${email}">${email}</a>`;
     }
-
-    // Abstract toggle for research page
-    document.querySelectorAll('.toggle-abstract').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const abstractDiv = this.closest('.paper-item').querySelector('.paper-abstract');
-            if (abstractDiv) {
-                const isHidden = abstractDiv.style.display === 'none' || abstractDiv.style.display === '';
-                abstractDiv.style.display = isHidden ? 'block' : 'none';
-                // Optional: Change button text
-                // this.textContent = isHidden ? '[Hide Abstract]' : '[Show Abstract]';
-            }
-        });
-    });
 });
+
+// 3. 论文摘要切换函数 (放在外面确保全局可用)
+function toggleAbs(btn) {
+    // 找到按钮父节点后的下一个兄弟节点 (即 .abs-content)
+    var content = btn.parentElement.nextElementSibling;
+    
+    if (content && content.classList.contains('abs-content')) {
+        const isHidden = content.style.display === "none";
+        content.style.display = isHidden ? "block" : "none";
+        
+        // 获取当前语言环境
+        const isEn = document.documentElement.lang === 'en';
+        
+        if (isHidden) {
+            btn.innerHTML = isEn ? "[Close]" : "[收起摘要]";
+        } else {
+            // 这里恢复原本的按钮文字
+            btn.innerHTML = isEn ? "[Abstract]" : "[摘要]";
+        }
+    }
+}
 </script>
