@@ -375,3 +375,82 @@ body {
   .site-nav { width: 100%; display: flex; justify-content: space-around; }
   .site-nav .page-link { margin: 0; }
 }
+
+/* =============================================================================
+   Research Page Final Fix (强制覆盖版)
+   ========================================================================== */
+
+/* 1. 增加板块之间的间距 */
+.subsection-title {
+  margin-top: 5rem !important; /* 强制拉开“已发表”和“工作论文”的距离 */
+  margin-bottom: 1.5rem !important;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  color: #222 !important;
+  border-bottom: 1px solid #eee !important;
+  padding-bottom: 8px !important;
+  clear: both;
+}
+
+/* 顶部第一个标题不需要额外的间距 */
+.page-content .subsection-title:first-of-type {
+  margin-top: 1rem !important;
+}
+
+/* 2. 论文条目容器间距 */
+.paper-entry {
+  margin-bottom: 2.2rem !important;
+  list-style: none !important;
+  line-height: 1.7 !important;
+}
+
+/* 3. 彻底干掉所有蓝色/紫色链接 (Nuclear Option) */
+/* 包含作者名字链接、摘要、PDF等所有状态 */
+.paper-entry a, 
+.paper-entry a:link, 
+.paper-entry a:visited, 
+.paper-entry a font,
+.authors a,
+.authors a:visited,
+.authors a strong {
+  color: #666 !important; /* 强制统一灰色 */
+  text-decoration: none !important;
+  background: transparent !important;
+  transition: color 0.2s ease !important;
+  border: none !important;
+}
+
+/* 鼠标悬停：变黑并出现下划线 */
+.paper-entry a:hover,
+.authors a:hover {
+  color: #000 !important;
+  text-decoration: underline !important;
+}
+
+/* 4. 标题样式 */
+.paper-title-bold strong {
+  color: #000 !important; /* 标题颜色深一些 */
+  font-weight: 700 !important;
+}
+
+/* 5. 下方链接区域 */
+.paper-actions {
+  margin-top: 6px !important;
+  font-size: 0.92rem !important;
+}
+
+.paper-actions .sep {
+  margin: 0 8px !important;
+  color: #ddd !important;
+}
+
+/* 6. 摘要层样式 */
+.abs-content {
+  margin-top: 12px !important;
+  padding: 15px 20px !important;
+  background-color: #f9f9f9 !important;
+  border-left: 3px solid #eee !important;
+  font-size: 0.92rem !important;
+  color: #555 !important;
+  text-align: justify !important;
+}
