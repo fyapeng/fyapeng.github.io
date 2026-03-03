@@ -29,3 +29,21 @@
 
   </div>
 </div>
+<script>
+function toggleAbs(btn) {
+  // 精准定位：找到按钮父节点后的下一个兄弟节点（即 abs-content）
+  var content = btn.parentElement.nextElementSibling;
+  
+  if (content && content.classList.contains('abs-content')) {
+    if (content.style.display === "none") {
+      content.style.display = "block";
+      // 动态切换文字：如果是中文环境显示“收起”，否则显示“Close”
+      btn.innerHTML = (document.documentElement.lang === 'zh') ? "收起摘要" : "Close";
+    } else {
+      content.style.display = "none";
+      // 恢复原本的文字（由 YML 语言包定义）
+      btn.innerHTML = (document.documentElement.lang === 'zh') ? "摘要" : "Abstract";
+    }
+  }
+}
+</script>
