@@ -218,9 +218,26 @@ body {
   text-align: justify; /* 两端对齐 */
 }
 
-/* ---------- 3.5 Research Page Styles (极简学术引用风格) ---------- */
+/* ---------- 3.5 Research Page Styles (最终强力修正版) ---------- */
 
-/* 列表容器 */
+/* 1. 章节标题间距：增加已发表和工作论文之间的呼吸感 */
+.subsection-title {
+  margin-top: 4.5rem !important; /* 显著增加上方间距 */
+  margin-bottom: 1.5rem !important;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+/* 第一个标题不需要多余间距 */
+.page-content h2:first-of-type,
+.page-content .subsection-title:first-child {
+  margin-top: 0 !important;
+}
+
+/* 2. 论文列表容器 */
 .paper-list {
   list-style: none;
   padding: 0;
@@ -228,67 +245,67 @@ body {
 }
 
 .paper-entry {
-  margin-bottom: 2rem;
+  margin-bottom: 2.2rem;
   line-height: 1.7;
-  color: #333;
 }
 
-/* 引用文本样式 */
+/* 3. 彻底干掉顽固的蓝色/紫色链接 */
+/* 通过多种状态组合 + !important 强制覆盖 YML 注入的 HTML 标签样式 */
+.paper-entry a, 
+.paper-entry a:link, 
+.paper-entry a:visited, 
+.paper-entry a font,
+.authors a,
+.authors a:visited {
+  color: #666 !important; /* 强制统一为灰色 */
+  text-decoration: none !important;
+  transition: color 0.2s ease;
+  background: transparent !important;
+}
+
+/* 鼠标悬停时变黑并出现下划线 */
+.paper-entry a:hover,
+.authors a:hover {
+  color: #000 !important;
+  text-decoration: underline !important;
+}
+
+/* 4. 正文样式 */
 .citation-text {
   font-size: 1.05rem;
   color: #333;
 }
 
-/* 作者样式：加粗自己，并处理其他作者的链接 */
-.authors strong { 
-  color: #000; 
-  font-weight: 600; 
+.citation-text strong {
+  color: #000;
 }
 
-/* 核心颜色控制：彻底解决紫色、蓝色链接问题 */
-.paper-entry a, 
-.paper-entry a:link,
-.paper-entry a:visited,
-.paper-entry a:active {
-  color: #777 !important; /* 统一灰色，强制覆盖 YML 里的 inline 链接 */
-  text-decoration: none !important;
-  transition: all 0.2s ease;
-  border-bottom: none !important;
-}
-
-/* 鼠标悬停动画：变黑并显示下划线 */
-.paper-entry a:hover {
-  color: #000 !important;
-  text-decoration: underline !important;
-}
-
-/* 下方功能链接区域 (Manuscript | Slides 等) */
 .paper-actions {
   margin-top: 6px;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
 }
 
 .paper-actions .sep {
   margin: 0 8px;
-  color: #ddd; /* 竖线分隔符颜色 */
+  color: #ddd; /* 竖线颜色 */
   user-select: none;
 }
 
-/* 摘要展示层 */
+/* 5. 摘要展示区域 */
 .abs-content {
   margin-top: 12px;
-  padding: 15px;
+  padding: 15px 20px;
   background-color: #f9f9f9;
-  border-left: 2px solid #eee;
+  border-left: 3px solid #eee;
   font-size: 0.92rem;
   color: #555;
   text-align: justify;
   animation: fadeIn 0.3s ease;
 }
 
-@keyframes fadeIn { 
-  from { opacity: 0; transform: translateY(-5px); } 
-  to { opacity: 1; transform: translateY(0); } 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* 通用按钮 (如有保留需要) */
