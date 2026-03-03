@@ -32,6 +32,11 @@
       {% if has_links %}<span class="sep">|</span>{% endif %}
       <a href="javascript:void(0)" class="abs-trigger" onclick="toggleAbs(this)">{{ include.t.research_page.abstract_btn | default: "Abstract" }}</a>
     {% endif %}
+
+    {% if include.paper.doi %}
+      <span class="sep">|</span>
+      <a href="{{ include.paper.doi }}" target="_blank">DOI</a>
+    {% endif %}
   </div>
 
   {% if include.paper.abstract %}
