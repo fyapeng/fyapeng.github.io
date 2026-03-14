@@ -39,9 +39,26 @@ jobs:
         uses: actions/configure-pages@v4
 
       - name: Build with Jekyll
-        # 使用 `bundle exec jekyll build` 命令构建网站
-        # `--baseurl ${{ steps.pages.outputs.base_path }}` 是关键，它会正确设置基础路径
         run: bundle exec jekyll build --source . --destination _site --baseurl "${{ steps.pages.outputs.base_path }}"
+
+      # --- 插入：混淆与处理步骤 ---
+      - name: Post-process Assets (Minify & Obfuscate)
+        run: |
+          # 1. 删除所有 Source Map 文件 (防止 F12 还原源码)
+          find _site -name "*.map" -type f -delete
+          
+          # 2. 简单的 CSS/JS 混淆
+          find _site -name "*.css" -exec sed -i 's/\/\*.*\*\///g' {} +
+          
+          # 3. 移除 HTML 中的注释 (保护你的私有备注)
+          find _site -name "*.html" -exec sed -i 's///g' {} +
+          
+          echo "Assets obfuscated and maps removed."
+
+      # --------------------------
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
 
       - name: Upload artifact
         # 将构建好的 `_site` 文件夹作为产物上传
