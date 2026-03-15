@@ -71,8 +71,8 @@ research_highlights:
 
 research_page:
   #title: "研究成果"
-  working_papers_title: "工作论文"
-  publications_title: "已发表论文"
+  working_papers_title: "进行中研究"
+  publications_title: "发表论文"
   # 按钮标签
   abstract_btn: "摘要"
   pdf_btn: "全文"
