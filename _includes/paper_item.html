@@ -34,6 +34,12 @@
       {% assign has_links = true %}
     {% endif %}
 
+    {% if include.paper.media and include.paper.media != "#" and include.paper.media != "" %}
+      {% if has_links %}<span class="sep">|</span>{% endif %}
+      <a href="{{ include.paper.media }}" target="_blank">{{ include.t.research_page.media_btn | default: "Media" }}</a>
+      {% assign has_links = true %}
+    {% endif %}
+
     {% if include.paper.abstract and include.paper.abstract != "" %}
       {% if has_links %}<span class="sep">|</span>{% endif %}
       <a href="javascript:void(0)" class="abs-trigger" onclick="toggleAbs(this)">{{ include.t.research_page.abstract_btn | default: "Abstract" }}</a>
