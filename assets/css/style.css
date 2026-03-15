@@ -27,9 +27,8 @@ body {
 
 .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
 .section-title, .section-title-left, h1, h2, h3 {
-  font-family: "Comic Sans MS", "Comic Sans", cursive, var(--font-family-sans-serif);
-  font-weight: 600;
-  color: var(--primary-color);
+  font-family: "Comic Sans MS", "Comic Sans", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  font-weight: 700;
 }
 .section-title { font-size: 2.5rem; font-weight: 600; color: var(--primary-color); margin-bottom: 40px; text-align: center; }
 .section-title-left { text-align: left; font-size: 2.2rem; margin-bottom: 20px; }
