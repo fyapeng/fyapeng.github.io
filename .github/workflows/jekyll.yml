@@ -60,6 +60,19 @@ jobs:
           
           echo "Advanced processing finished."
 
+      # --- 插入：自动化压缩图片 ---
+      - name: Compress Images
+        uses: calibreapp/image-actions@main
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          # 告诉插件处理编译后的 _site 目录下的图片
+          imageRoot: _site
+          # 压缩等级 (0-100)，80 可以在肉眼看不出区别的情况下极大减小体积
+          jpegQuality: "80"
+          pngquantQuality: "60-80"
+          webpQuality: "80"
+          onlyChanged: false
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
