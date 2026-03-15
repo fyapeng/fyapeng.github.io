@@ -71,7 +71,7 @@ research_highlights:
 
 research_page:
   #title: "Research"
-  working_papers_title: "Working Papers"
+  working_papers_title: "Work in Progress"
   publications_title: "Publications"
   # Button labels
   abstract_btn: "Abstract"
