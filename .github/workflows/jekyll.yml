@@ -43,29 +43,13 @@ jobs:
       - name: Build with Jekyll
         run: bundle exec jekyll build --source . --destination _site --baseurl "${{ steps.pages.outputs.base_path }}"
 
-      # --- 插入：使用专业工具处理资源 ---
       - name: Advanced Post-processing
         run: |
-          # 安装压缩工具（html-minifier 用于处理 HTML，cleancss 用于处理 CSS）
           npm install -g html-minifier-terser clean-css-cli
-          
-          # 1. 删除所有 Source Map
           find _site -name "*.map" -type f -delete
-          
-          # 2. 批量处理 HTML（压缩、删除注释、删除冗余属性）
           find _site -name "*.html" -exec html-minifier-terser --collapse-whitespace --remove-comments --minify-js true --minify-css true -o {} {} \;
-          
-          # 3. 批量处理 CSS（深度压缩）
           find _site -name "*.css" -exec cleancss -o {} {} \;
-          
           echo "Advanced processing finished."
-
-      # --- 插入：自动化压缩图片 ---
-      - name: Compress Images
-        uses: focalpoint/image-optim-action@v1
-        with:
-          # 处理编译后的 _site 目录
-          image_root: _site
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
