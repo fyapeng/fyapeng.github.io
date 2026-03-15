@@ -79,6 +79,7 @@ research_page:
   slides_btn: "Slides"
   code_btn: "Code/Data"
   doi_btn: "DOI"
+  media_btn: "Media"
 
 footer:
   copyright: "© 2024-2026 Ya-Peng Fu. All Rights Reserved."
