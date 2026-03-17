@@ -12,6 +12,10 @@
       <a class="page-link {% if page.url == '/research.html' or page.url == '/en/research.html' %}active{% endif %}" 
          href="{{ t.nav.research_url | default: '/research.html' | relative_url }}">{{ t.nav.research }}</a>
 
+      <!-- 简历链接 (新增)：判断当前URL是否为简历页面 -->
+      <a class="page-link {% if page.url == '/cv.html' or page.url == '/en/cv.html' %}active{% endif %}" 
+         href="{{ t.nav.cv_url | default: '/cv.html' | relative_url }}">{{ t.nav.cv }}</a>
+
       <!-- 资源链接 (外部链接，通常不设为active) -->
       <a class="page-link" 
          href="{{ t.nav.resources_url }}" target="_blank" rel="noopener noreferrer">{{ t.nav.resources }}</a>
