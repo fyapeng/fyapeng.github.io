@@ -407,6 +407,96 @@ h1, h2, h3, h4, h5, h6 {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* =============================================================================
+   CV Page Styles (Data-Driven Markdown Version)
+   ========================================================================== */
+.cv-container {
+  max-width: 800px; /* 窄屏阅读体验更好 */
+  margin: 0 auto;
+}
+
+.cv-header-actions {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 1rem; margin-bottom: 2.5rem;
+}
+
+.cv-page-title {
+  font-size: 2.25rem; margin: 0; color: var(--primary-color);
+}
+
+.download-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background-color: var(--card-bg-color); color: var(--primary-color);
+  border: 1px solid var(--border-color); padding: 0.6rem 1.2rem;
+  border-radius: 6px; font-size: 0.95rem; font-weight: 500; text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.download-btn:hover {
+  background-color: var(--primary-color); color: #fff;
+}
+
+.cv-section { margin-bottom: 3rem; }
+
+.cv-section-title {
+  font-size: 1.25rem; color: var(--primary-color); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.4rem; margin-bottom: 1.5rem;
+}
+
+/* 教育背景结构化排版 (左侧文字，右侧日期/地点) */
+.cv-item { margin-bottom: 1.5rem; }
+.cv-item-header {
+  display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.2rem;
+}
+.cv-item-title { font-size: 1.15rem; font-weight: 600; color: var(--primary-color); margin: 0; }
+.cv-item-date { font-size: 0.95rem; color: var(--secondary-color); font-weight: 500; }
+
+.cv-item-sub-layout {
+  display: flex; justify-content: space-between;
+}
+.cv-item-subtitle { font-size: 1.05rem; font-style: italic; color: var(--secondary-color); }
+.cv-item-location { font-size: 1rem; color: var(--secondary-color); }
+
+/* Markdown 渲染内容的精修排版 */
+.cv-markdown-content {
+  font-size: 1.05rem;
+  color: var(--secondary-color);
+  line-height: 1.8;
+}
+
+.cv-markdown-content p {
+  margin-bottom: 1rem;
+}
+
+/* 论文和奖项的圆点列表 */
+.cv-markdown-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.cv-markdown-content li {
+  margin-bottom: 0.6rem;
+  text-align: justify;
+}
+
+/* Markdown中加粗字体颜色更深 */
+.cv-markdown-content strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* 移动端适配 */
+@media (max-width: 600px) {
+  .cv-header-actions { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .cv-item-header, .cv-item-sub-layout { flex-direction: column; align-items: flex-start; }
+  .cv-item-date, .cv-item-location { font-size: 0.9rem; margin-top: 0.2rem; }
+}
+
+
 /* -------------------- 9. Footer -------------------- */
 .site-footer { 
   border-top: 1px solid var(--border-color); 
