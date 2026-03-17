@@ -26,7 +26,7 @@ zh:
         ### 工作论文
         - **付亚鹏**、付明卫&#42; (2025)：为“标准”付费：医保支付方式改革与供给方诱导需求。
 
-        *(注: &#42; 表示 通讯作者)*
+        <span class="cv-footnote">&#42; 表示 通讯作者</span>
 
     - type: "markdown"
       title: "教学经历"
@@ -79,7 +79,7 @@ en:
         ### Working Papers
         - **Ya-Peng Fu**, Mingwei Fu&#42; (2025): "Persuasive Upcoding: Reform of Medical Insurance Payment and Supplier-Induced Demand".
 
-        *(Note: &#42; indicates corresponding author)*
+        <span class="cv-footnote">&#42; indicates corresponding author.</span>
 
     - type: "markdown"
       title: "Teaching Experience"
