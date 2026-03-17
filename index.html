@@ -98,29 +98,4 @@
   </section>
   
 {% include game.html %}
-  <!-- 动态加载简历脚本 -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    // 1. 读取 profile.json
-    fetch('/profile.json?t=' + new Date().getTime()) // 加个时间戳防止json本身被缓存
-        .then(response => response.json())
-        .then(data => {
-            // 获取所有带有 'cv-dynamic-link' 类的标签 (包括侧边栏和正文里的)
-            const cvLinks = document.querySelectorAll('.cv-dynamic-link');
-            
-            // 2. 拼接带版本号的链接 (防PDF缓存)
-            // 如果是 index.html (中文页)，我们用 data.cv_zh
-            const finalLink = data.cv_zh + "?v=" + data.version;
-
-            // 3. 批量替换
-            cvLinks.forEach(link => {
-                link.href = finalLink;
-            });
-            
-            console.log("简历已更新为中文版:", finalLink);
-        })
-        .catch(error => console.error('简历加载失败:', error));
-});
-</script>
-
 </div>
