@@ -2,7 +2,7 @@
 # 中文简历数据
 # ==========================================
 zh:
-  pdf_url: "/assets/cv/Ya_Peng_Fu_CV_zh.pdf" # 你的中文PDF路径
+  pdf_url: "/assets/cv/cv_zh.pdf" # 你的中文PDF路径
   sections:
     # 1. 教育经历 (结构化数据，为了左右对齐排版)
     - type: "education"
@@ -59,7 +59,7 @@ zh:
 # English CV Data
 # ==========================================
 en:
-  pdf_url: "/assets/cv/Ya_Peng_Fu_CV_en.pdf" # 你的英文PDF路径
+  pdf_url: "/assets/cv/cv_en.pdf" # 你的英文PDF路径
   sections:
     - type: "education"
       title: "Education"
