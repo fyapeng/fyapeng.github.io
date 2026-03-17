@@ -1,182 +1,274 @@
 /* =============================================================================
-   Final Consolidated Stylesheet for fyapeng.com
-   Version: 3.0 (Updated for Research Highlights Grid)
+   Professional & Modern Stylesheet for fyapeng.com
+   Version: 4.0 (Modernized & Cleaned)
    ========================================================================== */
+
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); */
+/* 建议在HTML的<head>中引入Inter字体，如果没有引入，系统会自动降级使用系统无衬线字体 */
 
 /* -------------------- 1. CSS Variables & Global Resets -------------------- */
 :root {
-  --primary-color: #212529;
-  --secondary-color: #495057;
-  --accent-color: #007bff;     /* 链接和图标的主色调 */
-  --highlight-title-color: #c0392b; /* 研究成果标题的深红色 */
+  /* 现代高级色彩系统 */
+  --primary-color: #1f2937;       /* 深灰底色，比纯黑更护眼，用于主标题 */
+  --secondary-color: #4b5563;     /* 中性灰，用于正文和次要信息 */
+  --accent-color: #2563eb;        /* 现代质感的专业蓝，用于链接和强调 */
+  --accent-hover: #1d4ed8;        /* 悬停时的深蓝色 */
+  --highlight-title-color: #991b1b; /* 优雅的深宝石红 */
+  
   --bg-color: #ffffff;
-  --card-bg-color: #f8f9fa;
-  --border-color: #dee2e6;
-  --font-family-sans-serif: 'Poppins', 'Noto Sans SC', sans-serif;
+  --card-bg-color: #f9fafb;       /* 极浅的灰白色，作为卡片底色 */
+  --border-color: #e5e7eb;
+  
+  /* 现代字体栈 */
+  --font-family-sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+  
+  /* 阴影系统 */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+html { 
+  scroll-behavior: smooth; 
+  font-size: 16px; 
+}
+
 body {
   font-family: var(--font-family-sans-serif);
-  line-height: 1.7;
-  color: var(--primary-color);
+  line-height: 1.75;
+  color: var(--secondary-color);
   background-color: var(--bg-color);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-.section-title, .section-title-left, h1, h2, h3 {
-  font-family: "Comic Neue","Comic Sans MS", "Comic Sans", "Noto Sans SC", "Microsoft YaHei", sans-serif;
-  font-weight: 700;
+.container { 
+  max-width: 1000px; 
+  margin: 0 auto; 
+  padding: 0 24px; 
 }
-.section-title { font-size: 2.5rem; font-weight: 600; color: var(--primary-color); margin-bottom: 40px; text-align: center; }
-.section-title-left { text-align: left; font-size: 2.2rem; margin-bottom: 20px; }
-.content-section { margin-bottom: 60px; }
 
+/* -------------------- 2. Typography -------------------- */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color);
+  font-weight: 600;
+  line-height: 1.3;
+}
 
-/* -------------------- 2. Header / Navigation -------------------- */
+.section-title { 
+  font-size: 2.25rem; 
+  font-weight: 700; 
+  margin-bottom: 3rem; 
+  text-align: center; 
+  letter-spacing: -0.025em;
+}
+
+.section-title-left { 
+  text-align: left; 
+  font-size: 2rem; 
+  margin-bottom: 1.5rem; 
+  letter-spacing: -0.025em;
+}
+
+.content-section { margin-bottom: 5rem; }
+
+/* -------------------- 3. Header / Navigation -------------------- */
 .site-header {
+  position: sticky; 
+  top: 0;
+  padding: 1rem 0;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
-  padding: 15px 0;
-  position: sticky; top: 0;
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
   z-index: 1000;
+  transition: all 0.3s ease;
 }
-.header-container { display: flex; justify-content: space-between; align-items: center; }
-.site-title { font-size: 1.25rem; font-weight: 600; color: var(--primary-color); text-decoration: none; }
+
+.header-container { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+}
+
+.site-title { 
+  font-size: 1.25rem; 
+  font-weight: 700; 
+  color: var(--primary-color); 
+  text-decoration: none; 
+  letter-spacing: -0.01em;
+}
+
 .site-nav .page-link {
   color: var(--secondary-color);
   text-decoration: none;
-  margin-left: 25px;
-  transition: color 0.2s;
-  font-size: 1rem;
+  margin-left: 2rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
-.site-nav .page-link:hover { color: var(--accent-color); }
-/* 当前激活页面的高亮样式 */
+
+.site-nav .page-link:hover { 
+  color: var(--accent-color); 
+}
+
 .site-nav .page-link.active {
-  background-color: var(--card-bg-color);
-  color: var(--primary-color);
+  color: var(--accent-color);
   font-weight: 600;
-  border-radius: 5px;
-  padding: 5px 12px;
+  position: relative;
 }
 
+/* 导航底部的极简小横条 */
+.site-nav .page-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent-color);
+  border-radius: 2px;
+}
 
-/* -------------------- 3. Main Content Sections -------------------- */
-.page-content { padding: 60px 0; }
+/* -------------------- 4. Main Content: About Section -------------------- */
+.page-content { padding: 4rem 0; }
 
-/* ---------- 3.1 About Section (个人简介) ---------- */
-.about-section { display: flex; gap: 40px; align-items: flex-start; }
+.about-section { 
+  display: flex; 
+  gap: 3rem; 
+  align-items: flex-start; 
+}
+
 .profile-sidebar {
   flex: 0 0 300px;
   text-align: center;
-  padding: 25px;
+  padding: 2rem;
   border: 1px solid var(--border-color);
-  border-radius: 8px;
-  background-color: var(--card-bg-color);
+  border-radius: 12px;
+  background-color: var(--bg-color);
+  box-shadow: var(--shadow-sm);
 }
-.profile-pic { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; border: 4px solid var(--bg-color); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-.profile-sidebar h2 { margin-bottom: 5px; font-size: 1.6rem; }
-.profile-sidebar p { color: var(--secondary-color); margin-bottom: 25px; }
+
+.profile-pic { 
+  width: 160px; 
+  height: 160px; 
+  border-radius: 50%; 
+  object-fit: cover; 
+  margin-bottom: 1.5rem; 
+  box-shadow: var(--shadow-md); 
+}
+
+.profile-sidebar h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.profile-sidebar p { color: var(--secondary-color); margin-bottom: 1.5rem; font-size: 0.95rem; }
 
 .contact-info { list-style: none; text-align: left; font-size: 0.95rem; }
-.contact-info li { margin-bottom: 12px; display: flex; align-items: center; }
-.contact-info i { margin-right: 12px; color: var(--accent-color); width: 20px; text-align: center; font-size: 1.1rem; }
-.contact-info a { color: var(--primary-color); text-decoration: none; }
-.contact-info a:hover { text-decoration: underline; }
+.contact-info li { margin-bottom: 0.75rem; display: flex; align-items: center; }
+.contact-info i { margin-right: 0.75rem; color: var(--accent-color); width: 20px; text-align: center; }
+.contact-info a { color: var(--secondary-color); text-decoration: none; transition: color 0.2s; }
+.contact-info a:hover { color: var(--accent-color); }
 
 .about-content { flex: 1; }
-.about-grid { display: flex; gap: 30px; align-items: flex-start; }
-.about-photo-container { flex: 0 0 220px; margin-top: 5px; }
-.about-image { max-width: 100%; border-radius: 8px; }
-.prose { flex: 1; font-size: 1.05rem; color: var(--secondary-color); }
-.prose p { margin-bottom: 1.2em; }
+.about-grid { display: flex; gap: 2rem; align-items: flex-start; }
+.about-photo-container { flex: 0 0 220px; }
+.about-image { max-width: 100%; border-radius: 12px; box-shadow: var(--shadow-sm); }
+
+.prose { flex: 1; font-size: 1.05rem; }
+.prose p { margin-bottom: 1.5rem; text-align: justify; }
 .prose strong { color: var(--primary-color); font-weight: 600; }
 .prose a { color: var(--accent-color); text-decoration: none; font-weight: 500; }
+.prose a:hover { text-decoration: underline; }
 
+/* -------------------- 5. Education Section -------------------- */
+.education-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
 
-/* ---------- 3.2 Education Section (教育背景) ---------- */
-.education-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
 .education-item {
-  background-color: var(--card-bg-color);
+  background-color: var(--bg-color);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 20px 25px;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
   display: flex;
   align-items: flex-start;
-  gap: 30px;
+  gap: 2rem;
+  transition: box-shadow 0.3s ease;
 }
+
+.education-item:hover {
+  box-shadow: var(--shadow-sm);
+}
+
 .education-duration {
-  flex: 0 0 180px;
-  font-weight: 500;
-  color: var(--secondary-color);
-  text-align: right;
-  padding-top: 3px;
-  font-size: 0.95rem;
+  flex: 0 0 160px;
+  font-weight: 600;
+  color: var(--accent-color);
+  font-size: 0.9rem;
+  padding-top: 4px;
 }
+
 .education-details { flex: 1; }
-.education-degree { font-size: 1.15rem; font-weight: 600; margin-bottom: 4px; }
+.education-degree { font-size: 1.15rem; font-weight: 600; color: var(--primary-color); margin-bottom: 0.25rem; }
 .education-institution { color: var(--secondary-color); font-size: 1rem; }
 
-
-/* ---------- 3.3 Research Interests (研究兴趣) ---------- */
+/* -------------------- 6. Research Interests -------------------- */
 .interests-container { max-width: 800px; margin: 0 auto; text-align: center; }
 .interest-list {
-  list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 15px; margin-bottom: 25px;
+  list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-bottom: 2rem;
 }
 .interest-list li {
   background-color: var(--card-bg-color);
   border: 1px solid var(--border-color);
-  padding: 5px 15px;
-  border-radius: 20px;
-  font-size: 0.95rem;
-  color: var(--secondary-color);
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px; /* 药丸形状 */
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--primary-color);
+  transition: all 0.2s ease;
 }
-.interest-description { font-size: 1.05rem; line-height: 1.8; color: var(--secondary-color); text-align: left; }
+.interest-list li:hover {
+  background-color: var(--border-color);
+}
+.interest-description { font-size: 1.05rem; text-align: justify; }
 
-
-/* ---------- 3.4 Research Highlights (双列 Flex 瀑布流) ---------- */
-
-/* 1. 大容器：左右排列 */
+/* -------------------- 7. Research Highlights (瀑布流卡片) -------------------- */
 .highlights-grid {
-  display: flex;       /* 启用 Flex 布局 */
-  gap: 30px;           /* 左右两列之间的间距 */
-  align-items: flex-start; /* 顶部对齐 */
-  margin-top: 30px;
-}
-
-/* 2. 列容器：每一列内部是垂直排列 */
-.highlight-column {
-  flex: 1;             /* 左右两列平分宽度 (50% : 50%) */
   display: flex;
-  flex-direction: column; /* 内部从上到下排 */
-  gap: 30px;           /* 上下卡片之间的间距 */
+  gap: 2rem;
+  align-items: flex-start;
+  margin-top: 2rem;
 }
 
-/* 3. 单个卡片样式 (保持之前的卡片风格) */
+.highlight-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .highlight-item {
   width: 100%;
-  background-color: #fff;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: center;
 }
 
 .highlight-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
 }
 
-/* 4. 标题、图片、文字样式 (保持不变) */
 .highlight-title {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 15px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
   line-height: 1.4;
   text-align: left;
 }
@@ -190,9 +282,10 @@ body {
 
 .highlight-img-container {
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 1.25rem;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 8px;
+  background-color: var(--card-bg-color); /* 图片加载前的占位底色 */
 }
 
 .highlight-img-container a { display: block; cursor: pointer; }
@@ -201,47 +294,37 @@ body {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 4px;
-  transition: transform 0.3s ease;
+  border-radius: 8px;
+  transition: transform 0.5s ease;
 }
 
-.highlight-img-container a:hover img { transform: scale(1.02); }
+.highlight-img-container a:hover img { transform: scale(1.03); }
 
 .highlight-desc {
   font-size: 0.95rem;
-  color: #555;
-  line-height: 1.6;
+  color: var(--secondary-color);
   text-align: justify;
 }
 
-/* 5. 描述文字 */
-.highlight-desc {
-  font-size: 0.95rem;
-  color: #555;
-  line-height: 1.6;
-  text-align: justify; /* 两端对齐 */
-}
+/* -------------------- 8. Research / Publications Page -------------------- */
 
-/* ---------- 3.5 Research Page Styles (最终强力修正版) ---------- */
-
-/* 1. 章节标题间距：增加已发表和工作论文之间的呼吸感 */
+/* 优化板块标题间距 */
 .subsection-title {
-  margin-top: 4.5rem !important; /* 显著增加上方间距 */
-  margin-bottom: 1.5rem !important;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--primary-color);
-  border-bottom: 1px solid #eee;
-  padding-bottom: 8px;
+  margin-top: 4rem !important; 
+  margin-bottom: 2rem !important;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  color: var(--primary-color) !important;
+  border-bottom: 2px solid var(--border-color) !important;
+  padding-bottom: 0.5rem !important;
+  clear: both;
 }
 
-/* 第一个标题不需要多余间距 */
-.page-content h2:first-of-type,
-.page-content .subsection-title:first-child {
+.page-content .subsection-title:first-of-type {
   margin-top: 0 !important;
 }
 
-/* 2. 论文列表容器 */
+/* 论文条目容器 */
 .paper-list {
   list-style: none;
   padding: 0;
@@ -249,167 +332,12 @@ body {
 }
 
 .paper-entry {
-  margin-bottom: 2.2rem;
-  line-height: 1.7;
-}
-
-/* 3. 彻底干掉顽固的蓝色/紫色链接 */
-/* 通过多种状态组合 + !important 强制覆盖 YML 注入的 HTML 标签样式 */
-.paper-entry a, 
-.paper-entry a:link, 
-.paper-entry a:visited, 
-.paper-entry a font,
-.authors a,
-.authors a:visited {
-  color: #666 !important; /* 强制统一为灰色 */
-  text-decoration: none !important;
-  transition: color 0.2s ease;
-  background: transparent !important;
-}
-
-/* 鼠标悬停时变黑并出现下划线 */
-.paper-entry a:hover,
-.authors a:hover {
-  color: #000 !important;
-  text-decoration: underline !important;
-}
-
-/* 4. 正文样式 */
-.citation-text {
-  font-size: 1.05rem;
-  color: #333;
-}
-
-.citation-text strong {
-  color: #000;
-}
-
-.paper-actions {
-  margin-top: 6px;
-  font-size: 0.92rem;
-}
-
-.paper-actions .sep {
-  margin: 0 8px;
-  color: #ddd; /* 竖线颜色 */
-  user-select: none;
-}
-
-/* 5. 摘要展示区域 */
-.abs-content {
-  margin-top: 12px;
-  padding: 15px 20px;
-  background-color: #f9f9f9;
-  border-left: 3px solid #eee;
-  font-size: 0.92rem;
-  color: #555;
-  text-align: justify;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* 通用按钮 (如有保留需要) */
-.button-primary {
-  display: inline-block;
-  background-color: var(--accent-color);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 4px;
-  text-decoration: none;
-  transition: opacity 0.2s;
-}
-
-
-/* -------------------- 4. Footer -------------------- */
-.site-footer { border-top: 1px solid var(--border-color); padding: 40px 0; margin-top: 40px; }
-.text-center { text-align: center; color: #6c757d; font-size: 0.9rem; }
-
-
-/* =============================================================================
-   5. Responsive Design (Global Adjustments)
-   ========================================================================== */
-
-/* Tablet & Smaller Desktop */
-@media (max-width: 992px) {
-  .about-section { flex-direction: column; }
-  .profile-sidebar { flex: 0 0 auto; width: 100%; max-width: 450px; margin: 0 auto 40px auto; }
-}
-
-/* Mobile Devices (<= 768px) */
-@media (max-width: 768px) {
-  html { font-size: 15px; }
-  .page-content { padding: 40px 0; }
-  
-  /* Header */
-  .header-container { flex-wrap: wrap; justify-content: center; gap: 10px 20px; }
-  
-  /* About */
-  .about-grid { flex-direction: column; gap: 25px; }
-  .about-photo-container { width: 100%; max-width: 350px; margin: 0 auto; }
-  
-  /* Education */
-  .education-item { flex-direction: column; gap: 8px; padding: 15px 20px; }
-  .education-duration { flex-basis: auto; text-align: left; }
-  
- /* Research Highlights: 手机上改为垂直单列 */
-  .highlights-grid { 
-    flex-direction: column; /* 变成上下排列 */
-  }
-  
-  .highlight-column {
-    width: 100%; /* 占满屏幕 */
-  }
-  
-  .highlight-desc { 
-    text-align: left; 
-  }
-
-  /* Research Page */
-  .paper-item { flex-direction: column; align-items: flex-start; }
-  .paper-links { width: 100%; flex-direction: row; flex-wrap: wrap; margin-top: 10px; }
-}
-
-/* Very Small Screens (<= 480px) */
-@media (max-width: 480px) {
-  .header-container { flex-direction: column; gap: 15px; }
-  .site-nav { width: 100%; display: flex; justify-content: space-around; }
-  .site-nav .page-link { margin: 0; }
-}
-
-/* =============================================================================
-   Research Page Final Fix (强制覆盖版)
-   ========================================================================== */
-
-/* 1. 增加板块之间的间距 */
-.subsection-title {
-  margin-top: 5rem !important; /* 强制拉开“已发表”和“工作论文”的距离 */
-  margin-bottom: 1.5rem !important;
-  font-size: 1.5rem !important;
-  font-weight: 600 !important;
-  color: #222 !important;
-  border-bottom: 1px solid #eee !important;
-  padding-bottom: 8px !important;
-  clear: both;
-}
-
-/* 顶部第一个标题不需要额外的间距 */
-.page-content .subsection-title:first-of-type {
-  margin-top: 1rem !important;
-}
-
-/* 2. 论文条目容器间距 */
-.paper-entry {
-  margin-bottom: 2.2rem !important;
+  margin-bottom: 2.5rem !important;
   list-style: none !important;
-  line-height: 1.7 !important;
+  line-height: 1.6 !important;
 }
 
-/* 3. 彻底干掉所有蓝色/紫色链接 (Nuclear Option) */
-/* 包含作者名字链接、摘要、PDF等所有状态 */
+/* 强制重置论文的链接样式（学术风：默认灰色，悬停变深并下划线） */
 .paper-entry a, 
 .paper-entry a:link, 
 .paper-entry a:visited, 
@@ -417,44 +345,119 @@ body {
 .authors a,
 .authors a:visited,
 .authors a strong {
-  color: #666 !important; /* 强制统一灰色 */
+  color: var(--secondary-color) !important; 
   text-decoration: none !important;
   background: transparent !important;
   transition: color 0.2s ease !important;
   border: none !important;
 }
 
-/* 鼠标悬停：变黑并出现下划线 */
 .paper-entry a:hover,
 .authors a:hover {
-  color: #000 !important;
+  color: var(--primary-color) !important;
   text-decoration: underline !important;
 }
 
-/* 4. 标题样式 */
-.paper-title-bold strong {
-  color: #000 !important; /* 标题颜色深一些 */
-  font-weight: 700 !important;
+/* 论文标题强调 */
+.paper-title-bold strong,
+.citation-text strong {
+  color: var(--primary-color) !important; 
+  font-weight: 600 !important;
 }
 
-/* 5. 下方链接区域 */
+.citation-text {
+  font-size: 1.05rem;
+  color: var(--secondary-color);
+}
+
+/* 底部操作链接 (PDF, Data, Abstract 等) */
 .paper-actions {
-  margin-top: 6px !important;
-  font-size: 0.92rem !important;
+  margin-top: 0.5rem !important;
+  font-size: 0.9rem !important;
 }
 
 .paper-actions .sep {
-  margin: 0 8px !important;
-  color: #ddd !important;
+  margin: 0 0.5rem !important;
+  color: #d1d5db !important;
 }
 
-/* 6. 摘要层样式 */
+.paper-actions a {
+  color: var(--accent-color) !important; /* 操作按钮用主题蓝，更明显 */
+  font-weight: 500;
+}
+.paper-actions a:hover {
+  color: var(--accent-hover) !important;
+}
+
+/* 摘要展开框 */
 .abs-content {
-  margin-top: 12px !important;
-  padding: 15px 20px !important;
-  background-color: #f9f9f9 !important;
-  border-left: 3px solid #eee !important;
-  font-size: 0.92rem !important;
-  color: #555 !important;
+  margin-top: 1rem !important;
+  padding: 1.25rem 1.5rem !important;
+  background-color: var(--card-bg-color) !important;
+  border-left: 4px solid var(--border-color) !important;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.95rem !important;
+  color: var(--secondary-color) !important;
   text-align: justify !important;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* -------------------- 9. Footer -------------------- */
+.site-footer { 
+  border-top: 1px solid var(--border-color); 
+  padding: 3rem 0; 
+  margin-top: 4rem; 
+  background-color: var(--bg-color);
+}
+.text-center { 
+  text-align: center; 
+  color: #9ca3af; 
+  font-size: 0.9rem; 
+}
+
+/* =============================================================================
+   10. Responsive Design
+   ========================================================================== */
+
+/* Tablet (<= 992px) */
+@media (max-width: 992px) {
+  .about-section { flex-direction: column; }
+  .profile-sidebar { flex: 0 0 auto; width: 100%; max-width: 100%; margin: 0 auto 2rem auto; display: flex; align-items: center; text-align: left; gap: 2rem;}
+  .profile-pic { width: 120px; height: 120px; margin-bottom: 0; }
+  .sidebar-text { flex: 1; }
+  .contact-info { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .contact-info li { margin-bottom: 0; }
+}
+
+/* Mobile Devices (<= 768px) */
+@media (max-width: 768px) {
+  html { font-size: 15px; }
+  .page-content { padding: 3rem 0; }
+  
+  /* Header */
+  .header-container { flex-direction: column; gap: 1rem; }
+  .site-nav { width: 100%; display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;}
+  .site-nav .page-link { margin-left: 0; }
+  
+  /* About Sidebar Reset for Mobile */
+  .profile-sidebar { flex-direction: column; text-align: center; }
+  .contact-info { flex-direction: column; gap: 0.5rem; }
+  
+  /* About Text & Image */
+  .about-grid { flex-direction: column; gap: 1.5rem; }
+  .about-photo-container { width: 100%; max-width: 300px; margin: 0 auto; }
+  
+  /* Education */
+  .education-item { flex-direction: column; gap: 0.5rem; padding: 1.25rem; }
+  .education-duration { flex-basis: auto; font-size: 0.85rem; padding-top: 0; }
+  
+  /* Research Highlights */
+  .highlights-grid { flex-direction: column; gap: 1.5rem;}
+  .highlight-column { width: 100%; gap: 1.5rem;}
+  .highlight-desc { text-align: left; }
 }
