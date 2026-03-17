@@ -408,7 +408,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* =============================================================================
-   CV Page Styles (Data-Driven Markdown Version)
+   9. CV Page Styles (Data-Driven Markdown Version)
    ========================================================================== */
 .cv-container {
   max-width: 800px; /* 窄屏阅读体验更好 */
@@ -487,6 +487,26 @@ h1, h2, h3, h4, h5, h6 {
 .cv-markdown-content strong {
   color: var(--primary-color);
   font-weight: 600;
+}
+
+/* 优化简历简介区域 */
+.cv-bio {
+  font-size: 1.1rem;
+  color: var(--secondary-color);
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: var(--card-bg-color);
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+/* 优化论文部分的小标题 */
+.cv-markdown-content h3 {
+  font-size: 1.15rem;
+  margin: 1.5rem 0 1rem 0;
+  color: var(--primary-color);
+  border-left: 3px solid var(--accent-color); /* 左侧蓝条强调 */
+  padding-left: 10px;
 }
 
 /* 移动端适配 */
