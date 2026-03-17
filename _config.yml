@@ -10,6 +10,7 @@ github_username: "fyapeng" # 替换为您的GitHub用户名
 plugins:
   - jekyll-minifier
   - jekyll-seo-tag
+  - jekyll-sitemap
 
 # Jekyll-Minifier Configuration
 # This will automatically run when building on GitHub Pages
