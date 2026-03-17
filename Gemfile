@@ -5,5 +5,8 @@ source "https://rubygems.org"
 gem "jekyll", "~> 4.3"
 
 # Plugins
-gem "jekyll-minifier"  # For minifying HTML, CSS, JS
-gem "jekyll-seo-tag"   # For better SEO
+group :jekyll_plugins do
+  gem "jekyll-minifier"
+  gem "jekyll-seo-tag"
+  gem "jekyll-sitemap" 
+end
