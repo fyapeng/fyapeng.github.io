@@ -53,4 +53,32 @@ function toggleAbs(btn) {
         }
     }
 }
+
+// 5. 动态隐藏简历CV地址
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. 读取 profile.json，加时间戳防止缓存
+    fetch('/profile.json?t=' + new Date().getTime()) 
+        .then(response => response.json())
+        .then(data => {
+            // 获取所有带有 'cv-dynamic-link' 类的标签 (不管在哪个页面、有多少个)
+            const cvLinks = document.querySelectorAll('.cv-dynamic-link');
+            
+            // 2. 自动判断语言 (如果网址里包含 /en/，就是英文版，否则是中文版)
+            const isEnglish = window.location.pathname.includes('/en/');
+            const cvPath = isEnglish ? data.cv_en : data.cv_zh;
+            
+            // 拼接带版本号的链接 (防PDF缓存)
+            const finalLink = cvPath + "?v=" + data.version;
+
+            // 3. 批量替换 href，并强制设置在新标签页打开
+            cvLinks.forEach(link => {
+                link.href = finalLink;
+                link.setAttribute('target', '_blank'); // 确保点击后在新标签页预览/下载，不覆盖当前网页
+            });
+            
+            console.log(isEnglish ? "CV loaded (English):" : "简历已加载 (中文):", finalLink);
+        })
+        .catch(error => console.error('简历加载失败:', error));
+});
+    
 </script>
