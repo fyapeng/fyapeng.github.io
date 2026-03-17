@@ -1,0 +1,111 @@
+# ==========================================
+# 中文简历数据
+# ==========================================
+zh:
+  pdf_url: "/assets/cv/Ya_Peng_Fu_CV_zh.pdf" # 你的中文PDF路径
+  sections:
+    # 1. 教育经历 (结构化数据，为了左右对齐排版)
+    - type: "education"
+      title: "教育经历"
+      items:
+        - title: "中国社会科学院大学"
+          date: "2024 年 9 月 – 2029 年 6 月 (预计)"
+          subtitle: "经济学博士"
+          location: "北京"
+        - title: "中国社会科学院大学"
+          date: "2020 年 9 月 – 2024 年 6 月"
+          subtitle: "经济学学士"
+          location: "北京"
+
+    # 2. 以下全为纯 Markdown 渲染区域
+    - type: "markdown"
+      title: "研究兴趣"
+      content: |
+        社会保障、微观经济理论、卫生经济学、公共经济学。  
+        （近期关注：公共政策评估、医疗保险研究、财政和税收政策等）
+
+    - type: "markdown"
+      title: "工作论文"
+      content: |
+        - 为“标准”付费：医保支付方式改革与供给方诱导需求 (与 付明卫). *2025*.
+        - 医保支付改革、道德风险与医疗控费——来自 Bunching-DID 的证据 (与 丛正龙、倪晨旭、王震). *2025*.
+
+    - type: "markdown"
+      title: "荣誉奖项"
+      content: |
+        - **2024 年 7 月**：北京市高校优秀毕业论文（本科）
+        - **2024 年 5 月**：北京市高校优秀毕业生（本科）
+        - **2023 年 12 月**：国家励志奖学金（两次）
+        - **2023 年 9 月**：第十八届“挑战杯”大学生全国课外学术科技作品竞赛三等奖
+        - **2023 年 7 月**：第三届全国大学生发展经济学论文大赛一等奖
+        - **2023 年 7 月**：第三届“经英杯”全国高校经济论坛一等奖
+        - **2023 年 6 月**：首届全国大学生公共经济与政策论文大赛二等奖
+        - **2023 年 5 月**：第十二届新时代中国青年经济论坛优秀学术代表
+        - **2023 年 4 月**：中国社会科学院大学优秀共青团员
+        - **2022 年 12 月**：中国社会科学院大学优秀学生干部
+        - **2021 年 12 月**：第十三届全国大学生数学竞赛二等奖
+
+    - type: "markdown"
+      title: "学术活动"
+      content: |
+        - **2025 年 10 月**：第八届中国健康经济学论坛（厦门）
+        - **2025 年 5 月**：第十一届中国组织经济学研讨会（沈阳）
+        - **2024 年 7 月**：第八届中国劳动经济学者论坛年会（上海）
+        - **2024 年 6 月**：第二届香樟社会保障论坛（上海）
+        - **2023 年 5 月**：第十二届新时代中国青年经济论坛（北京）
+        - **2023 年 4 月**：第五届国家发展青年论坛（北京）
+
+# ==========================================
+# English CV Data
+# ==========================================
+en:
+  pdf_url: "/assets/cv/Ya_Peng_Fu_CV_en.pdf" # 你的英文PDF路径
+  sections:
+    - type: "education"
+      title: "Education"
+      items:
+        - title: "University of Chinese Academy of Social Sciences"
+          date: "Sep. 2024 – Jun. 2029 (Expected)"
+          subtitle: "Ph.D. in Economics"
+          location: "Beijing, China"
+        - title: "University of Chinese Academy of Social Sciences"
+          date: "Sep. 2020 – Jun. 2024"
+          subtitle: "B.A. in Economics"
+          location: "Beijing, China"
+
+    - type: "markdown"
+      title: "Research Interests"
+      content: |
+        Social Security, Microeconomic Theory, Health Economics, Public Economics.  
+        (Current focus: Public policy evaluation, health insurance, fiscal and tax policies.)
+
+    - type: "markdown"
+      title: "Working Papers"
+      content: |
+        - Persuasive Upcoding: Reform of Medical Insurance Payment and Supplier-Induced Demand (with Mingwei Fu). *2025*.
+        - Medical Payment Reform, Moral Hazard and Cost Control: Evidence from Bunching-DID (with Zhenglong Cong, Chenxu Ni, Zhen Wang). *2025*.
+
+    - type: "markdown"
+      title: "Honors & Awards"
+      content: |
+        - **Jul. 2024**: Outstanding Bachelor Thesis of Beijing Universities
+        - **May 2024**: Outstanding Graduate of Beijing Universities (Bachelor)
+        - **Dec. 2023**: National Endeavor Scholarship (Awarded Twice)
+        - **Sep. 2023**: 3rd Prize, 18th “Challenge Cup” National Extracurricular Academic Competition
+        - **Jul. 2023**: 1st Prize, 3rd National Undergrad Development Economics Paper Competition
+        - **Jul. 2023**: 1st Prize, 3rd “Jingying Cup” National University Economic Forum
+        - **Jun. 2023**: 2nd Prize, 1st National Undergrad Public Economics & Policy Paper Competition
+        - **May 2023**: Outstanding Academic Representative, 12th New Era China Youth Economic Forum
+        - **Apr. 2023**: Outstanding Youth League Member, UCASS
+        - **Dec. 2022**: Outstanding Student Leader, UCASS
+        - **Dec. 2021**: 2nd Prize, 13th CMC (National Mathematics Competition for College Students)
+
+    - type: "markdown"
+      title: "Academic Activities"
+      content: |
+        - **Oct. 2025**: 8th China Health Economics Forum (Xiamen)
+        - **May. 2025**: 11th China Conference on Organizational Economics (Shenyang)
+        - **Jul. 2024**: 8th China Labor Economists Forum Annual Conference (Shanghai)
+        - **Jun. 2024**: 2nd Xiangzhang Social Security Forum (Shanghai)
+        - **May 2023**: 12th New Era China Youth Economic Forum (Beijing)
+        - **Apr. 2023**: 5th National Development Youth Forum (Beijing)
