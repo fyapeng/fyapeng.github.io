@@ -509,6 +509,15 @@ h1, h2, h3, h4, h5, h6 {
   padding-left: 10px;
 }
 
+/* 简历专属：小号注释文本 */
+.cv-footnote {
+  font-size: 0.85rem;        /* 缩小字体 */
+  color: var(--secondary-color); /* 颜色稍微变淡 */
+  font-style: italic;        /* 斜体 */
+  margin-top: 0.5rem;        /* 与上方列表保持距离 */
+  display: block;            /* 确保独占一行 */
+}
+
 /* 移动端适配 */
 @media (max-width: 600px) {
   .cv-header-actions { flex-direction: column; align-items: flex-start; gap: 1rem; }
