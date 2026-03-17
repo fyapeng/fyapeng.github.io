@@ -4,6 +4,8 @@ nav:
   home_url: "/en/" 
   research: "Research"
   research_url: "/en/research.html"
+  cv: "CV"
+  cv_url: "/en/cv.html"
   resources: "Labs"
   resources_url: "https://fyapeng.com/resources"
   lang_switch: "中文"
