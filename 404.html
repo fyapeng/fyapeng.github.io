@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - 页面迷路啦</title>
+    <style>
+        /* 基础页面样式，让内容居中并保持美观 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fdfdfd;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .error-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .error-header h1 {
+            font-size: 4rem;
+            color: #c0392b;
+            margin: 0 0 10px 0;
+        }
+        .error-header p {
+            font-size: 1.1rem;
+            color: #666;
+            margin: 5px 0;
+        }
+        .nav-links {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .nav-links a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="error-header">
+        <h1>404</h1>
+        <p>哎呀，你似乎来到了知识的荒原...</p>
+        <p>页面找不到啦！不如先玩个游戏放松一下，或者回到正确的轨道？</p>
+    </div>
+
+    <section id="fun-zone" class="content-section" style="text-align: center; margin-top: 40px; padding-bottom: 20px;">
+        <h2 class="section-title" style="font-size: 1.5rem; color: #555; margin-bottom: 10px;">
+            🤖 学术生存挑战
+        </h2>
+        <p style="font-size: 0.9rem; color: #888; margin-bottom: 15px;">
+            (按 <kbd style="background:#eee; padding:2px 5px; border-radius:3px; border: 1px solid #ccc;">空格</kbd> 或点击屏幕跳跃，躲避 DDL！)
+        </p>
+        
+        <canvas id="dinoGame" width="600" height="160" style="border-bottom: 2px solid #555; background: #fafafa; max-width: 100%; touch-action: none; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);"></canvas>
+        
+        <div style="display: flex; justify-content: space-between; max-width: 600px; margin: 10px auto; font-family: monospace; font-size: 1rem; color: #333;">
+            <span>当前得分: <b id="score" style="color: #007bff;">0</b></span>
+            <span>最高记录: <b id="highScore" style="color: #c0392b;">0</b></span>
+        </div>
+        
+        <button id="restartBtn" class="button-primary" style="display: none; margin-top: 15px; cursor: pointer; padding: 8px 16px; border-radius: 4px; border: none; background: #c0392b; color: white; font-weight: bold;" onclick="initGame()">
+            再来一次 (Restart)
+        </button>
+    </section>
+
+    <script>
+        const canvas = document.getElementById('dinoGame');
+        const ctx = canvas.getContext('2d');
+        const scoreEl = document.getElementById('score');
+        const highScoreEl = document.getElementById('highScore');
+        const restartBtn = document.getElementById('restartBtn');
+
+        let gameSpeed = 5;
+        let score = 0;
+        let highScore = localStorage.getItem('dinoHighScore') || 0;
+        let isGameOver = false;
+        let animationId;
+        let frame = 0;
+
+        let player = {
+            x: 50,
+            y: 110,
+            w: 30,
+            h: 30,
+            dy: 0,
+            jumpPower: -10, 
+            gravity: 0.5,   
+            grounded: false,
+            jumpCount: 0,   
+            maxJumps: 3     
+        };
+
+        let obstacles = [];
+
+        function initGame() {
+            isGameOver = false;
+            score = 0;
+            gameSpeed = 5;
+            obstacles = [];
+            frame = 0;
+            
+            player.y = 110;
+            player.dy = 0;
+            player.jumpCount = 0; 
+            
+            restartBtn.style.display = 'none';
+            scoreEl.innerText = score;
+            highScoreEl.innerText = highScore;
+            
+            animate();
+        }
+
+        function drawPlayer() {
+            ctx.textAlign = "left";
+            ctx.textBaseline = "top";
+            
+            let emoji = "🤖"; 
+            
+            if (!player.grounded) {
+                if (player.jumpCount >= 2) {
+                    emoji = "🚀"; 
+                } else {
+                    emoji = "👻"; 
+                }
+            }
+            
+            ctx.font = "35px Arial"; 
+            ctx.fillText(emoji, player.x - 2, player.y - 5); 
+        }
+
+        function drawObstacles() {
+            obstacles.forEach(obs => {
+                ctx.fillStyle = '#c0392b';
+                ctx.font = "bold 20px Verdana";
+                ctx.textAlign = "left";
+                ctx.textBaseline = "top";
+                ctx.fillText("DDL", obs.x, obs.y + 2); 
+                ctx.fillRect(obs.x, obs.y + 22, obs.w, 3);
+            });
+        }
+
+        function update() {
+            player.dy += player.gravity;
+            player.y += player.dy;
+
+            if (player.y > 110) {
+                player.y = 110;
+                player.dy = 0;
+                player.grounded = true;
+                player.jumpCount = 0; 
+            } else {
+                player.grounded = false;
+            }
+
+            frame++;
+            let spawnRate = Math.floor(100 + Math.random() * 70); 
+            if (frame % spawnRate === 0) {
+                let isHigh = Math.random() > 0.75; 
+                let obsY = isHigh ? 75 : 110; 
+                
+                obstacles.push({
+                    x: canvas.width,
+                    y: obsY,
+                    w: 45,
+                    h: 25
+                });
+            }
+
+            for (let i = 0; i < obstacles.length; i++) {
+                let obs = obstacles[i];
+                obs.x -= gameSpeed;
+
+                if (obs.x + obs.w < 0) {
+                    obstacles.splice(i, 1);
+                    score++;
+                    scoreEl.innerText = score;
+                    i--;
+                    if (score % 5 === 0) gameSpeed += 0.3; 
+                }
+
+                let padding = 8; 
+                if (
+                    player.x + padding < obs.x + obs.w &&
+                    player.x + player.w - padding > obs.x &&
+                    player.y + padding < obs.y + obs.h &&
+                    player.y + player.h - padding > obs.y
+                ) {
+                    gameOver();
+                }
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.beginPath();
+            ctx.moveTo(0, 140);
+            ctx.lineTo(canvas.width, 140);
+            ctx.strokeStyle = "#ddd";
+            ctx.stroke();
+
+            drawPlayer();
+            drawObstacles();
+        }
+
+        function animate() {
+            if (isGameOver) return;
+            update();
+            draw();
+            animationId = requestAnimationFrame(animate);
+        }
+
+        function gameOver() {
+            isGameOver = true;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#333';
+            ctx.font = "bold 30px Arial";
+            ctx.textAlign = "center";
+            ctx.fillText("被 DDL 追上了！😭", canvas.width / 2, canvas.height / 2 - 10);
+            
+            ctx.fillStyle = '#666';
+            ctx.font = "16px Arial";
+            ctx.fillText("得分: " + score, canvas.width / 2, canvas.height / 2 + 25);
+            
+            restartBtn.style.display = 'inline-block';
+            
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('dinoHighScore', highScore);
+                highScoreEl.innerText = highScore;
+            }
+        }
+
+        function jump() {
+            if (player.jumpCount < player.maxJumps) {
+                player.dy = player.jumpPower; 
+                player.grounded = false;
+                player.jumpCount++; 
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Space' || e.code === 'ArrowUp') {
+                e.preventDefault();
+                if (isGameOver) initGame();
+                else jump();
+            }
+        });
+
+        canvas.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            if (isGameOver) initGame();
+            else jump();
+        }, {passive: false});
+
+        canvas.addEventListener('mousedown', function(e) {
+            if (isGameOver) initGame();
+            else jump();
+        });
+
+        initGame();
+    </script>
+    <div class="nav-links">
+        <a href="https://fyapeng.com">🏠 回到我的主页</a>
+        <a href="https://github.com/fyapeng">🐙 访问我的 GitHub</a>
+    </div>
+
+</body>
+</html>
