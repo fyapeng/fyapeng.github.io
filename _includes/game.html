@@ -1,233 +1,403 @@
-<section id="fun-zone" class="content-section" style="text-align: center; margin-top: 80px; padding-bottom: 40px;">
-  <h2 class="section-title" style="font-size: 1.5rem; color: #555; margin-bottom: 10px;">
-    🤖 学术生存挑战
+<!-- _includes/game.html -->
+<!-- Econ Runner — 经济学学术跑酷 -->
+<section id="fun-zone" class="content-section" style="text-align: center; margin-top: 4rem;">
+  <h2 class="section-title" style="font-size: 1.35rem;">
+    <span>🎓</span>
+    <span id="game-title-text"></span>
   </h2>
-  <p style="font-size: 0.9rem; color: #888; margin-bottom: 15px;">
-    (按 <kbd style="background:#eee; padding:2px 5px; border-radius:3px;">空格</kbd> 或点击屏幕跳跃，躲避 DDL！)
-  </p>
+  <p id="game-hint" style="font-size: 0.88rem; color: var(--tertiary-color, #6b7280); margin-bottom: 1rem; line-height: 1.6;"></p>
   
-  <canvas id="dinoGame" width="600" height="160" style="border-bottom: 2px solid #555; background: #fafafa; max-width: 100%; touch-action: none; border-radius: 4px;"></canvas>
-  
-  <div style="display: flex; justify-content: space-between; max-width: 600px; margin: 10px auto; font-family: monospace; font-size: 1rem; color: #333;">
-    <span>当前得分: <b id="score" style="color: #007bff;">0</b></span>
-    <span>最高记录: <b id="highScore" style="color: #c0392b;">0</b></span>
+  <div id="game-wrapper" style="position: relative; display: inline-block; max-width: 100%;">
+    <canvas id="runnerCanvas" width="680" height="240"
+      style="display: block; border: 2px solid var(--border-color-strong, #d1d5db); border-radius: 8px; background: #fcfcfc; max-width: 100%; touch-action: none; cursor: pointer;">
+    </canvas>
+    <div id="game-overlay" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(252,252,252,0.93); border-radius: 8px;">
+      <div id="overlay-icon" style="font-size: 2.8rem; margin-bottom: 0.4rem;">🎓</div>
+      <div id="overlay-main" style="font-size: 1.25rem; font-weight: 700; color: #111827; margin-bottom: 0.3rem;"></div>
+      <div id="overlay-sub" style="font-size: 0.85rem; color: #6b7280; max-width: 80%;"></div>
+    </div>
   </div>
   
-  <button id="restartBtn" class="button-primary" style="display: none; margin-top: 15px; cursor: pointer;" onclick="initGame()">
-    再来一次 (Restart)
-  </button>
+  <div style="display: flex; justify-content: space-between; max-width: 680px; margin: 0.5rem auto 0; font-size: 0.92rem; color: var(--secondary-color, #374151);">
+    <span><span id="score-label"></span> <b id="score" style="color: var(--accent-color, #1e40af);">0</b></span>
+    <span><span id="high-label"></span> <b id="highScore" style="color: #b91c1c;">0</b></span>
+  </div>
 </section>
 
 <script>
-const canvas = document.getElementById('dinoGame');
-const ctx = canvas.getContext('2d');
-const scoreEl = document.getElementById('score');
-const highScoreEl = document.getElementById('highScore');
-const restartBtn = document.getElementById('restartBtn');
+(function() {
+  'use strict';
 
-// 游戏配置
-let gameSpeed = 5;
-let score = 0;
-let highScore = localStorage.getItem('dinoHighScore') || 0;
-let isGameOver = false;
-let animationId;
-let frame = 0;
+  // ==================== i18n ====================
+  const lang = document.documentElement.lang || 'zh';
+  const isEn = lang === 'en';
+  const T = {
+    title:    isEn ? 'Econ Survival Run' : '经济学生存跑酷',
+    hint:     isEn ? '↑ / Space to jump (×3)  |  ↓ to slide  |  Tap upper/lower half on mobile'
+                   : '↑/空格 跳跃(三段跳) ｜ ↓ 滑铲 ｜ 手机点上半/下半屏',
+    score:    isEn ? 'Score:' : '得分:',
+    best:     isEn ? 'Best:' : '最高:',
+    start:    isEn ? 'Press Space or Tap to start' : '按空格或点击屏幕开始',
+    over:     isEn ? 'Game Over' : '学术生涯中断！',
+    retry:    isEn ? 'Space / Tap to retry' : '空格/点击 重新开始',
+  };
 
-// 玩家对象
-let player = {
-    x: 50,
-    y: 110,
-    w: 30,
-    h: 30,
-    dy: 0,
-    jumpPower: -10, // 跳跃力度
-    gravity: 0.5,   // 重力 (改小了一点，滞空更久，更简单)
-    grounded: false,
-    jumpCount: 0,   // 当前跳了几次
-    maxJumps: 3     // ⭐ 允许最大跳跃次数 (三连跳)
-};
+  document.getElementById('game-title-text').textContent = T.title;
+  document.getElementById('game-hint').textContent = T.hint;
+  document.getElementById('score-label').textContent = T.score;
+  document.getElementById('high-label').textContent = T.best;
 
-let obstacles = [];
+  // ==================== Canvas ====================
+  const canvas = document.getElementById('runnerCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const GROUND = H - 36;
+  const scoreEl = document.getElementById('score');
+  const highEl = document.getElementById('highScore');
+  const overlay = document.getElementById('game-overlay');
+  const oIcon = document.getElementById('overlay-icon');
+  const oMain = document.getElementById('overlay-main');
+  const oSub = document.getElementById('overlay-sub');
 
-function initGame() {
-    isGameOver = false;
-    score = 0;
-    gameSpeed = 5;
-    obstacles = [];
-    frame = 0;
-    
-    player.y = 110;
-    player.dy = 0;
-    player.jumpCount = 0; // 重置跳跃次数
-    
-    restartBtn.style.display = 'none';
-    scoreEl.innerText = score;
-    highScoreEl.innerText = highScore;
-    
-    animate();
-}
+  // ==================== State ====================
+  let state = 'idle';
+  let speed, score, highScore, frame, groundOff, shakeT;
+  let obstacles, particles, clouds;
+  highScore = parseInt(localStorage.getItem('econRunHigh') || '0', 10);
+  highEl.textContent = highScore;
 
-// 1. 绘制玩家 (机器人 -> 鬼魂 -> 火箭)
-function drawPlayer() {
-    ctx.textAlign = "left";
-    ctx.textBaseline = "top";
-    
-    // 根据状态切换 Emoji
-    let emoji = "🤖"; // 默认地面状态
-    
-    if (!player.grounded) {
-        if (player.jumpCount >= 2) {
-            emoji = "🚀"; // 二段/三段跳变火箭
-        } else {
-            emoji = "👻"; // 一段跳变鬼魂
-        }
-    }
-    
-    ctx.font = "35px Arial"; 
-    ctx.fillText(emoji, player.x - 2, player.y - 5); 
-}
+  // Player
+  const P = {
+    x: 65, y: GROUND, w: 24, h: 32,
+    dy: 0, jumps: 0, maxJumps: 3,
+    sliding: false, slideTimer: 0
+  };
+  const GRAV = 0.42;
+  const JUMP_V = -8.8;
+  const SLIDE_DURATION = 25;
+  const PLAYER_H_NORMAL = 32;
+  const PLAYER_H_SLIDE = 16;
 
-// 2. 绘制障碍物
-function drawObstacles() {
-    obstacles.forEach(obs => {
-        ctx.fillStyle = '#c0392b';
-        ctx.font = "bold 20px Verdana";
-        ctx.textAlign = "left";
-        ctx.textBaseline = "top";
-        ctx.fillText("DDL", obs.x, obs.y + 2); 
-        ctx.fillRect(obs.x, obs.y + 22, obs.w, 3);
-    });
-}
+  // ==================== Obstacle Definitions ====================
+  // 地面障碍（需要跳过）— 像柱子/路障
+  const GROUND_OBS = [
+    { label: 'DDL',       color: '#b91c1c', bg: '#fef2f2', w: 30, h: 32, icon: '📅' },
+    { label: 'Reject',    color: '#9f1239', bg: '#fff1f2', w: 36, h: 32, icon: '✉️' },
+    { label: 'Debt',      color: '#92400e', bg: '#fefce8', w: 32, h: 36, icon: '💰' },
+    { label: 'Exam',      color: '#7c2d12', bg: '#fff7ed', w: 34, h: 30, icon: '📝' },
+    { label: 'Seminar',   color: '#6b21a8', bg: '#faf5ff', w: 42, h: 28, icon: '🎤' },
+    { label: 'Tuition',   color: '#b45309', bg: '#fffbeb', w: 38, h: 32, icon: '🧾' },
+  ];
 
-function update() {
-    // 1. 玩家物理
-    player.dy += player.gravity;
-    player.y += player.dy;
+  // 空中障碍（需要滑铲躲过）— 像闪电/飞行物
+  const AIR_OBS = [
+    { label: 'R&R',        color: '#1e40af', bg: '#eff6ff', w: 34, h: 24, icon: '🔄' },
+    { label: 'Referee',    color: '#0f766e', bg: '#f0fdfa', w: 40, h: 22, icon: '👨‍⚖️' },
+    { label: 'p>0.05',     color: '#dc2626', bg: '#fef2f2', w: 42, h: 22, icon: '📊' },
+    { label: 'Endogeneity',color: '#7c3aed', bg: '#f5f3ff', w: 56, h: 22, icon: '🔀' },
+  ];
 
-    // 地面检测
-    if (player.y > 110) {
-        player.y = 110;
-        player.dy = 0;
-        player.grounded = true;
-        player.jumpCount = 0; // ⭐ 落地后重置跳跃次数，恢复为 0
-    } else {
-        player.grounded = false;
-    }
+  // 可踩的怪（跳上去+2分弹跳）— 像友好方块
+  const STOMP_OBS = [
+    { label: 'IV',   color: '#15803d', bg: '#f0fdf4', w: 28, h: 24, icon: '🔧' },
+    { label: 'RCT',  color: '#0369a1', bg: '#f0f9ff', w: 30, h: 24, icon: '🧪' },
+    { label: 'DID',  color: '#4338ca', bg: '#eef2ff', w: 30, h: 24, icon: '📐' },
+    { label: 'RDD',  color: '#0e7490', bg: '#ecfeff', w: 30, h: 24, icon: '📈' },
+  ];
 
-    // 2. 生成障碍物 (间隔稍微调大了一点，降低难度)
-    frame++;
-    let spawnRate = Math.floor(100 + Math.random() * 70); 
-    if (frame % spawnRate === 0) {
-        let isHigh = Math.random() > 0.75; 
-        let obsY = isHigh ? 75 : 110; 
-        
-        obstacles.push({
-            x: canvas.width,
-            y: obsY,
-            w: 45,
-            h: 25
-        });
-    }
-
-    // 3. 移动障碍物 & 碰撞
-    for (let i = 0; i < obstacles.length; i++) {
-        let obs = obstacles[i];
-        obs.x -= gameSpeed;
-
-        if (obs.x + obs.w < 0) {
-            obstacles.splice(i, 1);
-            score++;
-            scoreEl.innerText = score;
-            i--;
-            if (score % 5 === 0) gameSpeed += 0.3; // 加速稍微慢一点
-        }
-
-        // 碰撞判定 (稍微缩小判定范围，更容易躲)
-        let padding = 8; 
-        if (
-            player.x + padding < obs.x + obs.w &&
-            player.x + player.w - padding > obs.x &&
-            player.y + padding < obs.y + obs.h &&
-            player.y + player.h - padding > obs.y
-        ) {
-            gameOver();
-        }
-    }
-}
-
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
+  // ==================== Helpers ====================
+  function roundRect(x, y, w, h, r) {
     ctx.beginPath();
-    ctx.moveTo(0, 140);
-    ctx.lineTo(canvas.width, 140);
-    ctx.strokeStyle = "#ddd";
-    ctx.stroke();
+    ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+    ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+    ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+    ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y);
+    ctx.closePath();
+  }
 
-    drawPlayer();
-    drawObstacles();
-}
-
-function animate() {
-    if (isGameOver) return;
-    update();
-    draw();
-    animationId = requestAnimationFrame(animate);
-}
-
-function gameOver() {
-    isGameOver = true;
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    ctx.fillStyle = '#333';
-    ctx.font = "bold 30px Arial";
-    ctx.textAlign = "center";
-    ctx.fillText("被 DDL 追上了！😭", canvas.width / 2, canvas.height / 2 - 10);
-    
-    ctx.fillStyle = '#666';
-    ctx.font = "16px Arial";
-    ctx.fillText("得分: " + score, canvas.width / 2, canvas.height / 2 + 25);
-    
-    restartBtn.style.display = 'inline-block';
-    
-    if (score > highScore) {
-        highScore = score;
-        localStorage.setItem('dinoHighScore', highScore);
-        highScoreEl.innerText = highScore;
+  function spawnParts(x, y, col, n) {
+    for (let i = 0; i < n; i++) {
+      particles.push({
+        x, y, dx: (Math.random()-0.5)*4.5, dy: (Math.random()-1)*3.5,
+        life: 18+Math.random()*14, color: col, size: 2+Math.random()*2.5
+      });
     }
-}
+  }
 
-// ⭐ 核心修改：三连跳逻辑
-function jump() {
-    // 只要当前跳跃次数小于最大次数 (3)，就可以跳
-    if (player.jumpCount < player.maxJumps) {
-        player.dy = player.jumpPower; // 给一个向上的速度
-        player.grounded = false;
-        player.jumpCount++; // 消耗一次跳跃机会
+  // ==================== Drawing ====================
+  function drawSky() {
+    const grad = ctx.createLinearGradient(0, 0, 0, 60);
+    grad.addColorStop(0, '#f0f7ff');
+    grad.addColorStop(1, 'rgba(240,247,255,0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, 60);
+  }
+
+  function drawClouds() {
+    ctx.fillStyle = '#e8eef5';
+    clouds.forEach(c => {
+      ctx.beginPath();
+      ctx.ellipse(c.x, c.y, c.r, c.r*0.5, 0, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(c.x-c.r*0.6, c.y+2, c.r*0.65, c.r*0.35, 0, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(c.x+c.r*0.55, c.y+3, c.r*0.7, c.r*0.4, 0, 0, Math.PI*2); ctx.fill();
+    });
+  }
+
+  function updateClouds() {
+    clouds.forEach(c => { c.x -= c.speed; });
+    clouds = clouds.filter(c => c.x + c.r*2 > 0);
+    if (Math.random() < 0.004) {
+      clouds.push({ x: W+30, y: 20+Math.random()*35, r: 14+Math.random()*18, speed: 0.3+Math.random()*0.4 });
     }
-}
+  }
 
-// 事件监听
-document.addEventListener('keydown', function(e) {
-    if (e.code === 'Space' || e.code === 'ArrowUp') {
-        e.preventDefault();
-        if (isGameOver) initGame();
-        else jump();
+  function drawGround() {
+    ctx.strokeStyle = '#9ca3af'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(0, GROUND+P.h+1); ctx.lineTo(W, GROUND+P.h+1); ctx.stroke();
+    ctx.strokeStyle = '#d1d5db'; ctx.lineWidth = 1;
+    for (let i = -groundOff % 24; i < W; i += 24) {
+      ctx.beginPath(); ctx.moveTo(i, GROUND+P.h+2); ctx.lineTo(i, GROUND+P.h+6); ctx.stroke();
     }
-});
+  }
 
-canvas.addEventListener('touchstart', function(e) {
+  // ---- Player ----
+  function drawPlayer() {
+    const px = P.x, py = P.y;
+    const inAir = py < GROUND;
+
+    if (P.sliding) {
+      // Slide: horizontal body
+      ctx.fillStyle = '#1e40af';
+      roundRect(px-4, py+20, 30, 12, 4); ctx.fill();
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath(); ctx.arc(px+2, py+22, 8, 0, Math.PI*2); ctx.fill();
+      ctx.strokeStyle = '#111827'; ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.arc(px-1, py+21, 3, 0, Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(px+5, py+21, 3, 0, Math.PI*2); ctx.stroke();
+      ctx.fillStyle = '#111827';
+      ctx.fillRect(px-6, py+14, 16, 3);
+      if (frame%3===0) spawnParts(px+26, py+32, '#fbbf24', 1);
+    } else {
+      // Standing / air
+      ctx.fillStyle = '#1e40af';
+      roundRect(px, py+10, 20, 20, 4); ctx.fill();
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath(); ctx.arc(px+10, py+5, 9, 0, Math.PI*2); ctx.fill();
+      ctx.strokeStyle = '#111827'; ctx.lineWidth = 1.3;
+      ctx.beginPath(); ctx.arc(px+6, py+5, 3.5, 0, Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(px+14, py+5, 3.5, 0, Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(px+9.5,py+5); ctx.lineTo(px+10.5,py+5); ctx.stroke();
+      // Cap
+      ctx.fillStyle = '#111827';
+      ctx.beginPath(); ctx.moveTo(px,py-1); ctx.lineTo(px+20,py-1); ctx.lineTo(px+10,py-7); ctx.closePath(); ctx.fill();
+      if (inAir) {
+        ctx.strokeStyle='#b91c1c'; ctx.lineWidth=1.5;
+        ctx.beginPath(); ctx.moveTo(px+17,py-3); ctx.lineTo(px+23,py); ctx.stroke();
+      }
+      // Legs
+      const la = Math.sin(frame*0.3) * (inAir?0.5:3);
+      ctx.strokeStyle='#1e3a8a'; ctx.lineWidth=2.5;
+      if (inAir) {
+        ctx.beginPath(); ctx.moveTo(px+5,py+30); ctx.lineTo(px+7,py+32); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(px+15,py+30); ctx.lineTo(px+13,py+32); ctx.stroke();
+      } else {
+        ctx.beginPath(); ctx.moveTo(px+6,py+30); ctx.lineTo(px+6+la,py+34); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(px+14,py+30); ctx.lineTo(px+14-la,py+34); ctx.stroke();
+      }
+    }
+  }
+
+  // ---- Obstacles ----
+  function drawObs(o) {
+    const d = o.def;
+    if (o.stomped) return; // stomped ones disappear
+
+    if (o.type === 'stomp') {
+      // Friendly bouncy block
+      const by = Math.sin(frame*0.08 + o.x*0.01)*2;
+      ctx.fillStyle = d.bg; ctx.strokeStyle = d.color; ctx.lineWidth = 2;
+      roundRect(o.x, o.y+by, d.w, d.h, 5); ctx.fill(); ctx.stroke();
+      ctx.font='13px serif'; ctx.textAlign='center'; ctx.textBaseline='bottom';
+      ctx.fillText(d.icon, o.x+d.w/2, o.y+by-1);
+      ctx.fillStyle = d.color; ctx.font='bold 10px monospace'; ctx.textBaseline='middle';
+      ctx.fillText(d.label, o.x+d.w/2, o.y+by+d.h/2);
+      if (frame%30<5) {
+        ctx.fillStyle='rgba(21,128,61,0.3)';
+        ctx.beginPath(); ctx.arc(o.x+d.w-3, o.y+by+3, 2, 0, Math.PI*2); ctx.fill();
+      }
+    } else if (o.type === 'air') {
+      // Floating with lightning
+      ctx.shadowColor='rgba(30,64,175,0.15)'; ctx.shadowBlur=8;
+      ctx.fillStyle=d.bg; ctx.strokeStyle=d.color; ctx.lineWidth=1.5;
+      roundRect(o.x, o.y, d.w, d.h, 5); ctx.fill(); ctx.stroke();
+      ctx.shadowBlur=0;
+      ctx.fillStyle=d.color; ctx.font='10px serif';
+      ctx.textAlign='left'; ctx.textBaseline='middle';
+      ctx.fillText('⚡', o.x-12, o.y+d.h/2);
+      ctx.textAlign='right';
+      ctx.fillText('⚡', o.x+d.w+12, o.y+d.h/2);
+      ctx.fillStyle=d.color; ctx.font='bold 9px monospace';
+      ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText(d.label, o.x+d.w/2, o.y+d.h/2);
+    } else {
+      // Ground pillar
+      ctx.fillStyle=d.bg; ctx.strokeStyle=d.color; ctx.lineWidth=2;
+      roundRect(o.x, o.y, d.w, d.h, 4); ctx.fill(); ctx.stroke();
+      ctx.fillStyle=d.color; ctx.globalAlpha=0.15;
+      roundRect(o.x, o.y, d.w, 6, 4); ctx.fill();
+      ctx.globalAlpha=1;
+      ctx.font='13px serif'; ctx.textAlign='center'; ctx.textBaseline='bottom';
+      ctx.fillText(d.icon, o.x+d.w/2, o.y-2);
+      ctx.fillStyle=d.color; ctx.font='bold 9px monospace'; ctx.textBaseline='middle';
+      ctx.fillText(d.label, o.x+d.w/2, o.y+d.h/2+2);
+    }
+  }
+
+  function drawParticles() {
+    particles.forEach(p => {
+      ctx.globalAlpha = Math.max(0, p.life/30);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(p.x, p.y, p.size, p.size);
+    });
+    ctx.globalAlpha = 1;
+  }
+
+  // Score popup
+  let spText='', spX=0, spY=0, spT=0, spC='#15803d';
+  function showSP(t,x,y,c) { spText=t; spX=x; spY=y; spT=35; spC=c||'#15803d'; }
+  function drawSP() {
+    if(spT<=0) return;
+    ctx.globalAlpha=Math.min(1, spT/20);
+    ctx.fillStyle=spC; ctx.font='bold 15px sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(spText, spX, spY-(1-spT/35)*20);
+    ctx.globalAlpha=1; spT--;
+  }
+
+  // ==================== Overlay ====================
+  function showOL(i,m,s) { overlay.style.display='flex'; oIcon.textContent=i; oMain.textContent=m; oSub.textContent=s; }
+  function hideOL() { overlay.style.display='none'; }
+
+  // ==================== Game Logic ====================
+  function reset() {
+    state='running'; speed=3.5; score=0; frame=0; groundOff=0; shakeT=0;
+    obstacles=[]; particles=[]; spT=0;
+    clouds=[{x:100,y:25,r:16,speed:0.3},{x:300,y:40,r:20,speed:0.35},{x:520,y:18,r:14,speed:0.28}];
+    P.y=GROUND; P.dy=0; P.jumps=0; P.sliding=false; P.slideTimer=0; P.h=PLAYER_H_NORMAL;
+    scoreEl.textContent='0'; hideOL(); loop();
+  }
+
+  function die() {
+    state='over'; shakeT=14;
+    spawnParts(P.x+10, P.y+15, '#b91c1c', 15);
+    if(score>highScore) { highScore=score; localStorage.setItem('econRunHigh',highScore); highEl.textContent=highScore; }
+    setTimeout(()=>{ showOL('😭', T.over, T.retry+'  ('+T.score+' '+score+')'); }, 350);
+  }
+
+  function spawnObstacle() {
+    const roll = Math.random();
+    let type, def, oy;
+    if (roll < 0.28) {
+      type='stomp'; def=STOMP_OBS[Math.floor(Math.random()*STOMP_OBS.length)];
+      oy = GROUND + PLAYER_H_NORMAL - def.h;
+    } else if (roll < 0.52) {
+      type='air'; def=AIR_OBS[Math.floor(Math.random()*AIR_OBS.length)];
+      oy = GROUND - 12;
+    } else {
+      type='ground'; def=GROUND_OBS[Math.floor(Math.random()*GROUND_OBS.length)];
+      oy = GROUND + PLAYER_H_NORMAL - def.h;
+    }
+    obstacles.push({ x:W+20, y:oy, type:type, def:def, scored:false, stomped:false });
+  }
+
+  function update() {
+    frame++; groundOff=(groundOff+speed)%24;
+
+    if(P.sliding) { P.slideTimer--; if(P.slideTimer<=0) { P.sliding=false; P.h=PLAYER_H_NORMAL; P.y-=(PLAYER_H_NORMAL-PLAYER_H_SLIDE); } }
+
+    P.dy+=GRAV; P.y+=P.dy;
+    if(P.y>=GROUND) { P.y=GROUND; P.dy=0; P.jumps=0; }
+
+    const gap = Math.max(65, 125-speed*2.5) + Math.random()*65;
+    if (frame % Math.floor(gap)===0 || (frame>40 && obstacles.length===0)) spawnObstacle();
+
+    for(let i=obstacles.length-1; i>=0; i--) {
+      const o=obstacles[i]; o.x-=speed;
+      if(o.x+o.def.w < -20) {
+        if(!o.scored) { score++; scoreEl.textContent=score; if(score%6===0) speed+=0.15; }
+        obstacles.splice(i,1); continue;
+      }
+
+      const pad=5;
+      const ph = P.sliding ? PLAYER_H_SLIDE : PLAYER_H_NORMAL;
+      const py = P.sliding ? P.y+(PLAYER_H_NORMAL-PLAYER_H_SLIDE) : P.y;
+      const pw = P.sliding ? 28 : P.w;
+
+      const hit = P.x+pad < o.x+o.def.w-pad && P.x+pw-pad > o.x+pad && py+pad < o.y+o.def.h-pad && py+ph-pad > o.y+pad;
+
+      if(o.type==='stomp' && !o.stomped) {
+        const land = P.x+pw-pad > o.x+pad && P.x+pad < o.x+o.def.w-pad && P.dy>0 && py+ph>=o.y && py+ph<=o.y+12;
+        if(land) {
+          o.stomped=true; o.scored=true; score+=2; scoreEl.textContent=score;
+          P.dy=JUMP_V*0.7; P.jumps=1;
+          spawnParts(o.x+o.def.w/2, o.y, '#15803d', 8);
+          showSP('+2', o.x+o.def.w/2, o.y-10);
+          if(score%6===0) speed+=0.15; continue;
+        }
+        if(hit && !o.stomped) { die(); return; }
+      } else if(hit) { die(); return; }
+    }
+
+    for(let i=particles.length-1;i>=0;i--) {
+      const p=particles[i]; p.x+=p.dx; p.y+=p.dy; p.dy+=0.12; p.life--;
+      if(p.life<=0) particles.splice(i,1);
+    }
+    updateClouds();
+  }
+
+  function draw() {
+    let sx=0,sy=0;
+    if(shakeT>0) { sx=(Math.random()-0.5)*shakeT*0.7; sy=(Math.random()-0.5)*shakeT*0.7; shakeT--; }
+    ctx.save(); ctx.translate(sx,sy);
+    ctx.clearRect(-10,-10,W+20,H+20);
+    drawSky(); drawClouds(); drawGround();
+    obstacles.forEach(drawObs);
+    drawPlayer(); drawParticles(); drawSP();
+    ctx.restore();
+  }
+
+  function loop() { if(state!=='running') return; update(); draw(); requestAnimationFrame(loop); }
+
+  // ==================== Input ====================
+  function doJump() { if(P.sliding) return; if(P.jumps<P.maxJumps) { P.dy=JUMP_V; P.jumps++; spawnParts(P.x+10,P.y+P.h,'#dbeafe',4); } }
+  function doSlide() { if(P.y<GROUND||P.sliding) return; P.sliding=true; P.slideTimer=SLIDE_DURATION; P.h=PLAYER_H_SLIDE; }
+
+  document.addEventListener('keydown', e => {
+    if(e.code==='Space'||e.code==='ArrowUp') { e.preventDefault(); if(state!=='running') reset(); else doJump(); }
+    if(e.code==='ArrowDown') { e.preventDefault(); if(state==='running') doSlide(); }
+  });
+
+  canvas.addEventListener('touchstart', e => {
     e.preventDefault();
-    if (isGameOver) initGame();
-    else jump();
-}, {passive: false});
+    if(state!=='running') { reset(); return; }
+    const r=canvas.getBoundingClientRect();
+    const ty=(e.touches?e.touches[0].clientY:e.clientY)-r.top;
+    if(ty>r.height*0.55) doSlide(); else doJump();
+  }, {passive:false});
 
-canvas.addEventListener('mousedown', function(e) {
-    if (isGameOver) initGame();
-    else jump();
-});
+  canvas.addEventListener('mousedown', e => {
+    if(state!=='running') { reset(); return; }
+    const r=canvas.getBoundingClientRect();
+    if(e.clientY-r.top > r.height*0.55) doSlide(); else doJump();
+  });
 
-// 启动
-initGame();
+  // ==================== Init ====================
+  clouds=[{x:100,y:25,r:16,speed:0.3},{x:350,y:38,r:20,speed:0.35}];
+  groundOff=0; particles=[]; obstacles=[];
+  P.y=GROUND; P.dy=0;
+  ctx.clearRect(0,0,W,H); drawSky(); drawClouds(); drawGround(); drawPlayer();
+  showOL('🎓', T.title, T.start);
+})();
 </script>
