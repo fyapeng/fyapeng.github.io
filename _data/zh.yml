@@ -2,7 +2,7 @@
 nav:
   home: "首页"
   home_url: "/" 
-  research: "研究"
+  research: "论文"
   research_url: "/research.html"
   cv: "简历"
   cv_url: "/cv.html"
