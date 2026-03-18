@@ -170,9 +170,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .profile-sidebar {
-  flex: 0 0 260px;   /* 从300px缩小 */
+  flex: 0 0 240px;   /* 从260再缩小 */
   text-align: center;
-  padding: 1.5rem;    /* 从2rem收紧 */
+  padding: 1.25rem 1.25rem 1rem;  /* 大幅收紧内边距 */
   border: 1px solid var(--border-color);
   border-radius: 10px;
   background-color: var(--card-bg-color);
@@ -180,30 +180,34 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .profile-pic { 
-  width: 130px;     /* 从160px缩小 */
-  height: 130px; 
+  width: 110px;     /* 从130px进一步缩小 */
+  height: 110px; 
   border-radius: 50%; 
   object-fit: cover; 
-  margin-bottom: 1rem;  /* 从1.5rem收紧 */
+  margin-bottom: 0.6rem;  /* 大幅收紧 */
   border: 3px solid var(--bg-color);
   box-shadow: var(--shadow-sm);
 }
 
 .profile-sidebar h2 { 
-  font-size: 1.25rem;  /* 从1.5rem缩小 */
-  margin-bottom: 0.25rem; 
+  font-size: 1.15rem;
+  margin-bottom: 0.1rem;  /* 名字和身份间距极小 */
 }
 .profile-sidebar p { 
   color: var(--tertiary-color); 
-  margin-bottom: 1.25rem; 
-  font-size: 0.88rem; 
+  margin-bottom: 0.85rem;  /* 身份和联系信息间距收紧 */
+  font-size: 0.85rem; 
 }
 
-.contact-info { list-style: none; text-align: left; font-size: 0.88rem; }
+.contact-info { list-style: none; text-align: left; font-size: 0.85rem; }
 .contact-info li { 
-  margin-bottom: 0.6rem;  /* 从0.75rem收紧 */
+  margin-bottom: 0.4rem;  /* 进一步收紧 */
   display: flex; 
   align-items: center; 
+  line-height: 1.4;
+}
+.contact-info li:last-child {
+  margin-bottom: 0;  /* 最后一项不留底部间距 */
 }
 .contact-info i { 
   margin-right: 0.6rem; 
@@ -263,12 +267,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .education-duration {
-  flex: 0 0 140px;  /* 从160px缩小 */
+  flex: 0 0 180px;  /* 给足空间容纳 "2024.09 - 2029.06 (预计)" */
   font-weight: 600;
   color: var(--accent-color);
   font-size: 0.85rem;
   padding-top: 2px;
   letter-spacing: 0.01em;
+  text-align: right;     /* 桌面端右对齐，与详情区形成间隔 */
+  white-space: nowrap;   /* 防止日期折行 */
 }
 
 .education-details { flex: 1; }
@@ -669,11 +675,12 @@ h1, h2, h3, h4, h5, h6 {
     display: flex; 
     align-items: center; 
     text-align: left; 
-    gap: 1.5rem;
+    gap: 1.25rem;
+    padding: 1rem 1.25rem;
   }
-  .profile-pic { width: 100px; height: 100px; margin-bottom: 0; }
+  .profile-pic { width: 90px; height: 90px; margin-bottom: 0; }
   .sidebar-text { flex: 1; }
-  .contact-info { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .contact-info { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; }
   .contact-info li { margin-bottom: 0; }
 }
 
@@ -697,7 +704,13 @@ h1, h2, h3, h4, h5, h6 {
   
   /* Education */
   .education-item { flex-direction: column; gap: 0.4rem; padding: 1rem; }
-  .education-duration { flex-basis: auto; font-size: 0.82rem; padding-top: 0; }
+  .education-duration { 
+    flex-basis: auto; 
+    font-size: 0.82rem; 
+    padding-top: 0; 
+    text-align: left;    /* 移动端改回左对齐 */
+    white-space: normal;  /* 移动端允许换行 */
+  }
   
   /* Research Highlights */
   .highlights-grid { flex-direction: column; gap: 1.25rem;}
