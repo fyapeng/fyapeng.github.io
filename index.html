@@ -10,8 +10,7 @@
     <div class="profile-sidebar">
       <img src="{{ '/assets/img/bio.webp' | relative_url }}" alt="{{ t.profile.name }}" class="profile-pic">
       <div class="sidebar-text">
-        <h2>{{ t.profile.name }}</h2>
-        <p>{{ t.profile.title }}</p>
+        <p class="profile-title">{{ t.profile.title }}</p>
         <ul class="contact-info">
           <li><i class="fas fa-envelope"></i> <span id="email-placeholder">[加载中...]</span></li>
           <li><i class="fas fa-file-pdf"></i> <a id="cv-link-sidebar" class="cv-dynamic-link" href="javascript:;" target="_blank">{{ t.profile.cv_button }}</a></li>
