@@ -1,26 +1,26 @@
 <!-- _includes/game.html -->
-<!-- Econ Runner — 经济学学术跑酷 -->
+<!-- Econometrics Snake — 计量经济学贪吃蛇 (HiDPI) -->
 <section id="fun-zone" class="content-section" style="text-align: center; margin-top: 4rem;">
   <h2 class="section-title" style="font-size: 1.35rem;">
-    <span>🎓</span>
-    <span id="game-title-text"></span>
+    🐍 <span id="g-title"></span>
   </h2>
-  <p id="game-hint" style="font-size: 0.88rem; color: var(--tertiary-color, #6b7280); margin-bottom: 1rem; line-height: 1.6;"></p>
-  
-  <div id="game-wrapper" style="position: relative; display: inline-block; max-width: 100%;">
-    <canvas id="runnerCanvas" width="680" height="240"
-      style="display: block; border: 2px solid var(--border-color-strong, #d1d5db); border-radius: 8px; background: #fcfcfc; max-width: 100%; touch-action: none; cursor: pointer;">
+  <p id="g-hint" style="font-size: 0.88rem; color: var(--tertiary-color, #6b7280); margin-bottom: 0.75rem; line-height: 1.6;"></p>
+
+  <div style="position: relative; display: inline-block; max-width: 100%;">
+    <canvas id="snakeCanvas"
+      style="display: block; border: 2px solid var(--border-color-strong, #d1d5db); border-radius: 8px; background: #fdfdfd; max-width: 100%; touch-action: none; width: 520px; height: 520px;">
     </canvas>
-    <div id="game-overlay" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(252,252,252,0.93); border-radius: 8px;">
-      <div id="overlay-icon" style="font-size: 2.8rem; margin-bottom: 0.4rem;">🎓</div>
-      <div id="overlay-main" style="font-size: 1.25rem; font-weight: 700; color: #111827; margin-bottom: 0.3rem;"></div>
-      <div id="overlay-sub" style="font-size: 0.85rem; color: #6b7280; max-width: 80%;"></div>
+    <div id="g-overlay" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(253,253,253,0.94); border-radius: 8px;">
+      <div id="g-oi" style="font-size: 2.8rem; margin-bottom: 0.3rem;">🐍</div>
+      <div id="g-om" style="font-size: 1.2rem; font-weight: 700; color: #111827; margin-bottom: 0.25rem;"></div>
+      <div id="g-os" style="font-size: 0.85rem; color: #6b7280; max-width: 85%; line-height: 1.5;"></div>
     </div>
   </div>
-  
-  <div style="display: flex; justify-content: space-between; max-width: 680px; margin: 0.5rem auto 0; font-size: 0.92rem; color: var(--secondary-color, #374151);">
-    <span><span id="score-label"></span> <b id="score" style="color: var(--accent-color, #1e40af);">0</b></span>
-    <span><span id="high-label"></span> <b id="highScore" style="color: #b91c1c;">0</b></span>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; max-width: 520px; margin: 0.5rem auto 0; font-size: 0.92rem; color: var(--secondary-color, #374151);">
+    <span><span id="g-sl"></span> <b id="g-sc" style="color: var(--accent-color, #1e40af);">0</b></span>
+    <span id="g-eaten" style="font-size: 0.85rem; color: var(--tertiary-color, #6b7280);"></span>
+    <span><span id="g-bl"></span> <b id="g-bs" style="color: #b91c1c;">0</b></span>
   </div>
 </section>
 
@@ -28,376 +28,355 @@
 (function() {
   'use strict';
 
-  // ==================== i18n ====================
   const lang = document.documentElement.lang || 'zh';
-  const isEn = lang === 'en';
+  const E = lang === 'en';
   const T = {
-    title:    isEn ? 'Econ Survival Run' : '经济学生存跑酷',
-    hint:     isEn ? '↑ / Space to jump (×3)  |  ↓ to slide  |  Tap upper/lower half on mobile'
-                   : '↑/空格 跳跃(三段跳) ｜ ↓ 滑铲 ｜ 手机点上半/下半屏',
-    score:    isEn ? 'Score:' : '得分:',
-    best:     isEn ? 'Best:' : '最高:',
-    start:    isEn ? 'Press Space or Tap to start' : '按空格或点击屏幕开始',
-    over:     isEn ? 'Game Over' : '学术生涯中断！',
-    retry:    isEn ? 'Space / Tap to retry' : '空格/点击 重新开始',
+    title:  E ? 'Econometrics Snake' : '计量经济学贪吃蛇',
+    hint:   E ? 'Arrow keys / WASD / Swipe — Eat ✅ good methods, avoid ❌ bad ones! Walls wrap around.'
+              : '方向键 / WASD / 滑动  —  吃 ✅ 好方法，躲 ❌ 坏问题！撞墙会穿越到对面',
+    score:  E ? 'Score:' : '得分:',
+    best:   E ? 'Best:' : '最高:',
+    start:  E ? 'Press arrow key or tap to start' : '按方向键或点击开始',
+    over:   E ? 'Research Terminated!' : '研究终结！',
+    retry:  E ? 'Press key or tap to retry' : '按键或点击重试',
+    ate:    E ? 'Got' : '获得',
+    hitBad: E ? 'Hit' : '撞上',
+    hitSelf:E ? 'Bit own tail!' : '咬到自己了！',
+    hitWall:E ? 'Hit wall!' : '撞墙了！',
   };
 
-  document.getElementById('game-title-text').textContent = T.title;
-  document.getElementById('game-hint').textContent = T.hint;
-  document.getElementById('score-label').textContent = T.score;
-  document.getElementById('high-label').textContent = T.best;
+  document.getElementById('g-title').textContent = T.title;
+  document.getElementById('g-hint').textContent = T.hint;
+  document.getElementById('g-sl').textContent = T.score;
+  document.getElementById('g-bl').textContent = T.best;
 
-  // ==================== Canvas ====================
-  const canvas = document.getElementById('runnerCanvas');
+  // ==================== Items ====================
+  const GOOD = [
+    { code: 'IV',   full: E?'Instrument Var':'工具变量',   color: '#15803d', bg: '#dcfce7' },
+    { code: 'RCT',  full: E?'Randomized Exp':'随机实验',   color: '#0369a1', bg: '#dbeafe' },
+    { code: 'DID',  full: E?'Diff-in-Diff':'双重差分',     color: '#4338ca', bg: '#e0e7ff' },
+    { code: 'RDD',  full: E?'Reg. Discont.':'断点回归',    color: '#0e7490', bg: '#cffafe' },
+    { code: 'PSM',  full: E?'Prop. Match':'倾向匹配',      color: '#166534', bg: '#dcfce7' },
+    { code: 'FE',   full: E?'Fixed Effects':'固定效应',     color: '#1d4ed8', bg: '#dbeafe' },
+    { code: 'GMM',  full: E?'Gen. Moments':'广义矩估计',   color: '#6d28d9', bg: '#ede9fe' },
+    { code: 'ML',   full: E?'Max Likelihood':'极大似然',    color: '#0f766e', bg: '#ccfbf1' },
+    { code: '2SLS', full: E?'Two-Stage LS':'两阶段LS',     color: '#1e40af', bg: '#dbeafe' },
+    { code: 'SC',   full: E?'Synth Control':'合成控制',     color: '#7c3aed', bg: '#ede9fe' },
+  ];
+
+  const BAD = [
+    { code: 'OVB',  full: E?'Omitted Var':'遗漏变量',      color: '#b91c1c', bg: '#fee2e2' },
+    { code: 'Endo', full: E?'Endogeneity':'内生性',         color: '#9f1239', bg: '#ffe4e6' },
+    { code: 'p>.05',full: E?'Insignificant':'不显著',       color: '#dc2626', bg: '#fee2e2' },
+    { code: 'Multi',full: E?'Multicol.':'共线性',           color: '#b45309', bg: '#fef3c7' },
+    { code: 'Hetero',full:E?'Heterosked.':'异方差',         color: '#92400e', bg: '#fef9c3' },
+    { code: 'Spur.', full:E?'Spurious Reg':'伪回归',       color: '#991b1b', bg: '#fee2e2' },
+  ];
+
+  // ==================== HiDPI Canvas Setup ====================
+  const canvas = document.getElementById('snakeCanvas');
   const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  const GROUND = H - 36;
-  const scoreEl = document.getElementById('score');
-  const highEl = document.getElementById('highScore');
-  const overlay = document.getElementById('game-overlay');
-  const oIcon = document.getElementById('overlay-icon');
-  const oMain = document.getElementById('overlay-main');
-  const oSub = document.getElementById('overlay-sub');
+  const dpr = window.devicePixelRatio || 1;
+  const CSS_W = 520, CSS_H = 520;
+
+  // Set actual canvas buffer size to match physical pixels
+  canvas.width = CSS_W * dpr;
+  canvas.height = CSS_H * dpr;
+  canvas.style.width = CSS_W + 'px';
+  canvas.style.height = CSS_H + 'px';
+  ctx.scale(dpr, dpr);  // Scale all drawing ops so we work in CSS pixels
+
+  const COLS = 13, ROWS = 13;
+  const CELL = CSS_W / COLS; // ~40 CSS pixels per cell
+
+  // Use system UI font — crisp native rendering, no bold
+  const FONT_LABEL = '500 15px -apple-system, "Segoe UI", "Noto Sans SC", sans-serif';
+  const FONT_BADGE = '600 11px -apple-system, "Segoe UI", sans-serif';
+  const FONT_TOOLTIP = '500 14px -apple-system, "Segoe UI", "Noto Sans SC", sans-serif';
+
+  const scoreEl = document.getElementById('g-sc');
+  const bestEl = document.getElementById('g-bs');
+  const eatenEl = document.getElementById('g-eaten');
+  const ov = document.getElementById('g-overlay');
+  const oI = document.getElementById('g-oi');
+  const oM = document.getElementById('g-om');
+  const oS = document.getElementById('g-os');
 
   // ==================== State ====================
   let state = 'idle';
-  let speed, score, highScore, frame, groundOff, shakeT;
-  let obstacles, particles, clouds;
-  highScore = parseInt(localStorage.getItem('econRunHigh') || '0', 10);
-  highEl.textContent = highScore;
+  let snake, dir, nextDir, score, bestScore, tickRate, tickTimer;
+  let items, particles, lastEaten, lastTime;
 
-  // Player
-  const P = {
-    x: 65, y: GROUND, w: 24, h: 32,
-    dy: 0, jumps: 0, maxJumps: 3,
-    sliding: false, slideTimer: 0
-  };
-  const GRAV = 0.42;
-  const JUMP_V = -8.8;
-  const SLIDE_DURATION = 25;
-  const PLAYER_H_NORMAL = 32;
-  const PLAYER_H_SLIDE = 16;
+  bestScore = parseInt(localStorage.getItem('econSnake3') || '0', 10);
+  bestEl.textContent = bestScore;
 
-  // ==================== Obstacle Definitions ====================
-  // 地面障碍（需要跳过）— 像柱子/路障
-  const GROUND_OBS = [
-    { label: 'DDL',       color: '#b91c1c', bg: '#fef2f2', w: 30, h: 32, icon: '📅' },
-    { label: 'Reject',    color: '#9f1239', bg: '#fff1f2', w: 36, h: 32, icon: '✉️' },
-    { label: 'Debt',      color: '#92400e', bg: '#fefce8', w: 32, h: 36, icon: '💰' },
-    { label: 'Exam',      color: '#7c2d12', bg: '#fff7ed', w: 34, h: 30, icon: '📝' },
-    { label: 'Seminar',   color: '#6b21a8', bg: '#faf5ff', w: 42, h: 28, icon: '🎤' },
-    { label: 'Tuition',   color: '#b45309', bg: '#fffbeb', w: 38, h: 32, icon: '🧾' },
-  ];
-
-  // 空中障碍（需要滑铲躲过）— 像闪电/飞行物
-  const AIR_OBS = [
-    { label: 'R&R',        color: '#1e40af', bg: '#eff6ff', w: 34, h: 24, icon: '🔄' },
-    { label: 'Referee',    color: '#0f766e', bg: '#f0fdfa', w: 40, h: 22, icon: '👨‍⚖️' },
-    { label: 'p>0.05',     color: '#dc2626', bg: '#fef2f2', w: 42, h: 22, icon: '📊' },
-    { label: 'Endogeneity',color: '#7c3aed', bg: '#f5f3ff', w: 56, h: 22, icon: '🔀' },
-  ];
-
-  // 可踩的怪（跳上去+2分弹跳）— 像友好方块
-  const STOMP_OBS = [
-    { label: 'IV',   color: '#15803d', bg: '#f0fdf4', w: 28, h: 24, icon: '🔧' },
-    { label: 'RCT',  color: '#0369a1', bg: '#f0f9ff', w: 30, h: 24, icon: '🧪' },
-    { label: 'DID',  color: '#4338ca', bg: '#eef2ff', w: 30, h: 24, icon: '📐' },
-    { label: 'RDD',  color: '#0e7490', bg: '#ecfeff', w: 30, h: 24, icon: '📈' },
-  ];
+  // roundRect polyfill
+  if (!CanvasRenderingContext2D.prototype.roundRect) {
+    CanvasRenderingContext2D.prototype.roundRect = function(x,y,w,h,r) {
+      if(typeof r==='number') r=[r,r,r,r];
+      this.moveTo(x+r[0],y);
+      this.lineTo(x+w-r[1],y); this.quadraticCurveTo(x+w,y,x+w,y+r[1]);
+      this.lineTo(x+w,y+h-r[2]); this.quadraticCurveTo(x+w,y+h,x+w-r[2],y+h);
+      this.lineTo(x+r[3],y+h); this.quadraticCurveTo(x,y+h,x,y+h-r[3]);
+      this.lineTo(x,y+r[0]); this.quadraticCurveTo(x,y,x+r[0],y);
+    };
+  }
 
   // ==================== Helpers ====================
-  function roundRect(x, y, w, h, r) {
-    ctx.beginPath();
-    ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r);
-    ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
-    ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r);
-    ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y);
-    ctx.closePath();
-  }
+  function showOL(i,m,s) { ov.style.display='flex'; oI.textContent=i; oM.textContent=m; oS.textContent=s; }
+  function hideOL() { ov.style.display='none'; }
+  function rnd(n) { return Math.floor(Math.random()*n); }
 
-  function spawnParts(x, y, col, n) {
-    for (let i = 0; i < n; i++) {
-      particles.push({
-        x, y, dx: (Math.random()-0.5)*4.5, dy: (Math.random()-1)*3.5,
-        life: 18+Math.random()*14, color: col, size: 2+Math.random()*2.5
-      });
-    }
+  function cellFree(x,y) {
+    for(const s of snake) if(s.x===x && s.y===y) return false;
+    for(const it of items) if(it.x===x && it.y===y) return false;
+    return true;
   }
-
-  // ==================== Drawing ====================
-  function drawSky() {
-    const grad = ctx.createLinearGradient(0, 0, 0, 60);
-    grad.addColorStop(0, '#f0f7ff');
-    grad.addColorStop(1, 'rgba(240,247,255,0)');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, W, 60);
+  function randFree() {
+    let t=0;
+    while(t<300) { const x=rnd(COLS),y=rnd(ROWS); if(cellFree(x,y)) return {x,y}; t++; }
+    return {x:rnd(COLS),y:rnd(ROWS)};
   }
-
-  function drawClouds() {
-    ctx.fillStyle = '#e8eef5';
-    clouds.forEach(c => {
-      ctx.beginPath();
-      ctx.ellipse(c.x, c.y, c.r, c.r*0.5, 0, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath();
-      ctx.ellipse(c.x-c.r*0.6, c.y+2, c.r*0.65, c.r*0.35, 0, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath();
-      ctx.ellipse(c.x+c.r*0.55, c.y+3, c.r*0.7, c.r*0.4, 0, 0, Math.PI*2); ctx.fill();
+  function spawnGood() { const d=GOOD[rnd(GOOD.length)], p=randFree(); items.push({x:p.x,y:p.y,good:true,def:d,age:0}); }
+  function spawnBad() { const d=BAD[rnd(BAD.length)], p=randFree(); items.push({x:p.x,y:p.y,good:false,def:d,age:0}); }
+  function ensureItems() {
+    while(items.filter(i=>i.good).length<2) spawnGood();
+    while(items.filter(i=>!i.good).length<1) spawnBad();
+    while(items.length<4) { Math.random()<0.65 ? spawnGood() : spawnBad(); }
+  }
+  function spawnParts(px,py,col,n) {
+    for(let i=0;i<n;i++) particles.push({
+      x:px, y:py, dx:(Math.random()-0.5)*4, dy:(Math.random()-0.5)*4,
+      life:15+Math.random()*12, color:col, size:3+Math.random()*3
     });
   }
 
-  function updateClouds() {
-    clouds.forEach(c => { c.x -= c.speed; });
-    clouds = clouds.filter(c => c.x + c.r*2 > 0);
-    if (Math.random() < 0.004) {
-      clouds.push({ x: W+30, y: 20+Math.random()*35, r: 14+Math.random()*18, speed: 0.3+Math.random()*0.4 });
-    }
+  // ==================== Drawing ====================
+  function drawGrid() {
+    ctx.strokeStyle = '#f0f0f0';
+    ctx.lineWidth = 0.5;
+    for(let i=0;i<=COLS;i++) { ctx.beginPath(); ctx.moveTo(i*CELL,0); ctx.lineTo(i*CELL,CSS_H); ctx.stroke(); }
+    for(let i=0;i<=ROWS;i++) { ctx.beginPath(); ctx.moveTo(0,i*CELL); ctx.lineTo(CSS_W,i*CELL); ctx.stroke(); }
   }
 
-  function drawGround() {
-    ctx.strokeStyle = '#9ca3af'; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(0, GROUND+P.h+1); ctx.lineTo(W, GROUND+P.h+1); ctx.stroke();
-    ctx.strokeStyle = '#d1d5db'; ctx.lineWidth = 1;
-    for (let i = -groundOff % 24; i < W; i += 24) {
-      ctx.beginPath(); ctx.moveTo(i, GROUND+P.h+2); ctx.lineTo(i, GROUND+P.h+6); ctx.stroke();
-    }
-  }
-
-  // ---- Player ----
-  function drawPlayer() {
-    const px = P.x, py = P.y;
-    const inAir = py < GROUND;
-
-    if (P.sliding) {
-      // Slide: horizontal body
-      ctx.fillStyle = '#1e40af';
-      roundRect(px-4, py+20, 30, 12, 4); ctx.fill();
-      ctx.fillStyle = '#fbbf24';
-      ctx.beginPath(); ctx.arc(px+2, py+22, 8, 0, Math.PI*2); ctx.fill();
-      ctx.strokeStyle = '#111827'; ctx.lineWidth = 1.2;
-      ctx.beginPath(); ctx.arc(px-1, py+21, 3, 0, Math.PI*2); ctx.stroke();
-      ctx.beginPath(); ctx.arc(px+5, py+21, 3, 0, Math.PI*2); ctx.stroke();
-      ctx.fillStyle = '#111827';
-      ctx.fillRect(px-6, py+14, 16, 3);
-      if (frame%3===0) spawnParts(px+26, py+32, '#fbbf24', 1);
-    } else {
-      // Standing / air
-      ctx.fillStyle = '#1e40af';
-      roundRect(px, py+10, 20, 20, 4); ctx.fill();
-      ctx.fillStyle = '#fbbf24';
-      ctx.beginPath(); ctx.arc(px+10, py+5, 9, 0, Math.PI*2); ctx.fill();
-      ctx.strokeStyle = '#111827'; ctx.lineWidth = 1.3;
-      ctx.beginPath(); ctx.arc(px+6, py+5, 3.5, 0, Math.PI*2); ctx.stroke();
-      ctx.beginPath(); ctx.arc(px+14, py+5, 3.5, 0, Math.PI*2); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(px+9.5,py+5); ctx.lineTo(px+10.5,py+5); ctx.stroke();
-      // Cap
-      ctx.fillStyle = '#111827';
-      ctx.beginPath(); ctx.moveTo(px,py-1); ctx.lineTo(px+20,py-1); ctx.lineTo(px+10,py-7); ctx.closePath(); ctx.fill();
-      if (inAir) {
-        ctx.strokeStyle='#b91c1c'; ctx.lineWidth=1.5;
-        ctx.beginPath(); ctx.moveTo(px+17,py-3); ctx.lineTo(px+23,py); ctx.stroke();
-      }
-      // Legs
-      const la = Math.sin(frame*0.3) * (inAir?0.5:3);
-      ctx.strokeStyle='#1e3a8a'; ctx.lineWidth=2.5;
-      if (inAir) {
-        ctx.beginPath(); ctx.moveTo(px+5,py+30); ctx.lineTo(px+7,py+32); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(px+15,py+30); ctx.lineTo(px+13,py+32); ctx.stroke();
+  function drawSnake() {
+    snake.forEach((seg,i) => {
+      const px=seg.x*CELL, py=seg.y*CELL;
+      if(i===0) {
+        // Head
+        ctx.fillStyle='#1e3a8a';
+        ctx.beginPath(); ctx.roundRect(px+2,py+2,CELL-4,CELL-4,8); ctx.fill();
+        // Face
+        ctx.fillStyle='#fbbf24';
+        ctx.beginPath(); ctx.arc(px+CELL/2, py+CELL/2+2, CELL*0.27, 0, Math.PI*2); ctx.fill();
+        // Glasses
+        ctx.strokeStyle='#1e293b'; ctx.lineWidth=1.5;
+        const gY=py+CELL/2+1, gR=CELL*0.1;
+        ctx.beginPath(); ctx.arc(px+CELL/2-gR*1.6, gY, gR+0.5, 0, Math.PI*2); ctx.stroke();
+        ctx.beginPath(); ctx.arc(px+CELL/2+gR*1.6, gY, gR+0.5, 0, Math.PI*2); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(px+CELL/2-gR*0.5,gY); ctx.lineTo(px+CELL/2+gR*0.5,gY); ctx.stroke();
+        // Cap
+        ctx.fillStyle='#1e293b';
+        const capY=py+CELL/2-CELL*0.17;
+        ctx.beginPath();
+        ctx.moveTo(px+CELL*0.15,capY); ctx.lineTo(px+CELL*0.85,capY); ctx.lineTo(px+CELL/2,capY-CELL*0.2);
+        ctx.closePath(); ctx.fill();
       } else {
-        ctx.beginPath(); ctx.moveTo(px+6,py+30); ctx.lineTo(px+6+la,py+34); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(px+14,py+30); ctx.lineTo(px+14-la,py+34); ctx.stroke();
+        const t=Math.min(i/Math.max(snake.length,1),1);
+        ctx.fillStyle=`rgb(${Math.round(30+t*140)},${Math.round(58+t*145)},${Math.round(138+t*85)})`;
+        ctx.beginPath(); ctx.roundRect(px+3,py+3,CELL-6,CELL-6,6); ctx.fill();
       }
-    }
+    });
   }
 
-  // ---- Obstacles ----
-  function drawObs(o) {
-    const d = o.def;
-    if (o.stomped) return; // stomped ones disappear
+  function drawItems() {
+    items.forEach(it => {
+      const px=it.x*CELL, py=it.y*CELL, d=it.def;
+      it.age++;
+      const m=3;
 
-    if (o.type === 'stomp') {
-      // Friendly bouncy block
-      const by = Math.sin(frame*0.08 + o.x*0.01)*2;
-      ctx.fillStyle = d.bg; ctx.strokeStyle = d.color; ctx.lineWidth = 2;
-      roundRect(o.x, o.y+by, d.w, d.h, 5); ctx.fill(); ctx.stroke();
-      ctx.font='13px serif'; ctx.textAlign='center'; ctx.textBaseline='bottom';
-      ctx.fillText(d.icon, o.x+d.w/2, o.y+by-1);
-      ctx.fillStyle = d.color; ctx.font='bold 10px monospace'; ctx.textBaseline='middle';
-      ctx.fillText(d.label, o.x+d.w/2, o.y+by+d.h/2);
-      if (frame%30<5) {
-        ctx.fillStyle='rgba(21,128,61,0.3)';
-        ctx.beginPath(); ctx.arc(o.x+d.w-3, o.y+by+3, 2, 0, Math.PI*2); ctx.fill();
+      // Card
+      ctx.fillStyle=d.bg; ctx.strokeStyle=d.color; ctx.lineWidth=it.good?1.5:2;
+      ctx.beginPath(); ctx.roundRect(px+m,py+m,CELL-m*2,CELL-m*2,6); ctx.fill(); ctx.stroke();
+
+      // Bad glow
+      if(!it.good && Math.sin(it.age*0.08)>0.2) {
+        ctx.strokeStyle='rgba(185,28,28,0.2)'; ctx.lineWidth=3.5;
+        ctx.beginPath(); ctx.roundRect(px+m-2,py+m-2,CELL-m*2+4,CELL-m*2+4,8); ctx.stroke();
       }
-    } else if (o.type === 'air') {
-      // Floating with lightning
-      ctx.shadowColor='rgba(30,64,175,0.15)'; ctx.shadowBlur=8;
-      ctx.fillStyle=d.bg; ctx.strokeStyle=d.color; ctx.lineWidth=1.5;
-      roundRect(o.x, o.y, d.w, d.h, 5); ctx.fill(); ctx.stroke();
-      ctx.shadowBlur=0;
-      ctx.fillStyle=d.color; ctx.font='10px serif';
-      ctx.textAlign='left'; ctx.textBaseline='middle';
-      ctx.fillText('⚡', o.x-12, o.y+d.h/2);
-      ctx.textAlign='right';
-      ctx.fillText('⚡', o.x+d.w+12, o.y+d.h/2);
-      ctx.fillStyle=d.color; ctx.font='bold 9px monospace';
+
+      // Badge circle
+      const bx=px+m+9, by=py+m+9;
+      ctx.fillStyle = it.good ? '#16a34a' : '#dc2626';
+      ctx.beginPath(); ctx.arc(bx,by,7,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle='#fff';
+      ctx.font = FONT_BADGE;
       ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.fillText(d.label, o.x+d.w/2, o.y+d.h/2);
-    } else {
-      // Ground pillar
-      ctx.fillStyle=d.bg; ctx.strokeStyle=d.color; ctx.lineWidth=2;
-      roundRect(o.x, o.y, d.w, d.h, 4); ctx.fill(); ctx.stroke();
-      ctx.fillStyle=d.color; ctx.globalAlpha=0.15;
-      roundRect(o.x, o.y, d.w, 6, 4); ctx.fill();
-      ctx.globalAlpha=1;
-      ctx.font='13px serif'; ctx.textAlign='center'; ctx.textBaseline='bottom';
-      ctx.fillText(d.icon, o.x+d.w/2, o.y-2);
-      ctx.fillStyle=d.color; ctx.font='bold 9px monospace'; ctx.textBaseline='middle';
-      ctx.fillText(d.label, o.x+d.w/2, o.y+d.h/2+2);
-    }
+      ctx.fillText(it.good?'✓':'✗', bx, by);
+
+      // Code label — medium weight, system font, NOT bold
+      ctx.fillStyle = d.color;
+      ctx.font = FONT_LABEL;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(d.code, px+CELL/2, py+CELL/2+4);
+    });
   }
 
   function drawParticles() {
     particles.forEach(p => {
-      ctx.globalAlpha = Math.max(0, p.life/30);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(p.x, p.y, p.size, p.size);
+      ctx.globalAlpha=Math.max(0,p.life/25);
+      ctx.fillStyle=p.color;
+      ctx.fillRect(p.x,p.y,p.size,p.size);
     });
-    ctx.globalAlpha = 1;
+    ctx.globalAlpha=1;
   }
 
-  // Score popup
-  let spText='', spX=0, spY=0, spT=0, spC='#15803d';
-  function showSP(t,x,y,c) { spText=t; spX=x; spY=y; spT=35; spC=c||'#15803d'; }
-  function drawSP() {
-    if(spT<=0) return;
-    ctx.globalAlpha=Math.min(1, spT/20);
-    ctx.fillStyle=spC; ctx.font='bold 15px sans-serif';
-    ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText(spText, spX, spY-(1-spT/35)*20);
-    ctx.globalAlpha=1; spT--;
+  function drawTooltip() {
+    if(!lastEaten||lastEaten.timer<=0) { lastEaten=null; return; }
+    const a=Math.min(1,lastEaten.timer/20), yOff=(1-a)*8;
+    ctx.globalAlpha=a;
+    ctx.font = FONT_TOOLTIP;
+    ctx.textAlign='center'; ctx.textBaseline='top';
+    ctx.fillStyle = lastEaten.good ? '#15803d' : '#b91c1c';
+    const pre = lastEaten.good ? '✅  ' : '❌  ';
+    const suf = lastEaten.good ? '  +10' : '';
+    ctx.fillText(pre+lastEaten.def.code+' — '+lastEaten.def.full+suf, CSS_W/2, 10+yOff);
+    ctx.globalAlpha=1;
+    lastEaten.timer--;
   }
 
-  // ==================== Overlay ====================
-  function showOL(i,m,s) { overlay.style.display='flex'; oIcon.textContent=i; oMain.textContent=m; oSub.textContent=s; }
-  function hideOL() { overlay.style.display='none'; }
+  // ==================== Logic ====================
+  let inputQueue = []; // Buffer multiple direction inputs between ticks
 
-  // ==================== Game Logic ====================
   function reset() {
-    state='running'; speed=3.5; score=0; frame=0; groundOff=0; shakeT=0;
-    obstacles=[]; particles=[]; spT=0;
-    clouds=[{x:100,y:25,r:16,speed:0.3},{x:300,y:40,r:20,speed:0.35},{x:520,y:18,r:14,speed:0.28}];
-    P.y=GROUND; P.dy=0; P.jumps=0; P.sliding=false; P.slideTimer=0; P.h=PLAYER_H_NORMAL;
-    scoreEl.textContent='0'; hideOL(); loop();
+    state='running'; score=0; tickRate=180; tickTimer=0; // slower start: 180ms
+    snake=[{x:6,y:6},{x:5,y:6},{x:4,y:6}];
+    dir={x:1,y:0}; nextDir={x:1,y:0};
+    inputQueue = [];
+    items=[]; particles=[]; lastEaten=null;
+    for(let i=0;i<3;i++) spawnGood();
+    for(let i=0;i<2;i++) spawnBad();
+    scoreEl.textContent='0'; eatenEl.textContent='';
+    hideOL(); lastTime=performance.now();
+    requestAnimationFrame(loop);
   }
 
-  function die() {
-    state='over'; shakeT=14;
-    spawnParts(P.x+10, P.y+15, '#b91c1c', 15);
-    if(score>highScore) { highScore=score; localStorage.setItem('econRunHigh',highScore); highEl.textContent=highScore; }
-    setTimeout(()=>{ showOL('😭', T.over, T.retry+'  ('+T.score+' '+score+')'); }, 350);
+  let deathLock = false; // prevent accidental instant restart
+
+  function die(reason) {
+    state='over';
+    deathLock = true;
+    const h=snake[0];
+    spawnParts(h.x*CELL+CELL/2, h.y*CELL+CELL/2, '#b91c1c', 14);
+    if(score>bestScore) { bestScore=score; localStorage.setItem('econSnake3',bestScore); bestEl.textContent=bestScore; }
+    setTimeout(()=>{
+      showOL('😭',T.over, reason+'\n'+T.retry+' ('+T.score+' '+score+')');
+      // Unlock input after overlay is shown + a short extra delay
+      setTimeout(()=>{ deathLock = false; }, 400);
+    }, 300);
   }
 
-  function spawnObstacle() {
-    const roll = Math.random();
-    let type, def, oy;
-    if (roll < 0.28) {
-      type='stomp'; def=STOMP_OBS[Math.floor(Math.random()*STOMP_OBS.length)];
-      oy = GROUND + PLAYER_H_NORMAL - def.h;
-    } else if (roll < 0.52) {
-      type='air'; def=AIR_OBS[Math.floor(Math.random()*AIR_OBS.length)];
-      oy = GROUND - 12;
-    } else {
-      type='ground'; def=GROUND_OBS[Math.floor(Math.random()*GROUND_OBS.length)];
-      oy = GROUND + PLAYER_H_NORMAL - def.h;
-    }
-    obstacles.push({ x:W+20, y:oy, type:type, def:def, scored:false, stomped:false });
-  }
-
-  function update() {
-    frame++; groundOff=(groundOff+speed)%24;
-
-    if(P.sliding) { P.slideTimer--; if(P.slideTimer<=0) { P.sliding=false; P.h=PLAYER_H_NORMAL; P.y-=(PLAYER_H_NORMAL-PLAYER_H_SLIDE); } }
-
-    P.dy+=GRAV; P.y+=P.dy;
-    if(P.y>=GROUND) { P.y=GROUND; P.dy=0; P.jumps=0; }
-
-    const gap = Math.max(65, 125-speed*2.5) + Math.random()*65;
-    if (frame % Math.floor(gap)===0 || (frame>40 && obstacles.length===0)) spawnObstacle();
-
-    for(let i=obstacles.length-1; i>=0; i--) {
-      const o=obstacles[i]; o.x-=speed;
-      if(o.x+o.def.w < -20) {
-        if(!o.scored) { score++; scoreEl.textContent=score; if(score%6===0) speed+=0.15; }
-        obstacles.splice(i,1); continue;
+  function tick() {
+    // Process input queue: apply next buffered direction
+    if (inputQueue.length > 0) {
+      const next = inputQueue.shift();
+      // Only apply if it's not a 180-degree reversal
+      if (!(dir.x === -next.x && dir.y === -next.y)) {
+        dir = next;
       }
-
-      const pad=5;
-      const ph = P.sliding ? PLAYER_H_SLIDE : PLAYER_H_NORMAL;
-      const py = P.sliding ? P.y+(PLAYER_H_NORMAL-PLAYER_H_SLIDE) : P.y;
-      const pw = P.sliding ? 28 : P.w;
-
-      const hit = P.x+pad < o.x+o.def.w-pad && P.x+pw-pad > o.x+pad && py+pad < o.y+o.def.h-pad && py+ph-pad > o.y+pad;
-
-      if(o.type==='stomp' && !o.stomped) {
-        const land = P.x+pw-pad > o.x+pad && P.x+pad < o.x+o.def.w-pad && P.dy>0 && py+ph>=o.y && py+ph<=o.y+12;
-        if(land) {
-          o.stomped=true; o.scored=true; score+=2; scoreEl.textContent=score;
-          P.dy=JUMP_V*0.7; P.jumps=1;
-          spawnParts(o.x+o.def.w/2, o.y, '#15803d', 8);
-          showSP('+2', o.x+o.def.w/2, o.y-10);
-          if(score%6===0) speed+=0.15; continue;
-        }
-        if(hit && !o.stomped) { die(); return; }
-      } else if(hit) { die(); return; }
     }
 
-    for(let i=particles.length-1;i>=0;i--) {
-      const p=particles[i]; p.x+=p.dx; p.y+=p.dy; p.dy+=0.12; p.life--;
-      if(p.life<=0) particles.splice(i,1);
-    }
-    updateClouds();
+    const h=snake[0];
+    let nx=h.x+dir.x, ny=h.y+dir.y;
+
+    // Wall wrapping — go through wall, come out the other side
+    if (nx < 0) nx = COLS - 1;
+    else if (nx >= COLS) nx = 0;
+    if (ny < 0) ny = ROWS - 1;
+    else if (ny >= ROWS) ny = 0;
+
+    // Self collision
+    for(let i=1;i<snake.length;i++) if(snake[i].x===nx&&snake[i].y===ny) { die(T.hitSelf); return; }
+
+    let ate=null;
+    for(let i=items.length-1;i>=0;i--) { if(items[i].x===nx&&items[i].y===ny) { ate=items.splice(i,1)[0]; break; } }
+
+    snake.unshift({x:nx,y:ny});
+
+    if(ate) {
+      if(ate.good) {
+        score+=10; scoreEl.textContent=score;
+        spawnParts(nx*CELL+CELL/2,ny*CELL+CELL/2,ate.def.color,8);
+        lastEaten={def:ate.def,good:true,timer:70};
+        eatenEl.textContent=T.ate+' '+ate.def.code;
+        tickRate=Math.max(100,tickRate-1.5); // gentler speed ramp, higher floor
+      } else {
+        lastEaten={def:ate.def,good:false,timer:70};
+        spawnParts(nx*CELL+CELL/2,ny*CELL+CELL/2,'#b91c1c',12);
+        die(T.hitBad+' '+ate.def.code+'('+ate.def.full+')');
+        return;
+      }
+    } else { snake.pop(); }
+
+    ensureItems();
+    while(items.length>7) items.shift();
+  }
+
+  function loop(now) {
+    if(state!=='running') { draw(); if(particles.length>0) requestAnimationFrame(loop); return; }
+    const dt=now-lastTime; lastTime=now; tickTimer+=dt;
+    if(tickTimer>=tickRate) { tickTimer-=tickRate; tick(); }
+    for(let i=particles.length-1;i>=0;i--) { const p=particles[i]; p.x+=p.dx; p.y+=p.dy; p.life--; if(p.life<=0) particles.splice(i,1); }
+    draw();
+    requestAnimationFrame(loop);
   }
 
   function draw() {
-    let sx=0,sy=0;
-    if(shakeT>0) { sx=(Math.random()-0.5)*shakeT*0.7; sy=(Math.random()-0.5)*shakeT*0.7; shakeT--; }
-    ctx.save(); ctx.translate(sx,sy);
-    ctx.clearRect(-10,-10,W+20,H+20);
-    drawSky(); drawClouds(); drawGround();
-    obstacles.forEach(drawObs);
-    drawPlayer(); drawParticles(); drawSP();
-    ctx.restore();
+    ctx.clearRect(0,0,CSS_W,CSS_H);
+    drawGrid(); drawItems(); drawSnake(); drawParticles(); drawTooltip();
   }
 
-  function loop() { if(state!=='running') return; update(); draw(); requestAnimationFrame(loop); }
-
   // ==================== Input ====================
-  function doJump() { if(P.sliding) return; if(P.jumps<P.maxJumps) { P.dy=JUMP_V; P.jumps++; spawnParts(P.x+10,P.y+P.h,'#dbeafe',4); } }
-  function doSlide() { if(P.y<GROUND||P.sliding) return; P.sliding=true; P.slideTimer=SLIDE_DURATION; P.h=PLAYER_H_SLIDE; }
+  function setDir(dx,dy) {
+    // Use the last queued direction (or current dir) for reversal check
+    const last = inputQueue.length > 0 ? inputQueue[inputQueue.length-1] : dir;
+    if (last.x === -dx && last.y === -dy) return; // no 180
+    if (last.x === dx && last.y === dy) return; // same direction, skip
+    if (inputQueue.length < 3) inputQueue.push({x:dx, y:dy}); // buffer up to 3
+  }
 
   document.addEventListener('keydown', e => {
-    if(e.code==='Space'||e.code==='ArrowUp') { e.preventDefault(); if(state!=='running') reset(); else doJump(); }
-    if(e.code==='ArrowDown') { e.preventDefault(); if(state==='running') doSlide(); }
+    const keys=['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyW','KeyA','KeyS','KeyD','Space'];
+    if(state!=='running') { if(!deathLock && keys.includes(e.code)){e.preventDefault();reset();} return; }
+    switch(e.code) {
+      case 'ArrowUp':case 'KeyW': e.preventDefault();setDir(0,-1);break;
+      case 'ArrowDown':case 'KeyS': e.preventDefault();setDir(0,1);break;
+      case 'ArrowLeft':case 'KeyA': e.preventDefault();setDir(-1,0);break;
+      case 'ArrowRight':case 'KeyD': e.preventDefault();setDir(1,0);break;
+    }
   });
 
-  canvas.addEventListener('touchstart', e => {
-    e.preventDefault();
-    if(state!=='running') { reset(); return; }
-    const r=canvas.getBoundingClientRect();
-    const ty=(e.touches?e.touches[0].clientY:e.clientY)-r.top;
-    if(ty>r.height*0.55) doSlide(); else doJump();
-  }, {passive:false});
-
-  canvas.addEventListener('mousedown', e => {
-    if(state!=='running') { reset(); return; }
-    const r=canvas.getBoundingClientRect();
-    if(e.clientY-r.top > r.height*0.55) doSlide(); else doJump();
-  });
+  let tx0=0,ty0=0;
+  canvas.addEventListener('touchstart',e=>{
+    e.preventDefault(); if(state!=='running'){if(!deathLock) reset(); return;}
+    tx0=e.touches[0].clientX; ty0=e.touches[0].clientY;
+  },{passive:false});
+  canvas.addEventListener('touchend',e=>{
+    e.preventDefault(); if(state!=='running') return;
+    const dx=e.changedTouches[0].clientX-tx0,dy=e.changedTouches[0].clientY-ty0;
+    if(Math.abs(dx)<10&&Math.abs(dy)<10) return;
+    Math.abs(dx)>Math.abs(dy)?setDir(dx>0?1:-1,0):setDir(0,dy>0?1:-1);
+  },{passive:false});
+  canvas.addEventListener('mousedown',()=>{if(state!=='running' && !deathLock) reset();});
 
   // ==================== Init ====================
-  clouds=[{x:100,y:25,r:16,speed:0.3},{x:350,y:38,r:20,speed:0.35}];
-  groundOff=0; particles=[]; obstacles=[];
-  P.y=GROUND; P.dy=0;
-  ctx.clearRect(0,0,W,H); drawSky(); drawClouds(); drawGround(); drawPlayer();
-  showOL('🎓', T.title, T.start);
+  snake=[{x:6,y:6},{x:5,y:6},{x:4,y:6}];
+  dir={x:1,y:0}; nextDir={x:1,y:0};
+  items=[]; particles=[];
+  for(let i=0;i<3;i++) spawnGood();
+  for(let i=0;i<2;i++) spawnBad();
+  draw();
+  showOL('🐍', T.title, T.start);
 })();
 </script>
