@@ -39,6 +39,22 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  min-height: 100vh;
+}
+
+/* Sticky footer：让 footer 始终沉底 */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.wrapper > .page-content {
+  flex: 1 0 auto;  /* 内容区自动撑满剩余空间 */
+}
+
+.wrapper > .site-footer {
+  flex-shrink: 0;  /* footer 不被压缩 */
 }
 
 .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
@@ -69,6 +85,15 @@ h1, h2, h3, h4, h5, h6 {
   width: 36px;
   height: 2px;
   background-color: var(--accent-color);
+}
+
+/* 空的 section-title 不显示装饰线 */
+.section-title:empty::after {
+  display: none;
+}
+.section-title:empty {
+  margin: 0;
+  padding: 0;
 }
 
 .section-title-left { 
