@@ -9,14 +9,16 @@
   <section id="about" class="about-section">
     <div class="profile-sidebar">
       <img src="{{ '/assets/img/bio.webp' | relative_url }}" alt="{{ t.profile.name }}" class="profile-pic">
-      <h2>{{ t.profile.name }}</h2>
-      <p>{{ t.profile.title }}</p>
-      <ul class="contact-info">
-        <li><i class="fas fa-envelope"></i> <span id="email-placeholder">[加载中...]</span></li>
-        <li><i class="fas fa-file-pdf"></i> <a id="cv-link-sidebar" class="cv-dynamic-link" href="javascript:;" target="_blank">{{ t.profile.cv_button }}</a></li>
-        <li><i class="fas fa-map-marker-alt"></i> {{ t.profile.location }}</li>
-        <li><i class="fab fa-weixin"></i> {{ t.profile.wechat_id }}</li>
-      </ul>
+      <div class="sidebar-text">
+        <h2>{{ t.profile.name }}</h2>
+        <p>{{ t.profile.title }}</p>
+        <ul class="contact-info">
+          <li><i class="fas fa-envelope"></i> <span id="email-placeholder">[加载中...]</span></li>
+          <li><i class="fas fa-file-pdf"></i> <a id="cv-link-sidebar" class="cv-dynamic-link" href="javascript:;" target="_blank">{{ t.profile.cv_button }}</a></li>
+          <li><i class="fas fa-map-marker-alt"></i> {{ t.profile.location }}</li>
+          <li><i class="fab fa-weixin"></i> {{ t.profile.wechat_id }}</li>
+        </ul>
+      </div>
     </div>
     <div class="about-content">
   <h1 class="section-title-left">{{ t.about.title }}</h1>
