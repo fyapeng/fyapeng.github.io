@@ -14,7 +14,7 @@ nav:
 profile:
   name: "Ya-Peng Fu"
   title: "Ph.D. Student in Economics"
-  cv_button: "My CV"
+  cv_button: "CV"
   cv_link: "/assets/cv/cv_en.pdf" 
   location: "Beijing, China"
   wechat_id: "fyapengf"
