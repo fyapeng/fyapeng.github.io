@@ -80,7 +80,7 @@ research_page:
   pdf_btn: "Manuscript"
   slides_btn: "Slides"
   code_btn: "Code/Data"
-  doi_btn: "DOI"
+  doi_btn: "Link"
   media_btn: "Media"
 
 footer:
