@@ -78,7 +78,7 @@ research_page:
   # 按钮标签
   abstract_btn: "摘要"
   pdf_btn: "全文"
-  slides_btn: "Slides"
+  slides_btn: "PPT"
   code_btn: "代码/数据"
   doi_btn: "链接"
   media_btn: "推文"
