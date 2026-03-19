@@ -80,7 +80,7 @@ research_page:
   pdf_btn: "全文"
   slides_btn: "Slides"
   code_btn: "代码/数据"
-  doi_btn: "DOI"
+  doi_btn: "链接"
   media_btn: "推文"
 
 footer:
