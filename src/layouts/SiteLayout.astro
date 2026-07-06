@@ -46,7 +46,6 @@ const navItems = [
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content={displayName} />
     <meta name="twitter:card" content="summary" />
-    <base target="_blank" />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" href="/favicon.ico" />
     <title>{pageTitle}</title>
@@ -78,14 +77,35 @@ const navItems = [
       </div>
     </footer>
     <script is:inline>
-      document.querySelectorAll('a[href]:not([href^="#"])').forEach((link) => {
-        if (!link.hasAttribute("target")) {
-          link.setAttribute("target", "_blank");
+      const internalHosts = new Set([window.location.hostname, "fyapeng.com", "www.fyapeng.com"]);
+
+      document.querySelectorAll("a[href]").forEach((link) => {
+        const href = link.getAttribute("href");
+
+        if (!href || href.startsWith("#")) {
+          link.removeAttribute("target");
+          return;
         }
-        const rel = new Set((link.getAttribute("rel") || "").split(/\s+/).filter(Boolean));
-        rel.add("noopener");
-        rel.add("noreferrer");
-        link.setAttribute("rel", Array.from(rel).join(" "));
+
+        let url;
+        try {
+          url = new URL(href, window.location.href);
+        } catch {
+          return;
+        }
+
+        const isWebLink = url.protocol === "http:" || url.protocol === "https:";
+        const isExternal = isWebLink && !internalHosts.has(url.hostname);
+
+        if (isExternal) {
+          link.setAttribute("target", "_blank");
+          const rel = new Set((link.getAttribute("rel") || "").split(/\s+/).filter(Boolean));
+          rel.add("noopener");
+          rel.add("noreferrer");
+          link.setAttribute("rel", Array.from(rel).join(" "));
+        } else {
+          link.removeAttribute("target");
+        }
       });
     </script>
   </body>
