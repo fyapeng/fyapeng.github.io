@@ -1,4 +1,4 @@
-import type { Locale } from "./profile";
+import { advisor, type Locale } from "./profile";
 
 export interface PaperAuthor {
   name: string;
@@ -77,12 +77,12 @@ export const papers: {
       authors: {
         zh: [
           { name: "蔡诗芬" },
-          { name: "付明卫", corresponding: true },
+          { name: "付明卫", url: advisor.url, corresponding: true },
           { name: "付亚鹏", me: true }
         ],
         en: [
           { name: "Shifen Cai" },
-          { name: "Mingwei Fu", corresponding: true },
+          { name: "Mingwei Fu", url: advisor.url, corresponding: true },
           { name: "Yapeng Fu", me: true }
         ]
       },
@@ -99,12 +99,12 @@ export const papers: {
       authors: {
         zh: [
           { name: "付亚鹏", me: true },
-          { name: "付明卫", corresponding: true },
+          { name: "付明卫", url: advisor.url, corresponding: true },
           { name: "袁莎莎" }
         ],
         en: [
           { name: "Yapeng Fu", me: true },
-          { name: "Mingwei Fu", corresponding: true },
+          { name: "Mingwei Fu", url: advisor.url, corresponding: true },
           { name: "Shasha Yuan" }
         ]
       },
@@ -122,12 +122,12 @@ export const papers: {
         zh: [
           { name: "何庆红" },
           { name: "付亚鹏", me: true, corresponding: true },
-          { name: "付明卫" }
+          { name: "付明卫", url: advisor.url }
         ],
         en: [
           { name: "Qinghong He" },
           { name: "Yapeng Fu", me: true, corresponding: true },
-          { name: "Mingwei Fu" }
+          { name: "Mingwei Fu", url: advisor.url }
         ]
       },
       status: {

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import EmailLink from "../components/EmailLink.astro";
-import { contactLinks, profile } from "../data/profile";
+import { advisor, contactLinks, profile } from "../data/profile";
 import { researchHighlights } from "../data/researchHighlights";
 import { writingLinks } from "../data/writing";
 import SiteLayout from "../layouts/SiteLayout.astro";
@@ -23,7 +23,7 @@ const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
     <div>
       <h1>{profile.zh.name}</h1>
       <p class="role">{profile.zh.role}</p>
-      <p>{profile.zh.bio}</p>
+      <p>我目前在中国社会科学院大学经济学院攻读经济学博士学位，导师为中国社会科学院经济研究所<a href={advisor.url} target="_blank" rel="noopener noreferrer">{advisor.zh.name}</a>研究员。研究关注健康经济学、产业组织、微观理论与政策评估，当前工作主要围绕 DRG/DIP 支付改革、道德风险、供给方诱导需求以及医疗控费政策评估展开。方法上关注微观计量、结构估计与政策反事实模拟。</p>
     </div>
     {
       profile.photo.src && (
@@ -66,7 +66,7 @@ const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
     <div class="interest-block">
       <p class="interest-block__lead">研究领域为健康经济学、产业组织、微观理论与政策评估。</p>
       <p>
-        当前研究主要围绕医疗服务市场中的支付规则、供需激励与政策后果展开，关注医保支付方式改革如何影响患者负担、医疗机构行为和资源配置效率。
+        当前研究主要围绕医疗服务市场中的支付规则、供需激励与政策后果展开，关注医保支付方式改革如何影响患者负担、医疗机构行为和资源配置效率。方法上结合微观计量、结构估计与政策反事实模拟，尝试识别医疗保险市场中的行为反应，并为医疗控费政策评估提供经验证据。
       </p>
       <div class="interest-tags" aria-label="研究领域">
         {profile.zh.researchFields.map((field) => <span>{field}</span>)}

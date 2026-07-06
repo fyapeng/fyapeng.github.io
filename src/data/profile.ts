@@ -6,6 +6,18 @@ export const site = {
   title: "Yapeng Fu / 付亚鹏"
 };
 
+export const advisor = {
+  url: "https://ie.cssn.cn/kygz/zaizhixuezhe/202510/t20251028_5921239.shtml",
+  zh: {
+    name: "付明卫",
+    title: "中国社会科学院经济研究所研究员"
+  },
+  en: {
+    name: "Mingwei Fu",
+    title: "Research Fellow at the Institute of Economics, Chinese Academy of Social Sciences"
+  }
+} as const;
+
 export const profile = {
   identity: {
     chineseName: "付亚鹏",
@@ -37,18 +49,18 @@ export const profile = {
     role: "中国社会科学院大学经济学院经济学博士在读",
     shortRole: "经济学博士在读，中国社会科学院大学经济学院",
     location: "北京",
-    bio: "我目前在中国社会科学院大学经济学院攻读经济学博士学位，研究关注健康经济学、产业组织、微观理论与政策评估。当前工作主要围绕 DRG/DIP 支付改革、道德风险、供给方诱导需求以及医疗控费政策评估展开。",
+    bio: "我目前在中国社会科学院大学经济学院攻读经济学博士学位，导师为中国社会科学院经济研究所付明卫研究员。研究关注健康经济学、产业组织、微观理论与政策评估，当前工作主要围绕 DRG/DIP 支付改革、道德风险、供给方诱导需求以及医疗控费政策评估展开。方法上关注微观计量、结构估计与政策反事实模拟。",
     researchFields: ["健康经济学", "产业组织", "微观理论", "政策评估"],
-    seoDescription: "付亚鹏的个人学术主页，介绍健康经济学、产业组织、微观理论和政策评估相关研究。"
+    seoDescription: "付亚鹏的个人学术主页，介绍健康经济学、产业组织、微观理论、政策评估和医疗控费政策相关研究。"
   },
   en: {
     name: "Yapeng Fu",
     role: "Ph.D. Student in Economics, University of Chinese Academy of Social Sciences",
     shortRole: "Ph.D. Student in Economics, UCASS",
     location: "Beijing, China",
-    bio: "I am a Ph.D. student in Economics at the School of Economics, University of Chinese Academy of Social Sciences. My research interests include health economics, industrial organization, microeconomic theory, and policy evaluation, with current work on DRG/DIP reform, moral hazard, supplier-induced demand, and healthcare cost control.",
+    bio: "I am a Ph.D. student in Economics at the School of Economics, University of Chinese Academy of Social Sciences, advised by Mingwei Fu. My research interests include health economics, industrial organization, microeconomic theory, and policy evaluation, with current work on DRG/DIP reform, moral hazard, supplier-induced demand, and healthcare cost control. Methodologically, I am interested in applied microeconometrics, structural estimation, and policy counterfactuals.",
     researchFields: ["Health economics", "Industrial organization", "Microeconomic theory", "Policy evaluation"],
-    seoDescription: "Academic website of Yapeng Fu, a Ph.D. student in economics working on health economics, industrial organization, microeconomic theory, and policy evaluation."
+    seoDescription: "Academic website of Yapeng Fu, a Ph.D. student in economics working on health economics, industrial organization, microeconomic theory, policy evaluation, and healthcare cost control."
   }
 } as const;
 

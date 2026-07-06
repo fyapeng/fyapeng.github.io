@@ -1,6 +1,6 @@
 ---
 import EmailLink from "../../components/EmailLink.astro";
-import { contactLinks, profile } from "../../data/profile";
+import { advisor, contactLinks, profile } from "../../data/profile";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 ---
 
@@ -9,7 +9,11 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
     <div>
       <h1>{profile.en.name}</h1>
       <p class="role">{profile.en.role}</p>
-      <p>{profile.en.bio}</p>
+      <p>
+        I am a Ph.D. student in Economics at the School of Economics, University of Chinese Academy of Social Sciences,
+        advised by <a href={advisor.url} target="_blank" rel="noopener noreferrer">{advisor.en.name}</a>.
+        My research interests include health economics, industrial organization, microeconomic theory, and policy evaluation, with current work on DRG/DIP reform, moral hazard, supplier-induced demand, and healthcare cost control. Methodologically, I am interested in applied microeconometrics, structural estimation, and policy counterfactuals.
+      </p>
     </div>
     {
       profile.photo.src && (
