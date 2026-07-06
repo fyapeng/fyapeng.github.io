@@ -58,7 +58,7 @@ export const profile = {
     role: "Ph.D. Student in Economics, University of Chinese Academy of Social Sciences",
     shortRole: "Ph.D. Student in Economics, UCASS",
     location: "Beijing, China",
-    bio: "I am a Ph.D. student in Economics at the School of Economics, University of Chinese Academy of Social Sciences, advised by Mingwei Fu. My research interests include health economics, industrial organization, microeconomic theory, and policy evaluation, with current work on DRG/DIP reform, moral hazard, supplier-induced demand, and healthcare cost control. Methodologically, I am interested in applied microeconometrics, structural estimation, and policy counterfactuals.",
+    bio: "My doctoral field is Western economics. I am advised by Mingwei Fu, Research Fellow at the Institute of Economics, Chinese Academy of Social Sciences, and expect to receive my Ph.D. in Economics in 2029. My academic training focuses on applied microeconomics and empirical research design, with an emphasis on organizing research around clear questions, identification assumptions, and reproducible materials.",
     researchFields: ["Health economics", "Industrial organization", "Microeconomic theory", "Policy evaluation"],
     seoDescription: "Academic website of Yapeng Fu, a Ph.D. student in economics working on health economics, industrial organization, microeconomic theory, policy evaluation, and healthcare cost control."
   }
