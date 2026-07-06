@@ -1,4 +1,6 @@
 ---
+import EmailLink from "./EmailLink.astro";
+
 interface Props {
   cv: {
     lang: string;
@@ -54,6 +56,8 @@ const visibleSections = cv.sections.filter((section) => {
               <li>
                 {typeof item === "string" ? (
                   item
+                ) : item.type === "email" ? (
+                  <EmailLink label={item.title} />
                 ) : item.url ? (
                   <a href={item.url} target={item.url.startsWith("http") ? "_blank" : undefined} rel={item.url.startsWith("http") ? "noopener noreferrer" : undefined}>
                     {item.title}

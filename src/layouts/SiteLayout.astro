@@ -19,7 +19,8 @@ const {
 } = Astro.props;
 
 const localeProfile = profile[lang];
-const pageTitle = title ? `${title} | ${site.title}` : site.title;
+const displayName = lang === "zh" ? profile.identity.chineseName : profile.identity.englishName;
+const pageTitle = title ? `${title} | ${displayName}` : displayName;
 const pageDescription = description ?? localeProfile.seoDescription;
 const canonicalUrl = new URL(canonicalPath, site.url).toString();
 
@@ -28,7 +29,6 @@ const navItems =
     ? [
         { key: "home", label: "首页", href: "/" },
         { key: "research", label: "研究", href: "/research/" },
-        { key: "essays", label: "随笔", href: "/essays/" },
         { key: "fyalab", label: "FyaLab", href: "/fyalab/" },
         { key: "cv", label: "简历", href: "/cv/" },
         { key: "lang", label: "English", href: "/en/" }
@@ -36,7 +36,6 @@ const navItems =
     : [
         { key: "home", label: "Home", href: "/en/" },
         { key: "research", label: "Research", href: "/en/research/" },
-        { key: "essays", label: "Essays", href: "/en/essays/" },
         { key: "fyalab", label: "FyaLab", href: "/en/fyalab/" },
         { key: "cv", label: "CV", href: "/en/cv/" },
         { key: "lang", label: "中文", href: "/" }
@@ -53,7 +52,7 @@ const navItems =
     <meta property="og:description" content={pageDescription} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:site_name" content={site.title} />
+    <meta property="og:site_name" content={displayName} />
     <meta name="twitter:card" content="summary" />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" href="/favicon.ico" />
@@ -63,9 +62,8 @@ const navItems =
     <a class="skip-link" href="#content">{lang === "zh" ? "跳到正文" : "Skip to content"}</a>
     <header class="site-header">
       <div class="site-header__inner">
-        <a class="site-title" href={lang === "zh" ? "/" : "/en/"} aria-label={site.title}>
-          <span>{profile.identity.shortName}</span>
-          <small>{lang === "zh" ? profile.identity.chineseName : profile.identity.englishName}</small>
+        <a class="site-title" href={lang === "zh" ? "/" : "/en/"} aria-label={displayName}>
+          <span>{lang === "zh" ? profile.identity.chineseName : profile.identity.englishName}</span>
         </a>
         <nav class="site-nav" aria-label={lang === "zh" ? "主导航" : "Main navigation"}>
           {
@@ -83,8 +81,7 @@ const navItems =
     </main>
     <footer class="site-footer">
       <div class="site-footer__inner">
-        <p>© 2024-2026 Yapeng Fu / 付亚鹏</p>
-        <p class="footer-mark">Fya</p>
+        <p>© 2024-2026 {displayName}</p>
       </div>
     </footer>
   </body>

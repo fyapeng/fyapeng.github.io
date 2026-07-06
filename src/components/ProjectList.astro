@@ -1,11 +1,14 @@
 ---
 import type { Project } from "../data/projects";
+import type { Locale } from "../data/profile";
 
 interface Props {
   projects: Project[];
+  lang?: Locale;
+  showCategory?: boolean;
 }
 
-const { projects } = Astro.props;
+const { projects, lang = "zh", showCategory = false } = Astro.props;
 ---
 
 <div class="project-list">
@@ -16,7 +19,8 @@ const { projects } = Astro.props;
           <h3>{project.name}</h3>
           <span>{project.status}</span>
         </div>
-        <p>{project.description}</p>
+        {showCategory && <p class="eyebrow">{project.category}</p>}
+        <p>{project.description[lang]}</p>
         <p class="tag-line">{project.tags.join(" / ")}</p>
         <p class="text-links">
           {project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">Repo</a>}

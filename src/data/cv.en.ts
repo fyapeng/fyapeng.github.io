@@ -45,12 +45,7 @@ export const cvEn = {
     {
       kind: "list",
       title: "Software",
-      items: [
-        {
-          title: "fbunch: Stata command for bunching and Bunching-DID related analysis.",
-          url: "https://fyapeng.com/fbunch/"
-        }
-      ]
+      items: []
     },
     {
       kind: "list",
@@ -84,7 +79,7 @@ export const cvEn = {
       kind: "list",
       title: "Contact",
       items: [
-        { title: "Email: yp@fyapeng.com", url: "mailto:yp@fyapeng.com" },
+        { type: "email", title: "Email" },
         { title: "GitHub: fyapeng", url: "https://github.com/fyapeng" },
         "WeChat official account: Shen Chun (ID: sencium)"
       ]

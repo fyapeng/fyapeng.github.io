@@ -45,12 +45,7 @@ export const cvZh = {
     {
       kind: "list",
       title: "软件",
-      items: [
-        {
-          title: "fbunch: Stata command for bunching and Bunching-DID related analysis.",
-          url: "https://fyapeng.com/fbunch/"
-        }
-      ]
+      items: []
     },
     {
       kind: "list",
@@ -84,7 +79,7 @@ export const cvZh = {
       kind: "list",
       title: "联系方式",
       items: [
-        { title: "Email: yp@fyapeng.com", url: "mailto:yp@fyapeng.com" },
+        { type: "email", title: "Email" },
         { title: "GitHub: fyapeng", url: "https://github.com/fyapeng" },
         "微信公众号：申椿（ID: sencium）"
       ]

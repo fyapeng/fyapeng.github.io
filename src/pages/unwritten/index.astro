@@ -1,0 +1,14 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { writingLinks } from "../../data/writing";
+
+const novel = writingLinks[0];
+---
+
+<SiteLayout lang="zh" title={novel.title}>
+  <article class="section--reading page-header">
+    <h1>{novel.title}</h1>
+    <p>{novel.type}，{novel.length}。</p>
+    <p>该页面用于存放《迟迟》的相关信息，正文暂不公开。</p>
+  </article>
+</SiteLayout>

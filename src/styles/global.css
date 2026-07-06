@@ -57,8 +57,8 @@ h1 {
 
 h2 {
   font-family: var(--font-serif);
-  font-size: 1.35rem;
-  margin-bottom: 0.85rem;
+  font-size: 1.08rem;
+  margin-bottom: 0.7rem;
 }
 
 h3 {
@@ -110,20 +110,14 @@ ul {
 .site-title {
   color: var(--color-text);
   display: inline-flex;
-  flex-direction: column;
   line-height: 1.2;
   text-decoration: none;
-  min-width: 7rem;
+  min-width: 5rem;
 }
 
 .site-title span {
   font-family: var(--font-serif);
   font-size: 1.12rem;
-}
-
-.site-title small {
-  color: var(--color-muted);
-  font-size: 0.78rem;
 }
 
 .site-nav {
@@ -147,7 +141,7 @@ ul {
 }
 
 .site-main {
-  padding: 2.3rem 0 3.5rem;
+  padding: 2.5rem 0 3.6rem;
 }
 
 .site-footer {
@@ -157,28 +151,20 @@ ul {
 }
 
 .site-footer__inner {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
   padding: 1.2rem 0;
-}
-
-.footer-mark {
-  font-family: var(--font-serif);
 }
 
 .profile-block {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 180px;
-  gap: 2rem;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 210px);
+  gap: 2.25rem;
   align-items: start;
-  padding-bottom: 1.2rem;
+  margin-bottom: 2.2rem;
 }
 
 .profile-block img {
-  aspect-ratio: 1;
-  object-fit: cover;
   border: 1px solid var(--color-line);
+  width: 100%;
 }
 
 .role {
@@ -213,9 +199,18 @@ ul {
 }
 
 .section {
-  border-top: 1px solid var(--color-line);
+  margin-top: 2.35rem;
+  padding-top: 0;
+}
+
+.section--quiet {
   margin-top: 2rem;
-  padding-top: 1.35rem;
+  color: var(--color-muted);
+}
+
+.section-intro {
+  color: var(--color-muted);
+  max-width: var(--content-reading);
 }
 
 .section--reading,
@@ -236,15 +231,19 @@ ul {
 .publication,
 .essay-item,
 .project-item {
-  border-top: 1px solid var(--color-line);
-  padding: 1rem 0;
+  padding: 0.55rem 0;
 }
 
 .publication:first-child,
 .essay-item:first-child,
 .project-item:first-child {
-  border-top: 0;
   padding-top: 0;
+}
+
+.publication + .publication,
+.essay-item + .essay-item,
+.project-item + .project-item {
+  margin-top: 0.65rem;
 }
 
 .publication__authors,
@@ -304,6 +303,23 @@ ul {
   justify-content: space-between;
   gap: 1rem;
   align-items: baseline;
+}
+
+.writing-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.writing-list li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.75rem;
+  align-items: baseline;
+}
+
+.writing-list span {
+  color: var(--color-muted);
+  font-size: 0.9rem;
 }
 
 .project-item__head span {
@@ -381,7 +397,7 @@ ul {
   }
 
   .profile-block img {
-    width: 150px;
+    width: 170px;
     margin-top: 1rem;
   }
 

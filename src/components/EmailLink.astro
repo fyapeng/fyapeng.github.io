@@ -1,0 +1,30 @@
+---
+import { profile } from "../data/profile";
+
+interface Props {
+  label?: string;
+}
+
+const { label = "Email" } = Astro.props;
+const fallback = `${profile.emailParts[0]} [at] ${profile.emailParts[1]} [dot] ${profile.emailParts[2]}`;
+---
+
+<span class="email-link" data-email-parts={JSON.stringify(profile.emailParts)} data-email-label={label}>
+  <noscript>{fallback}</noscript>
+  <span>{fallback}</span>
+</span>
+<script is:inline>
+  (() => {
+    document.querySelectorAll("[data-email-parts]:not([data-email-ready])").forEach((node) => {
+      const parts = JSON.parse(node.getAttribute("data-email-parts") || "[]");
+      if (!Array.isArray(parts) || parts.length !== 3) return;
+      const address = `${parts[0]}@${parts[1]}.${parts[2]}`;
+      const link = document.createElement("a");
+      link.href = `mailto:${address}`;
+      link.textContent = node.getAttribute("data-email-label") || address;
+      node.textContent = "";
+      node.appendChild(link);
+      node.setAttribute("data-email-ready", "true");
+    });
+  })();
+</script>

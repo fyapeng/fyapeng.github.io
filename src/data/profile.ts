@@ -9,10 +9,18 @@ export const site = {
 export const profile = {
   identity: {
     chineseName: "付亚鹏",
-    englishName: "Yapeng Fu",
-    shortName: "Fya"
+    englishName: "Yapeng Fu"
   },
-  email: "yp@fyapeng.com",
+  emailParts: ["yp", "fyapeng", "com"],
+  photo: {
+    src: "/images/profile/bio.webp",
+    width: 640,
+    height: 960,
+    alt: {
+      zh: "付亚鹏近照",
+      en: "Portrait of Yapeng Fu"
+    }
+  },
   github: {
     username: "fyapeng",
     url: "https://github.com/fyapeng"
@@ -46,13 +54,13 @@ export const profile = {
 
 export const contactLinks = {
   zh: [
-    { label: "Email", href: `mailto:${profile.email}` },
+    { type: "email", label: "Email" },
     { label: "GitHub", href: profile.github.url },
     { label: "简历", href: "/files/cv_zh.pdf" },
     { label: "申椿", href: profile.wechat.qrImage }
   ],
   en: [
-    { label: "Email", href: `mailto:${profile.email}` },
+    { type: "email", label: "Email" },
     { label: "GitHub", href: profile.github.url },
     { label: "CV", href: "/files/cv_en.pdf" },
     { label: "Shen Chun", href: profile.wechat.qrImage }

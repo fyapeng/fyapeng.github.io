@@ -2,14 +2,22 @@
 import ProjectList from "../../components/ProjectList.astro";
 import { projects } from "../../data/projects";
 import SiteLayout from "../../layouts/SiteLayout.astro";
+
+const researchProjects = projects.filter((project) => project.category === "Research / Workflow");
+const experimentProjects = projects.filter((project) => project.category === "Experiments");
 ---
 
 <SiteLayout lang="zh" active="fyalab" title="FyaLab">
   <header class="page-header section--reading">
     <h1>FyaLab</h1>
-    <p>工具、代码与小型研究项目。</p>
+    <p>FyaLab 是我整理研究工具、代码项目与小型实验的地方。这里展示的是精选项目，而不是完整 GitHub 仓库列表。</p>
   </header>
   <section class="section--reading">
-    <ProjectList projects={projects} />
+    <h2>Research / Workflow</h2>
+    <ProjectList projects={researchProjects} lang="zh" />
+  </section>
+  <section class="section section--reading">
+    <h2>Experiments</h2>
+    <ProjectList projects={experimentProjects} lang="zh" />
   </section>
 </SiteLayout>

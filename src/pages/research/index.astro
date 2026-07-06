@@ -5,7 +5,7 @@ import { papers } from "../../data/papers";
 import { projects } from "../../data/projects";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 
-const linkedProjects = projects.filter((project) => project.docsUrl || project.demoUrl || project.repoUrl);
+const linkedProjects = projects.filter((project) => project.category === "Research / Workflow");
 ---
 
 <SiteLayout lang="zh" active="research" title="研究">
@@ -32,7 +32,7 @@ const linkedProjects = projects.filter((project) => project.docsUrl || project.d
     linkedProjects.length > 0 && (
       <section class="section section--reading">
         <h2>代码与数据</h2>
-        <ProjectList projects={linkedProjects} />
+        <ProjectList projects={linkedProjects} lang="zh" />
       </section>
     )
   }

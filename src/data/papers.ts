@@ -53,13 +53,11 @@ export const papers: {
       links: {
         zh: [
           { label: "DOI", url: "https://link.cnki.net/doi/10.19744/j.cnki.11-1235/f.2026.0040" },
-          { label: "公众号推文", url: "https://mp.weixin.qq.com/s/nJC7JVAfS7oIsPJu7niPKg" },
-          { label: "代码/数据", url: "https://fyapeng.com/fbunch/" }
+          { label: "公众号推文", url: "https://mp.weixin.qq.com/s/nJC7JVAfS7oIsPJu7niPKg" }
         ],
         en: [
           { label: "DOI", url: "https://link.cnki.net/doi/10.19744/j.cnki.11-1235/f.2026.0040" },
-          { label: "Media", url: "https://mp.weixin.qq.com/s/nJC7JVAfS7oIsPJu7niPKg" },
-          { label: "Code/Data", url: "https://fyapeng.com/fbunch/" }
+          { label: "Media", url: "https://mp.weixin.qq.com/s/nJC7JVAfS7oIsPJu7niPKg" }
         ]
       },
       abstract: {
