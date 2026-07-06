@@ -40,7 +40,11 @@ export const cvEn = {
     {
       kind: "list",
       title: "Working Papers",
-      items: []
+      items: [
+        "Shifen Cai, Mingwei Fu*, Yapeng Fu (June 2026): Social Networks and Healthcare Service Provision.",
+        "Yapeng Fu, Mingwei Fu*, Shasha Yuan: Pricing by Treatment Attributes: Evidence from Diagnosis-Intervention Packet Payment, in progress.",
+        "Qinghong He, Yapeng Fu*, Mingwei Fu: Organizational Capability and Incentive Transmission: Evidence from the Cancellation of Drug Markups in Public Hospitals, in progress."
+      ]
     },
     {
       kind: "list",

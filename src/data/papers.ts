@@ -15,10 +15,12 @@ export interface PaperLink {
 export interface Paper {
   title: Record<Locale, string>;
   authors: Record<Locale, PaperAuthor[]>;
-  year: number;
-  journal: Record<Locale, string>;
-  links: Record<Locale, PaperLink[]>;
-  abstract: Record<Locale, string>;
+  year?: number;
+  date?: Record<Locale, string>;
+  journal?: Record<Locale, string>;
+  status?: Record<Locale, string>;
+  links?: Partial<Record<Locale, PaperLink[]>>;
+  abstract?: Partial<Record<Locale, string>>;
 }
 
 export const papers: {
@@ -66,5 +68,72 @@ export const papers: {
       }
     }
   ],
-  workingPapers: []
+  workingPapers: [
+    {
+      title: {
+        zh: "社会网络与医疗服务供给",
+        en: "Social Networks and Healthcare Service Provision"
+      },
+      authors: {
+        zh: [
+          { name: "蔡诗芬" },
+          { name: "付明卫", corresponding: true },
+          { name: "付亚鹏", me: true }
+        ],
+        en: [
+          { name: "Shifen Cai" },
+          { name: "Mingwei Fu", corresponding: true },
+          { name: "Yapeng Fu", me: true }
+        ]
+      },
+      date: {
+        zh: "2026年6月",
+        en: "June 2026"
+      }
+    },
+    {
+      title: {
+        zh: "按诊疗属性定价：来自按病种分值付费的证据",
+        en: "Pricing by Treatment Attributes: Evidence from Diagnosis-Intervention Packet Payment"
+      },
+      authors: {
+        zh: [
+          { name: "付亚鹏", me: true },
+          { name: "付明卫", corresponding: true },
+          { name: "袁莎莎" }
+        ],
+        en: [
+          { name: "Yapeng Fu", me: true },
+          { name: "Mingwei Fu", corresponding: true },
+          { name: "Shasha Yuan" }
+        ]
+      },
+      status: {
+        zh: "正在进行中",
+        en: "In progress"
+      }
+    },
+    {
+      title: {
+        zh: "组织能力与激励传导：来自公立医院药品加成取消的证据",
+        en: "Organizational Capability and Incentive Transmission: Evidence from the Cancellation of Drug Markups in Public Hospitals"
+      },
+      authors: {
+        zh: [
+          { name: "何庆红" },
+          { name: "付亚鹏", me: true, corresponding: true },
+          { name: "付明卫" }
+        ],
+        en: [
+          { name: "Qinghong He" },
+          { name: "Yapeng Fu", me: true, corresponding: true },
+          { name: "Mingwei Fu" }
+        ]
+      },
+      status: {
+        zh: "正在进行中",
+        en: "In progress"
+      }
+    }
+  ]
 };
