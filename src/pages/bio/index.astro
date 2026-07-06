@@ -4,7 +4,7 @@ import { advisor, contactLinks, profile } from "../../data/profile";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 ---
 
-<SiteLayout lang="en" active="home" title="Home" description={profile.en.seoDescription}>
+<SiteLayout lang="en" active="bio" title="Bio" description={profile.en.seoDescription}>
   <section class="profile-block">
     <div>
       <h1>{profile.en.name}</h1>
@@ -12,7 +12,9 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
       <p>
         I am a Ph.D. student in Economics at the School of Economics, University of Chinese Academy of Social Sciences,
         advised by <a href={advisor.url} target="_blank" rel="noopener noreferrer">{advisor.en.name}</a>.
-        My research interests include health economics, industrial organization, microeconomic theory, and policy evaluation, with current work on DRG/DIP reform, moral hazard, supplier-induced demand, and healthcare cost control. Methodologically, I am interested in applied microeconometrics, structural estimation, and policy counterfactuals.
+        My research interests include health economics, industrial organization, microeconomic theory, and policy evaluation,
+        with current work on DRG/DIP reform, moral hazard, supplier-induced demand, and healthcare cost control.
+        Methodologically, I am interested in applied microeconometrics, structural estimation, and policy counterfactuals.
       </p>
     </div>
     {

@@ -7,7 +7,7 @@ interface Props {
   lang?: Locale;
   title?: string;
   description?: string;
-  active?: "home" | "research" | "essays" | "fyalab" | "cv";
+  active?: "home" | "research" | "essays" | "fyalab" | "cv" | "bio";
   canonicalPath?: string;
 }
 
@@ -25,22 +25,13 @@ const pageTitle = title ? `${title} | ${displayName}` : displayName;
 const pageDescription = description ?? localeProfile.seoDescription;
 const canonicalUrl = new URL(canonicalPath, site.url).toString();
 
-const navItems =
-  lang === "zh"
-    ? [
-        { key: "home", label: "首页", href: "/" },
-        { key: "research", label: "研究", href: "/research/" },
-        { key: "fyalab", label: "FyaLab", href: "/fyalab/" },
-        { key: "cv", label: "简历", href: "/cv/" },
-        { key: "lang", label: "English", href: "/en/" }
-      ]
-    : [
-        { key: "home", label: "Home", href: "/en/" },
-        { key: "research", label: "Research", href: "/en/research/" },
-        { key: "fyalab", label: "FyaLab", href: "/en/fyalab/" },
-        { key: "cv", label: "CV", href: "/en/cv/" },
-        { key: "lang", label: "中文", href: "/" }
-      ];
+const navItems = [
+  { key: "home", label: "首页", href: "/" },
+  { key: "research", label: "研究", href: "/research/" },
+  { key: "fyalab", label: "FyaLab", href: "/fyalab/" },
+  { key: "cv", label: "简历", href: "/cv/" },
+  { key: "bio", label: "Bio", href: "/bio/" }
+];
 ---
 
 <!doctype html>
@@ -64,7 +55,7 @@ const navItems =
     <a class="skip-link" href="#content" target="_self">{lang === "zh" ? "跳到正文" : "Skip to content"}</a>
     <header class="site-header">
       <div class="site-header__inner">
-        <a class="site-title" href={lang === "zh" ? "/" : "/en/"} aria-label={displayName}>
+        <a class="site-title" href="/" aria-label={displayName}>
           <span>{lang === "zh" ? profile.identity.chineseName : profile.identity.englishName}</span>
         </a>
         <nav class="site-nav" aria-label={lang === "zh" ? "主导航" : "Main navigation"}>
