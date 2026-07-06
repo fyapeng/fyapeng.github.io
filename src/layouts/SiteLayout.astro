@@ -55,12 +55,13 @@ const navItems =
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content={displayName} />
     <meta name="twitter:card" content="summary" />
+    <base target="_blank" />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" href="/favicon.ico" />
     <title>{pageTitle}</title>
   </head>
   <body>
-    <a class="skip-link" href="#content">{lang === "zh" ? "跳到正文" : "Skip to content"}</a>
+    <a class="skip-link" href="#content" target="_self">{lang === "zh" ? "跳到正文" : "Skip to content"}</a>
     <header class="site-header">
       <div class="site-header__inner">
         <a class="site-title" href={lang === "zh" ? "/" : "/en/"} aria-label={displayName}>
@@ -85,5 +86,16 @@ const navItems =
         <p>© 2024–2026 {displayName}</p>
       </div>
     </footer>
+    <script is:inline>
+      document.querySelectorAll('a[href]:not([href^="#"])').forEach((link) => {
+        if (!link.hasAttribute("target")) {
+          link.setAttribute("target", "_blank");
+        }
+        const rel = new Set((link.getAttribute("rel") || "").split(/\s+/).filter(Boolean));
+        rel.add("noopener");
+        rel.add("noreferrer");
+        link.setAttribute("rel", Array.from(rel).join(" "));
+      });
+    </script>
   </body>
 </html>

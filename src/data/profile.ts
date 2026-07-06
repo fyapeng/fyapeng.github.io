@@ -7,7 +7,7 @@ export const site = {
 };
 
 export const advisor = {
-  url: "https://ie.cssn.cn/kygz/zaizhixuezhe/202510/t20251028_5921239.shtml",
+  url: "http://ie.cssn.cn/kygz/zaizhixuezhe/202510/t20251028_5921239.shtml",
   zh: {
     name: "付明卫",
     title: "中国社会科学院经济研究所研究员"
