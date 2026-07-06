@@ -2,14 +2,20 @@
 import { getCollection } from "astro:content";
 import EmailLink from "../components/EmailLink.astro";
 import { contactLinks, profile } from "../data/profile";
-import { papers } from "../data/papers";
 import { writingLinks } from "../data/writing";
 import SiteLayout from "../layouts/SiteLayout.astro";
 
-const featuredPaper = papers.publications[0];
 const latestEssay = (await getCollection("essays", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 )[0];
+const researchHighlight = {
+  title: "DRG/DIP 支付改革的异质性效应",
+  description:
+    "这项研究把医保起付线附近的道德风险与 DRG/DIP 支付改革放在同一框架中，观察支付规则如何改变医疗费用、患者负担和医疗机构行为。",
+  image: "/images/research/drg-dip-heterogeneity.png",
+  imageAlt: "DRG/DIP 支付改革异质性效应图",
+  href: "/research/"
+};
 const essaySlug = latestEssay?.id.replace(/\.mdx?$/, "");
 const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
   year: "numeric",
@@ -63,25 +69,13 @@ const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
   <section class="section section--compact">
     <h2>代表性研究</h2>
     <div class="research-brief">
-      <a class="research-brief__figure" href="/research/" aria-label={featuredPaper.title.zh}>
-        <img src="/images/research/dip-effect.webp" alt="医保支付改革效应分解图" loading="lazy" />
+      <a class="research-brief__figure" href={researchHighlight.href} aria-label={researchHighlight.title}>
+        <img src={researchHighlight.image} alt={researchHighlight.imageAlt} loading="lazy" />
       </a>
       <div class="research-brief__body">
-        <h3><a href="/research/">{featuredPaper.title.zh}</a></h3>
-        <dl class="research-table">
-          <div>
-            <dt>作者</dt>
-            <dd>{featuredPaper.authors.zh.map((author) => author.name).join("、")}</dd>
-          </div>
-          <div>
-            <dt>刊物</dt>
-            <dd>{featuredPaper.year}，{featuredPaper.journal.zh}</dd>
-          </div>
-        </dl>
-        <p class="text-links">
-          {featuredPaper.links.zh.map((link) => <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a>)}
-          <a href="/research/">研究页</a>
-        </p>
+        <h3><a href={researchHighlight.href}>{researchHighlight.title}</a></h3>
+        <p>{researchHighlight.description}</p>
+        <p class="text-links"><a href={researchHighlight.href}>查看研究页</a></p>
       </div>
     </div>
   </section>
