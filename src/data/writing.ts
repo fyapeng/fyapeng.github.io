@@ -25,6 +25,6 @@ export const writingLinks = [
       zh: "阅读",
       en: "Read"
     } satisfies LocalizedText,
-    url: "/unwritten/"
+    url: "https://fyapeng.com/unwritten"
   }
 ] as const;
