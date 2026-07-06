@@ -65,13 +65,13 @@ const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
     {
       latestResearch && (
         <div class="research-brief">
-          <a class="research-brief__figure" href={`/research/#${latestResearch.slug}`} aria-label={latestResearch.title}>
+          <a class="research-brief__figure" href={`/recent-research/#${latestResearch.slug}`} aria-label={latestResearch.title}>
             <img src={latestResearch.image} alt={latestResearch.imageAlt} loading="lazy" />
           </a>
           <div class="research-brief__body">
-            <h3><a href={`/research/#${latestResearch.slug}`}>{latestResearch.title}</a></h3>
+            <h3><a href={`/recent-research/#${latestResearch.slug}`}>{latestResearch.title}</a></h3>
             <p>{latestResearch.description}</p>
-            <p class="text-links"><a href="/research/#recent-research">全部近期研究</a></p>
+            <p class="text-links"><a href="/recent-research/">全部近期研究</a></p>
           </div>
         </div>
       )

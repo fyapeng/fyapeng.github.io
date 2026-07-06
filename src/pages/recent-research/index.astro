@@ -1,0 +1,29 @@
+---
+import { researchHighlights } from "../../data/researchHighlights";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+---
+
+<SiteLayout lang="zh" title="近期研究">
+  <header class="page-header section--reading">
+    <h1>近期研究</h1>
+    <p>这里整理近期想单独展示的研究图表与简要说明。正式发表论文和工作论文仍在研究页面维护。</p>
+  </header>
+
+  <section class="section--reading">
+    <div class="research-highlight-list">
+      {
+        researchHighlights.map((item) => (
+          <article id={item.slug} class="research-brief">
+            <a class="research-brief__figure" href={`/recent-research/#${item.slug}`} aria-label={item.title}>
+              <img src={item.image} alt={item.imageAlt} loading="lazy" />
+            </a>
+            <div class="research-brief__body">
+              <h3><a href={`/recent-research/#${item.slug}`}>{item.title}</a></h3>
+              <p>{item.description}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</SiteLayout>
