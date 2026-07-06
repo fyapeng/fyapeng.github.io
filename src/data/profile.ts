@@ -56,13 +56,13 @@ export const contactLinks = {
   zh: [
     { type: "email", label: "邮箱", icon: "@" },
     { label: "GitHub", value: "fyapeng", href: profile.github.url, icon: "GH" },
-    { label: "简历", value: "cv_zh.pdf", href: "/files/cv_zh.pdf", icon: "CV" },
+    { label: "简历", value: "查看", href: "/files/cv_zh.pdf", icon: "CV" },
     { label: "公众号", value: "申椿 Sencium", href: profile.wechat.qrImage, icon: "申" }
   ],
   en: [
     { type: "email", label: "Email", icon: "@" },
     { label: "GitHub", value: "fyapeng", href: profile.github.url, icon: "GH" },
-    { label: "CV", value: "cv_en.pdf", href: "/files/cv_en.pdf", icon: "CV" },
+    { label: "CV", value: "View", href: "/files/cv_en.pdf", icon: "CV" },
     { label: "WeChat", value: "Shen Chun / Sencium", href: profile.wechat.qrImage, icon: "申" }
   ]
 } as const;
