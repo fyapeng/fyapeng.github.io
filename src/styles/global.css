@@ -403,6 +403,11 @@ ul {
   margin-bottom: 0.55rem;
 }
 
+.research-highlight-list {
+  display: grid;
+  gap: 1rem;
+}
+
 .home-essay {
   max-width: var(--content-reading);
   padding-left: 0.85rem;

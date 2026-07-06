@@ -1,6 +1,7 @@
 ---
 import PublicationItem from "../../components/PublicationItem.astro";
 import { papers } from "../../data/papers";
+import { researchHighlights } from "../../data/researchHighlights";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 ---
 
@@ -9,6 +10,25 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
     <h1>研究</h1>
     <p>研究主题包括健康经济学、公共经济学、医保支付改革与微观计量。</p>
   </header>
+
+  <section id="recent-research" class="section section--reading">
+    <h2>近期研究</h2>
+    <div class="research-highlight-list">
+      {
+        researchHighlights.map((item) => (
+          <article id={item.slug} class="research-brief">
+            <a class="research-brief__figure" href={`/research/#${item.slug}`} aria-label={item.title}>
+              <img src={item.image} alt={item.imageAlt} loading="lazy" />
+            </a>
+            <div class="research-brief__body">
+              <h3><a href={`/research/#${item.slug}`}>{item.title}</a></h3>
+              <p>{item.description}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
 
   <section class="section section--reading">
     <h2>发表论文</h2>
