@@ -2,9 +2,9 @@
 
 🌐 **Live Demo / 网站访问**: [fyapeng.com](https://fyapeng.com)
 
-This is the source code for the personal academic website of **Yapeng (Easton) Fu (付亚鹏)**, a Ph.D. Student in Economics at the University of Chinese Academy of Social Sciences (UCASS). The site is built with pure HTML/CSS and Jekyll, optimized for academic profiles.
+This is the source code for the personal academic website of **Yapeng Fu (付亚鹏, Fya)**, a Ph.D. Student in Economics at the University of Chinese Academy of Social Sciences (UCASS). The site is built with pure HTML/CSS and Jekyll, optimized for academic profiles.
 
-这是**付亚鹏 (Easton)** 的个人学术主页源代码。目前就读于中国社会科学院大学经济学院，攻读经济学博士学位。该网站基于 Jekyll 和纯 HTML/CSS 构建，专为学术研究人员量身定制。
+这是**付亚鹏（Fya）**的个人学术主页源代码。目前就读于中国社会科学院大学经济学院，攻读经济学博士学位。该网站基于 Jekyll 和纯 HTML/CSS 构建，专为学术研究人员量身定制。
 
 ---
 
