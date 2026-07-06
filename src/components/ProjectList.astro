@@ -1,0 +1,29 @@
+---
+import type { Project } from "../data/projects";
+
+interface Props {
+  projects: Project[];
+}
+
+const { projects } = Astro.props;
+---
+
+<div class="project-list">
+  {
+    projects.map((project) => (
+      <article class="project-item">
+        <div class="project-item__head">
+          <h3>{project.name}</h3>
+          <span>{project.status}</span>
+        </div>
+        <p>{project.description}</p>
+        <p class="tag-line">{project.tags.join(" / ")}</p>
+        <p class="text-links">
+          {project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">Repo</a>}
+          {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">Demo</a>}
+          {project.docsUrl && <a href={project.docsUrl} target="_blank" rel="noopener noreferrer">Docs</a>}
+        </p>
+      </article>
+    ))
+  }
+</div>

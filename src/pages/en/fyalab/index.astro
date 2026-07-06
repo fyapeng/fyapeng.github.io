@@ -1,0 +1,15 @@
+---
+import ProjectList from "../../../components/ProjectList.astro";
+import { projects } from "../../../data/projects";
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+---
+
+<SiteLayout lang="en" active="fyalab" title="FyaLab">
+  <header class="page-header section--reading">
+    <h1>FyaLab</h1>
+    <p>Selected tools, code, research utilities, and reproducible materials.</p>
+  </header>
+  <section class="section--reading">
+    <ProjectList projects={projects} />
+  </section>
+</SiteLayout>

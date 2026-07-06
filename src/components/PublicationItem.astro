@@ -1,0 +1,51 @@
+---
+import type { Locale } from "../data/profile";
+import type { Paper } from "../data/papers";
+
+interface Props {
+  paper: Paper;
+  lang?: Locale;
+}
+
+const { paper, lang = "zh" } = Astro.props;
+const separator = lang === "zh" ? "、" : ", ";
+const abstractLabel = lang === "zh" ? "摘要" : "Abstract";
+---
+
+<article class="publication">
+  <h3>{paper.title[lang]}</h3>
+  <p class="publication__authors">
+    {
+      paper.authors[lang].map((author, index) => (
+        <span>
+          {author.url ? (
+            <a class:list={{ "is-me": author.me }} href={author.url} target="_blank" rel="noopener noreferrer">
+              {author.name}
+            </a>
+          ) : (
+            <span class:list={{ "is-me": author.me }}>{author.name}</span>
+          )}
+          {author.corresponding && <sup>*</sup>}
+          {index < paper.authors[lang].length - 1 && <span>{separator}</span>}
+        </span>
+      ))
+    }
+  </p>
+  <p class="publication__meta">
+    <span>{paper.year}</span>
+    <span>{paper.journal[lang]}</span>
+  </p>
+  <p class="text-links">
+    {
+      paper.links[lang].map((link) => (
+        <a href={link.url} target="_blank" rel="noopener noreferrer">
+          {link.label}
+        </a>
+      ))
+    }
+  </p>
+  <details class="publication__abstract">
+    <summary>{abstractLabel}</summary>
+    <p>{paper.abstract[lang]}</p>
+  </details>
+</article>

@@ -1,0 +1,9 @@
+---
+import CVView from "../../../components/CVView.astro";
+import { cvEn } from "../../../data/cv.en";
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+---
+
+<SiteLayout lang="en" active="cv" title="CV">
+  <CVView cv={cvEn} />
+</SiteLayout>

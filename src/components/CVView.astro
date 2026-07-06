@@ -1,0 +1,71 @@
+---
+interface Props {
+  cv: {
+    lang: string;
+    title: string;
+    pdfLabel: string;
+    pdfUrl: string;
+    sections: readonly any[];
+  };
+}
+
+const { cv } = Astro.props;
+
+const visibleSections = cv.sections.filter((section) => {
+  if (section.kind === "list" || section.kind === "tags") {
+    return section.items.length > 0;
+  }
+  if (section.kind === "entries") {
+    return section.entries.length > 0;
+  }
+  return true;
+});
+---
+
+<article class="cv-document">
+  <header class="page-header">
+    <h1>{cv.title}</h1>
+    <p class="text-links"><a href={cv.pdfUrl}>{cv.pdfLabel}</a></p>
+  </header>
+  {
+    visibleSections.map((section) => (
+      <section class="cv-section">
+        <h2>{section.title}</h2>
+        {section.kind === "entries" && (
+          <div class="cv-entries">
+            {section.entries.map((entry: any) => (
+              <div class="cv-entry">
+                <div>
+                  <h3>{entry.title}</h3>
+                  <p>{entry.subtitle}</p>
+                </div>
+                <div class="cv-entry__meta">
+                  <p>{entry.meta}</p>
+                  <p>{entry.location}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        {section.kind === "tags" && <p>{section.items.join("，")}</p>}
+        {section.kind === "list" && (
+          <ul class="cv-list">
+            {section.items.map((item: any) => (
+              <li>
+                {typeof item === "string" ? (
+                  item
+                ) : item.url ? (
+                  <a href={item.url} target={item.url.startsWith("http") ? "_blank" : undefined} rel={item.url.startsWith("http") ? "noopener noreferrer" : undefined}>
+                    {item.title}
+                  </a>
+                ) : (
+                  item.title
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+    ))
+  }
+</article>

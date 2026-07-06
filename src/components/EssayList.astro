@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from "astro:content";
+import type { Locale } from "../data/profile";
+
+interface Props {
+  essays: CollectionEntry<"essays">[];
+  lang?: Locale;
+}
+
+const { essays, lang = "zh" } = Astro.props;
+const dateFormatter = new Intl.DateTimeFormat(lang === "zh" ? "zh-CN" : "en-US", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit"
+});
+
+const essaySlug = (essay: CollectionEntry<"essays">) => essay.id.replace(/\.mdx?$/, "");
+---
+
+<div class="essay-list">
+  {
+    essays.map((essay) => (
+      <article class="essay-item">
+        {essay.data.cover && (
+          <a class="essay-item__cover" href={`/essays/${essaySlug(essay)}/`} aria-label={essay.data.title}>
+            <img src={essay.data.cover} alt={essay.data.coverAlt ?? ""} loading="lazy" />
+          </a>
+        )}
+        <div>
+          <p class="eyebrow">
+            <time datetime={essay.data.date.toISOString()}>{dateFormatter.format(essay.data.date)}</time>
+            <span>{essay.data.category}</span>
+          </p>
+          <h3><a href={`/essays/${essaySlug(essay)}/`}>{essay.data.title}</a></h3>
+          <p>{essay.data.summary}</p>
+          <p class="tag-line">{essay.data.tags.join(" / ")}</p>
+        </div>
+      </article>
+    ))
+  }
+</div>

@@ -1,0 +1,19 @@
+---
+import { getCollection } from "astro:content";
+import EssayList from "../../../components/EssayList.astro";
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+
+const essays = (await getCollection("essays", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<SiteLayout lang="en" active="essays" title="Essays">
+  <header class="page-header section--reading">
+    <h1>Essays</h1>
+    <p class="note">Some essays are also published on the WeChat official account Shen Chun. The web version is kept as a long-term archive and may be revised.</p>
+  </header>
+  <section class="section--reading">
+    <EssayList essays={essays} lang="en" />
+  </section>
+</SiteLayout>

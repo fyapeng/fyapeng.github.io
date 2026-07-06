@@ -1,0 +1,39 @@
+---
+import ProjectList from "../../components/ProjectList.astro";
+import PublicationItem from "../../components/PublicationItem.astro";
+import { papers } from "../../data/papers";
+import { projects } from "../../data/projects";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+const linkedProjects = projects.filter((project) => project.docsUrl || project.demoUrl || project.repoUrl);
+---
+
+<SiteLayout lang="zh" active="research" title="研究">
+  <header class="page-header section--reading">
+    <h1>研究</h1>
+    <p>研究主题包括健康经济学、公共经济学、医保支付改革与微观计量。</p>
+  </header>
+
+  <section class="section section--reading">
+    <h2>发表论文</h2>
+    {papers.publications.map((paper) => <PublicationItem paper={paper} lang="zh" />)}
+  </section>
+
+  {
+    papers.workingPapers.length > 0 && (
+      <section class="section section--reading">
+        <h2>工作论文</h2>
+        {papers.workingPapers.map((paper) => <PublicationItem paper={paper} lang="zh" />)}
+      </section>
+    )
+  }
+
+  {
+    linkedProjects.length > 0 && (
+      <section class="section section--reading">
+        <h2>代码与数据</h2>
+        <ProjectList projects={linkedProjects} />
+      </section>
+    )
+  }
+</SiteLayout>

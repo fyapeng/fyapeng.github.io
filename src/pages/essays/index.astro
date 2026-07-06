@@ -1,0 +1,19 @@
+---
+import { getCollection } from "astro:content";
+import EssayList from "../../components/EssayList.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+const essays = (await getCollection("essays", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<SiteLayout lang="zh" active="essays" title="随笔">
+  <header class="page-header section--reading">
+    <h1>随笔</h1>
+    <p class="note">部分随笔同步发表于微信公众号「申椿」。网页版本作为长期存档，内容可能有修订。</p>
+  </header>
+  <section class="section--reading">
+    <EssayList essays={essays} lang="zh" />
+  </section>
+</SiteLayout>

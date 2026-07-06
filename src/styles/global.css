@@ -1,0 +1,397 @@
+:root {
+  --color-text: #181818;
+  --color-muted: #666;
+  --color-soft: #f6f6f4;
+  --color-line: #dedbd4;
+  --color-accent: #7a1f1f;
+  --font-serif: "Noto Serif SC", "Songti SC", "SimSun", Georgia, serif;
+  --font-sans: "Inter", "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  --content-wide: 860px;
+  --content-reading: 760px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color: var(--color-text);
+  background: #fff;
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  color: #3d0f0f;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.35;
+  margin: 0;
+  font-weight: 650;
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 2.4vw, 2.45rem);
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  margin-bottom: 0.85rem;
+}
+
+h3 {
+  font-size: 1.04rem;
+}
+
+p {
+  margin: 0 0 0.85rem;
+}
+
+ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  background: #fff;
+  border: 1px solid var(--color-line);
+  padding: 0.4rem 0.7rem;
+  z-index: 10;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.site-header__inner,
+.site-main,
+.site-footer__inner {
+  width: min(100% - 2rem, var(--content-wide));
+  margin-inline: auto;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.site-title {
+  color: var(--color-text);
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1.2;
+  text-decoration: none;
+  min-width: 7rem;
+}
+
+.site-title span {
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+}
+
+.site-title small {
+  color: var(--color-muted);
+  font-size: 0.78rem;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45rem 1rem;
+  font-size: 0.94rem;
+}
+
+.site-nav a {
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.site-nav a[aria-current="page"],
+.site-nav a:hover {
+  color: var(--color-accent);
+  border-color: currentColor;
+}
+
+.site-main {
+  padding: 2.3rem 0 3.5rem;
+}
+
+.site-footer {
+  border-top: 1px solid var(--color-line);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.site-footer__inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem 0;
+}
+
+.footer-mark {
+  font-family: var(--font-serif);
+}
+
+.profile-block {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px;
+  gap: 2rem;
+  align-items: start;
+  padding-bottom: 1.2rem;
+}
+
+.profile-block img {
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid var(--color-line);
+}
+
+.role {
+  color: var(--color-muted);
+  font-size: 1.02rem;
+  margin-top: 0.45rem;
+}
+
+.eyebrow,
+.tag-line {
+  color: var(--color-muted);
+  font-size: 0.88rem;
+}
+
+.eyebrow {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.35rem;
+}
+
+.contact-links,
+.text-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.8rem;
+}
+
+.contact-links a,
+.text-links a {
+  font-size: 0.94rem;
+}
+
+.section {
+  border-top: 1px solid var(--color-line);
+  margin-top: 2rem;
+  padding-top: 1.35rem;
+}
+
+.section--reading,
+.essay-article,
+.cv-document {
+  width: min(100%, var(--content-reading));
+}
+
+.page-header {
+  margin-bottom: 1.6rem;
+}
+
+.page-header p {
+  color: var(--color-muted);
+  margin-top: 0.45rem;
+}
+
+.publication,
+.essay-item,
+.project-item {
+  border-top: 1px solid var(--color-line);
+  padding: 1rem 0;
+}
+
+.publication:first-child,
+.essay-item:first-child,
+.project-item:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.publication__authors,
+.publication__meta {
+  margin-bottom: 0.35rem;
+}
+
+.publication__meta {
+  color: var(--color-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+}
+
+.is-me {
+  font-weight: 700;
+}
+
+.publication__abstract {
+  margin-top: 0.75rem;
+}
+
+.publication__abstract summary {
+  cursor: pointer;
+  color: var(--color-accent);
+}
+
+.publication__abstract p {
+  color: #333;
+  margin-top: 0.65rem;
+}
+
+.essay-list {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.essay-item {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.essay-item__cover img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--color-line);
+}
+
+.essay-item h3 a,
+.project-item h3 a {
+  color: var(--color-text);
+}
+
+.project-item__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.project-item__head span {
+  color: var(--color-muted);
+  font-size: 0.86rem;
+  white-space: nowrap;
+}
+
+.note {
+  background: var(--color-soft);
+  border-left: 3px solid var(--color-accent);
+  padding: 0.75rem 0.9rem;
+}
+
+.essay-article header {
+  margin-bottom: 1.5rem;
+}
+
+.essay-article .cover {
+  margin: 1rem 0 1.4rem;
+}
+
+.essay-article .cover img {
+  border: 1px solid var(--color-line);
+}
+
+.essay-article .content {
+  font-family: var(--font-serif);
+  font-size: 1.03rem;
+}
+
+.essay-article .content h2 {
+  margin-top: 1.8rem;
+}
+
+.essay-article .content p,
+.essay-article .content li {
+  line-height: 1.85;
+}
+
+.cv-section {
+  border-top: 1px solid var(--color-line);
+  padding-top: 1rem;
+  margin-top: 1.4rem;
+}
+
+.cv-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(10rem, auto);
+  gap: 1rem;
+  padding: 0.55rem 0;
+}
+
+.cv-entry__meta {
+  color: var(--color-muted);
+  text-align: right;
+}
+
+.cv-list li + li {
+  margin-top: 0.4rem;
+}
+
+@media (max-width: 700px) {
+  .site-header__inner,
+  .site-footer__inner,
+  .profile-block,
+  .essay-item,
+  .cv-entry {
+    display: block;
+  }
+
+  .site-nav {
+    justify-content: flex-start;
+    margin-top: 0.8rem;
+  }
+
+  .profile-block img {
+    width: 150px;
+    margin-top: 1rem;
+  }
+
+  .essay-item__cover {
+    display: block;
+    width: 136px;
+    margin-bottom: 0.75rem;
+  }
+
+  .cv-entry__meta {
+    text-align: left;
+  }
+}

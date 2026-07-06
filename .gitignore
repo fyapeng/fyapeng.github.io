@@ -5,6 +5,12 @@ _site/
 .jekyll-metadata
 Gemfile.lock
 
+# Astro / Node
+node_modules/
+dist/
+.astro/
+npm-debug.log*
+
 # Bundler
 .bundle/
 vendor/

@@ -1,0 +1,91 @@
+---
+import "../styles/global.css";
+import { profile, site, type Locale } from "../data/profile";
+
+interface Props {
+  lang?: Locale;
+  title?: string;
+  description?: string;
+  active?: "home" | "research" | "essays" | "fyalab" | "cv";
+  canonicalPath?: string;
+}
+
+const {
+  lang = "zh",
+  title,
+  description,
+  active,
+  canonicalPath = Astro.url.pathname
+} = Astro.props;
+
+const localeProfile = profile[lang];
+const pageTitle = title ? `${title} | ${site.title}` : site.title;
+const pageDescription = description ?? localeProfile.seoDescription;
+const canonicalUrl = new URL(canonicalPath, site.url).toString();
+
+const navItems =
+  lang === "zh"
+    ? [
+        { key: "home", label: "首页", href: "/" },
+        { key: "research", label: "研究", href: "/research/" },
+        { key: "essays", label: "随笔", href: "/essays/" },
+        { key: "fyalab", label: "FyaLab", href: "/fyalab/" },
+        { key: "cv", label: "简历", href: "/cv/" },
+        { key: "lang", label: "English", href: "/en/" }
+      ]
+    : [
+        { key: "home", label: "Home", href: "/en/" },
+        { key: "research", label: "Research", href: "/en/research/" },
+        { key: "essays", label: "Essays", href: "/en/essays/" },
+        { key: "fyalab", label: "FyaLab", href: "/en/fyalab/" },
+        { key: "cv", label: "CV", href: "/en/cv/" },
+        { key: "lang", label: "中文", href: "/" }
+      ];
+---
+
+<!doctype html>
+<html lang={lang === "zh" ? "zh-CN" : "en"}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={pageDescription} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={site.title} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">{lang === "zh" ? "跳到正文" : "Skip to content"}</a>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-title" href={lang === "zh" ? "/" : "/en/"} aria-label={site.title}>
+          <span>{profile.identity.shortName}</span>
+          <small>{lang === "zh" ? profile.identity.chineseName : profile.identity.englishName}</small>
+        </a>
+        <nav class="site-nav" aria-label={lang === "zh" ? "主导航" : "Main navigation"}>
+          {
+            navItems.map((item) => (
+              <a href={item.href} aria-current={active === item.key ? "page" : undefined}>
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+    </header>
+    <main id="content" class="site-main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p>© 2024-2026 Yapeng Fu / 付亚鹏</p>
+        <p class="footer-mark">Fya</p>
+      </div>
+    </footer>
+  </body>
+</html>
