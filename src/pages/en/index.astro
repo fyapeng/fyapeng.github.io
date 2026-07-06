@@ -1,15 +1,7 @@
 ---
 import EmailLink from "../../components/EmailLink.astro";
-import ProjectList from "../../components/ProjectList.astro";
-import PublicationItem from "../../components/PublicationItem.astro";
 import { contactLinks, profile } from "../../data/profile";
-import { papers } from "../../data/papers";
-import { projectCategoryLabels, projects } from "../../data/projects";
-import { writingLinks } from "../../data/writing";
 import SiteLayout from "../../layouts/SiteLayout.astro";
-
-const featuredProjects = projects.filter((project) => project.featured).slice(0, 3);
-const writingArchiveNote = writingLinks[0]?.archiveNote.en;
 ---
 
 <SiteLayout lang="en" active="home" title="Home" description={profile.en.seoDescription}>
@@ -24,7 +16,10 @@ const writingArchiveNote = writingLinks[0]?.archiveNote.en;
             "type" in link && link.type === "email" ? (
               <EmailLink label={link.label} />
             ) : (
-              <a href={link.href}>{link.label}</a>
+              <a href={link.href}>
+                <span class="contact-label">{link.label}</span>
+                <span class="contact-value">{link.value}</span>
+              </a>
             )
           )
         }
@@ -40,41 +35,5 @@ const writingArchiveNote = writingLinks[0]?.archiveNote.en;
         />
       )
     }
-  </section>
-
-  <section class="section">
-    <h2>Research Interests</h2>
-    <p>{profile.en.researchFields.join(", ")}</p>
-  </section>
-
-  <section class="section">
-    <h2>Selected Research</h2>
-    {papers.publications.map((paper) => <PublicationItem paper={paper} lang="en" />)}
-  </section>
-
-  <section class="section">
-    <h2>FyaLab</h2>
-    <p class="section-intro">FyaLab is where I organize selected research tools, code projects, and small experiments. It is curated manually rather than mirrored from every GitHub repository.</p>
-    <div class="project-group">
-      <h3 class="project-group__title">{projectCategoryLabels["research-workflow"].en}</h3>
-      <ProjectList projects={featuredProjects} lang="en" />
-    </div>
-    <p class="text-links"><a href="/en/fyalab/">View all selected projects</a></p>
-  </section>
-
-  <section class="section section--quiet">
-    <h2>Writing</h2>
-    <div class="writing-list">
-      {
-        writingLinks.map((item) => (
-          <article class="writing-item">
-            <p class="writing-item__meta">{item.displayTitle.en} | {item.type.en} | {item.length.en}</p>
-            <p>{item.description.en}</p>
-            <p class="text-links"><a href={item.url}>{item.linkText.en}</a></p>
-          </article>
-        ))
-      }
-    </div>
-    {writingArchiveNote && <p class="section-note">{writingArchiveNote}</p>}
   </section>
 </SiteLayout>

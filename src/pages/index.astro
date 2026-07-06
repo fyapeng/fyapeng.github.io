@@ -1,15 +1,22 @@
 ---
+import { getCollection } from "astro:content";
 import EmailLink from "../components/EmailLink.astro";
-import ProjectList from "../components/ProjectList.astro";
-import PublicationItem from "../components/PublicationItem.astro";
 import { contactLinks, profile } from "../data/profile";
 import { papers } from "../data/papers";
-import { projectCategoryLabels, projects } from "../data/projects";
 import { writingLinks } from "../data/writing";
 import SiteLayout from "../layouts/SiteLayout.astro";
 
-const featuredProjects = projects.filter((project) => project.featured).slice(0, 3);
+const featuredPaper = papers.publications[0];
+const latestEssay = (await getCollection("essays", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+)[0];
 const writingArchiveNote = writingLinks[0]?.archiveNote.zh;
+const essaySlug = latestEssay?.id.replace(/\.mdx?$/, "");
+const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit"
+});
 ---
 
 <SiteLayout lang="zh" active="home" title="首页" description={profile.zh.seoDescription}>
@@ -24,7 +31,10 @@ const writingArchiveNote = writingLinks[0]?.archiveNote.zh;
             "type" in link && link.type === "email" ? (
               <EmailLink label={link.label} />
             ) : (
-              <a href={link.href}>{link.label}</a>
+              <a href={link.href}>
+                <span class="contact-label">{link.label}</span>
+                <span class="contact-value">{link.value}</span>
+              </a>
             )
           )
         }
@@ -42,27 +52,58 @@ const writingArchiveNote = writingLinks[0]?.archiveNote.zh;
     }
   </section>
 
-  <section class="section">
+  <section class="section section--compact">
     <h2>研究兴趣</h2>
     <p>{profile.zh.researchFields.join("，")}</p>
   </section>
 
-  <section class="section">
+  <section class="section section--compact">
     <h2>代表性研究</h2>
-    {papers.publications.map((paper) => <PublicationItem paper={paper} lang="zh" />)}
-  </section>
-
-  <section class="section">
-    <h2>FyaLab</h2>
-    <p class="section-intro">FyaLab 是我整理研究工具、代码项目与小型实验的地方。这里展示的是精选项目，而不是完整 GitHub 仓库列表。</p>
-    <div class="project-group">
-      <h3 class="project-group__title">{projectCategoryLabels["research-workflow"].zh}</h3>
-      <ProjectList projects={featuredProjects} lang="zh" />
+    <div class="research-brief">
+      <a class="research-brief__figure" href="/research/" aria-label={featuredPaper.title.zh}>
+        <img src="/images/research/dip-effect.webp" alt="医保支付改革效应分解图" loading="lazy" />
+      </a>
+      <div class="research-brief__body">
+        <h3><a href="/research/">{featuredPaper.title.zh}</a></h3>
+        <dl class="research-table">
+          <div>
+            <dt>作者</dt>
+            <dd>{featuredPaper.authors.zh.map((author) => author.name).join("、")}</dd>
+          </div>
+          <div>
+            <dt>刊物</dt>
+            <dd>{featuredPaper.year}，{featuredPaper.journal.zh}</dd>
+          </div>
+        </dl>
+        <p class="text-links">
+          {featuredPaper.links.zh.map((link) => <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a>)}
+          <a href="/research/">研究页</a>
+        </p>
+      </div>
     </div>
-    <p class="text-links"><a href="/fyalab/">查看全部精选项目</a></p>
   </section>
 
-  <section class="section section--quiet">
+  {
+    latestEssay && (
+      <section class="section section--compact">
+        <h2>随笔</h2>
+        <article class="home-essay">
+          <p class="eyebrow">
+            <time datetime={latestEssay.data.date.toISOString()}>{dateFormatter.format(latestEssay.data.date)}</time>
+            <span>{latestEssay.data.category}</span>
+          </p>
+          <h3><a href={`/essays/${essaySlug}/`}>{latestEssay.data.title}</a></h3>
+          <p>{latestEssay.data.summary}</p>
+          <p class="text-links">
+            <a href={`/essays/${essaySlug}/`}>阅读</a>
+            <a href="/essays/">全部随笔</a>
+          </p>
+        </article>
+      </section>
+    )
+  }
+
+  <section class="section section--quiet section--compact">
     <h2>文字</h2>
     <div class="writing-list">
       {

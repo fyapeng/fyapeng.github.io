@@ -1,11 +1,7 @@
 ---
-import ProjectList from "../../../components/ProjectList.astro";
 import PublicationItem from "../../../components/PublicationItem.astro";
 import { papers } from "../../../data/papers";
-import { projects } from "../../../data/projects";
 import SiteLayout from "../../../layouts/SiteLayout.astro";
-
-const linkedProjects = projects.filter((project) => project.category === "research-workflow");
 ---
 
 <SiteLayout lang="en" active="research" title="Research">
@@ -19,21 +15,14 @@ const linkedProjects = projects.filter((project) => project.category === "resear
     {papers.publications.map((paper) => <PublicationItem paper={paper} lang="en" />)}
   </section>
 
-  {
-    papers.workingPapers.length > 0 && (
-      <section class="section section--reading">
-        <h2>Working Papers</h2>
-        {papers.workingPapers.map((paper) => <PublicationItem paper={paper} lang="en" />)}
-      </section>
-    )
-  }
-
-  {
-    linkedProjects.length > 0 && (
-      <section class="section section--reading">
-        <h2>Code and Data</h2>
-        <ProjectList projects={linkedProjects} lang="en" />
-      </section>
-    )
-  }
+  <section class="section section--reading">
+    <h2>Working Papers</h2>
+    {
+      papers.workingPapers.length > 0 ? (
+        papers.workingPapers.map((paper) => <PublicationItem paper={paper} lang="en" />)
+      ) : (
+        <p class="section-note">Working papers will be added later.</p>
+      )
+    }
+  </section>
 </SiteLayout>

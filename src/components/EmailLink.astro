@@ -16,9 +16,15 @@ const fallback = `${profile.emailParts[0]} [at] ${profile.emailParts[1]} [dot] $
         display: none;
       }
     </style>
-    <span class="email-link__fallback">{fallback}</span>
+    <span class="email-link__fallback">
+      <span class="contact-label">{label}</span>
+      <span class="contact-value">{fallback}</span>
+    </span>
   </noscript>
-  <span class="email-link__pending">{fallback}</span>
+  <span class="email-link__pending">
+    <span class="contact-label">{label}</span>
+    <span class="contact-value">{fallback}</span>
+  </span>
 </span>
 <script is:inline>
   (() => {
@@ -27,8 +33,14 @@ const fallback = `${profile.emailParts[0]} [at] ${profile.emailParts[1]} [dot] $
       if (!Array.isArray(parts) || parts.length !== 3) return;
       const address = `${parts[0]}@${parts[1]}.${parts[2]}`;
       const link = document.createElement("a");
+      const label = document.createElement("span");
+      const value = document.createElement("span");
+      label.className = "contact-label";
+      value.className = "contact-value";
+      label.textContent = node.getAttribute("data-email-label") || "Email";
+      value.textContent = address;
       link.href = `mailto:${address}`;
-      link.textContent = node.getAttribute("data-email-label") || address;
+      link.append(label, value);
       node.textContent = "";
       node.appendChild(link);
       node.setAttribute("data-email-ready", "true");

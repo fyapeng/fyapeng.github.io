@@ -55,14 +55,14 @@ export const profile = {
 export const contactLinks = {
   zh: [
     { type: "email", label: "邮箱" },
-    { label: "GitHub", href: profile.github.url },
-    { label: "简历", href: "/files/cv_zh.pdf" },
-    { label: "申椿", href: profile.wechat.qrImage }
+    { label: "GitHub", value: "github.com/fyapeng", href: profile.github.url },
+    { label: "简历", value: "cv_zh.pdf", href: "/files/cv_zh.pdf" },
+    { label: "申椿", value: "公众号「申椿」", href: profile.wechat.qrImage }
   ],
   en: [
     { type: "email", label: "Email" },
-    { label: "GitHub", href: profile.github.url },
-    { label: "CV", href: "/files/cv_en.pdf" },
-    { label: "Shen Chun", href: profile.wechat.qrImage }
+    { label: "GitHub", value: "github.com/fyapeng", href: profile.github.url },
+    { label: "CV", value: "cv_en.pdf", href: "/files/cv_en.pdf" },
+    { label: "Shen Chun", value: "WeChat official account", href: profile.wechat.qrImage }
   ]
 } as const;

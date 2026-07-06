@@ -1,11 +1,7 @@
 ---
-import ProjectList from "../../components/ProjectList.astro";
 import PublicationItem from "../../components/PublicationItem.astro";
 import { papers } from "../../data/papers";
-import { projects } from "../../data/projects";
 import SiteLayout from "../../layouts/SiteLayout.astro";
-
-const linkedProjects = projects.filter((project) => project.category === "research-workflow");
 ---
 
 <SiteLayout lang="zh" active="research" title="研究">
@@ -19,21 +15,14 @@ const linkedProjects = projects.filter((project) => project.category === "resear
     {papers.publications.map((paper) => <PublicationItem paper={paper} lang="zh" />)}
   </section>
 
-  {
-    papers.workingPapers.length > 0 && (
-      <section class="section section--reading">
-        <h2>工作论文</h2>
-        {papers.workingPapers.map((paper) => <PublicationItem paper={paper} lang="zh" />)}
-      </section>
-    )
-  }
-
-  {
-    linkedProjects.length > 0 && (
-      <section class="section section--reading">
-        <h2>代码与数据</h2>
-        <ProjectList projects={linkedProjects} lang="zh" />
-      </section>
-    )
-  }
+  <section class="section section--reading">
+    <h2>工作论文</h2>
+    {
+      papers.workingPapers.length > 0 ? (
+        papers.workingPapers.map((paper) => <PublicationItem paper={paper} lang="zh" />)
+      ) : (
+        <p class="section-note">工作论文将陆续补充。</p>
+      )
+    }
+  </section>
 </SiteLayout>
