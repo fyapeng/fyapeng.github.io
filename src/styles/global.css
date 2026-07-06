@@ -655,6 +655,43 @@ ul {
   line-height: 1.85;
 }
 
+.essay-article .content blockquote {
+  margin: 1.1rem 0 1.3rem;
+  padding: 0.15rem 0 0.15rem 0.9rem;
+  border-left: 3px solid var(--color-line);
+  color: var(--color-muted);
+}
+
+.essay-article .content table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 1rem 0 1.35rem;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+}
+
+.essay-article .content th,
+.essay-article .content td {
+  padding: 0.42rem 0.55rem;
+  border-bottom: 1px solid var(--color-line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.essay-article .content th {
+  color: var(--color-muted);
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.essay-article .content .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.08rem 0 0.2rem;
+}
+
 .cv-section {
   border-top: 1px solid var(--color-line);
   padding-top: 1rem;
