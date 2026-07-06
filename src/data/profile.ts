@@ -54,7 +54,7 @@ export const profile = {
 
 export const contactLinks = {
   zh: [
-    { type: "email", label: "Email" },
+    { type: "email", label: "邮箱" },
     { label: "GitHub", href: profile.github.url },
     { label: "简历", href: "/files/cv_zh.pdf" },
     { label: "申椿", href: profile.wechat.qrImage }

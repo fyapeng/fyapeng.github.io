@@ -1,10 +1,10 @@
 ---
 import ProjectList from "../../../components/ProjectList.astro";
-import { projects } from "../../../data/projects";
+import { projectCategoryLabels, projects } from "../../../data/projects";
 import SiteLayout from "../../../layouts/SiteLayout.astro";
 
-const researchProjects = projects.filter((project) => project.category === "Research / Workflow");
-const experimentProjects = projects.filter((project) => project.category === "Experiments");
+const researchProjects = projects.filter((project) => project.category === "research-workflow");
+const experimentProjects = projects.filter((project) => project.category === "experiments");
 ---
 
 <SiteLayout lang="en" active="fyalab" title="FyaLab">
@@ -13,11 +13,11 @@ const experimentProjects = projects.filter((project) => project.category === "Ex
     <p>FyaLab is where I organize selected research tools, code projects, and small experiments. It is curated manually rather than mirrored from every GitHub repository.</p>
   </header>
   <section class="section--reading">
-    <h2>Research / Workflow</h2>
+    <h2>{projectCategoryLabels["research-workflow"].en}</h2>
     <ProjectList projects={researchProjects} lang="en" />
   </section>
   <section class="section section--reading">
-    <h2>Experiments</h2>
+    <h2>{projectCategoryLabels.experiments.en}</h2>
     <ProjectList projects={experimentProjects} lang="en" />
   </section>
 </SiteLayout>

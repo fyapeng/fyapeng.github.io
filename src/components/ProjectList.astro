@@ -1,5 +1,10 @@
 ---
-import type { Project } from "../data/projects";
+import {
+  projectCategoryLabels,
+  projectLinkLabels,
+  projectStatusLabels,
+  type Project
+} from "../data/projects";
 import type { Locale } from "../data/profile";
 
 interface Props {
@@ -17,15 +22,15 @@ const { projects, lang = "zh", showCategory = false } = Astro.props;
       <article class="project-item">
         <div class="project-item__head">
           <h3>{project.name}</h3>
-          <span>{project.status}</span>
+          <span class="project-status">{projectStatusLabels[project.status][lang]}</span>
         </div>
-        {showCategory && <p class="eyebrow">{project.category}</p>}
+        {showCategory && <p class="eyebrow">{projectCategoryLabels[project.category][lang]}</p>}
         <p>{project.description[lang]}</p>
-        <p class="tag-line">{project.tags.join(" / ")}</p>
+        <p class="tag-line">{project.tags[lang].join(" / ")}</p>
         <p class="text-links">
-          {project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">Repo</a>}
-          {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">Demo</a>}
-          {project.docsUrl && <a href={project.docsUrl} target="_blank" rel="noopener noreferrer">Docs</a>}
+          {project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">{projectLinkLabels.repo[lang]}</a>}
+          {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">{projectLinkLabels.demo[lang]}</a>}
+          {project.docsUrl && <a href={project.docsUrl} target="_blank" rel="noopener noreferrer">{projectLinkLabels.docs[lang]}</a>}
         </p>
       </article>
     ))

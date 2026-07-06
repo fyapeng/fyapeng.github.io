@@ -10,8 +10,15 @@ const fallback = `${profile.emailParts[0]} [at] ${profile.emailParts[1]} [dot] $
 ---
 
 <span class="email-link" data-email-parts={JSON.stringify(profile.emailParts)} data-email-label={label}>
-  <noscript>{fallback}</noscript>
-  <span>{fallback}</span>
+  <noscript>
+    <style>
+      .email-link__pending {
+        display: none;
+      }
+    </style>
+    <span class="email-link__fallback">{fallback}</span>
+  </noscript>
+  <span class="email-link__pending">{fallback}</span>
 </span>
 <script is:inline>
   (() => {
