@@ -25,10 +25,6 @@ export const writingLinks = [
       zh: "阅读",
       en: "Read"
     } satisfies LocalizedText,
-    archiveNote: {
-      zh: "部分随笔与申椿文章后续也会在这里作为网页存档。",
-      en: "Selected essays and Shen Chun articles may later be archived here as webpages."
-    } satisfies LocalizedText,
-    url: "/unwritten/"
+    url: "https://fyapeng.com/chichi/"
   }
 ] as const;

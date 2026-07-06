@@ -73,6 +73,7 @@ export const projects: Project[] = [
       en: ["Health Economics", "Literature Review"]
     },
     repoUrl: "https://github.com/fyapeng/doctors",
+    demoUrl: "https://fyapeng.com/doctors/",
     status: "active",
     featured: true
   },
@@ -104,6 +105,7 @@ export const projects: Project[] = [
       en: ["Literature Tracking", "Automation"]
     },
     repoUrl: "https://github.com/fyapeng/nber",
+    demoUrl: "https://fyapeng.com/nber/",
     status: "maintained",
     featured: true
   },
@@ -119,6 +121,7 @@ export const projects: Project[] = [
       en: ["Rule Computation", "Audit Export"]
     },
     repoUrl: "https://github.com/fyapeng/bazi",
+    demoUrl: "https://fyapeng.com/bazi/",
     status: "prototype",
     featured: false
   },
@@ -134,6 +137,7 @@ export const projects: Project[] = [
       en: ["Frontend Experiment", "Rule System"]
     },
     repoUrl: "https://github.com/fyapeng/xliuren",
+    demoUrl: "https://fyapeng.com/xliuren/",
     status: "experimental",
     featured: false
   }

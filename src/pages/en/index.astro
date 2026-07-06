@@ -10,20 +10,6 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
       <h1>{profile.en.name}</h1>
       <p class="role">{profile.en.role}</p>
       <p>{profile.en.bio}</p>
-      <p class="contact-links">
-        {
-          contactLinks.en.map((link) =>
-            "type" in link && link.type === "email" ? (
-              <EmailLink label={link.label} />
-            ) : (
-              <a href={link.href}>
-                <span class="contact-label">{link.label}</span>
-                <span class="contact-value">{link.value}</span>
-              </a>
-            )
-          )
-        }
-      </p>
     </div>
     {
       profile.photo.src && (
@@ -33,6 +19,24 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
           width={profile.photo.width}
           height={profile.photo.height}
         />
+      )
+    }
+  </section>
+
+  <section class="contact-grid" aria-label="Contact">
+    {
+      contactLinks.en.map((link) =>
+        "type" in link && link.type === "email" ? (
+          <EmailLink label={link.label} icon={link.icon} />
+        ) : (
+          <a class="contact-card" href={link.href}>
+            <span class="contact-icon" aria-hidden="true">{link.icon}</span>
+            <span class="contact-copy">
+              <span class="contact-label">{link.label}</span>
+              <span class="contact-value">{link.value}</span>
+            </span>
+          </a>
+        )
       )
     }
   </section>

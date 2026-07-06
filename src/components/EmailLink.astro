@@ -3,27 +3,34 @@ import { profile } from "../data/profile";
 
 interface Props {
   label?: string;
+  icon?: string;
 }
 
-const { label = "Email" } = Astro.props;
+const { label = "Email", icon = "@" } = Astro.props;
 const fallback = `${profile.emailParts[0]} [at] ${profile.emailParts[1]} [dot] ${profile.emailParts[2]}`;
 ---
 
-<span class="email-link" data-email-parts={JSON.stringify(profile.emailParts)} data-email-label={label}>
+<span class="email-link" data-email-parts={JSON.stringify(profile.emailParts)} data-email-label={label} data-email-icon={icon}>
   <noscript>
     <style>
       .email-link__pending {
         display: none;
       }
     </style>
-    <span class="email-link__fallback">
+    <span class="email-link__fallback contact-card">
+      <span class="contact-icon" aria-hidden="true">{icon}</span>
+      <span class="contact-copy">
+        <span class="contact-label">{label}</span>
+        <span class="contact-value">{fallback}</span>
+      </span>
+    </span>
+  </noscript>
+  <span class="email-link__pending contact-card">
+    <span class="contact-icon" aria-hidden="true">{icon}</span>
+    <span class="contact-copy">
       <span class="contact-label">{label}</span>
       <span class="contact-value">{fallback}</span>
     </span>
-  </noscript>
-  <span class="email-link__pending">
-    <span class="contact-label">{label}</span>
-    <span class="contact-value">{fallback}</span>
   </span>
 </span>
 <script is:inline>
@@ -33,14 +40,22 @@ const fallback = `${profile.emailParts[0]} [at] ${profile.emailParts[1]} [dot] $
       if (!Array.isArray(parts) || parts.length !== 3) return;
       const address = `${parts[0]}@${parts[1]}.${parts[2]}`;
       const link = document.createElement("a");
+      const icon = document.createElement("span");
+      const copy = document.createElement("span");
       const label = document.createElement("span");
       const value = document.createElement("span");
+      icon.className = "contact-icon";
+      icon.setAttribute("aria-hidden", "true");
+      copy.className = "contact-copy";
       label.className = "contact-label";
       value.className = "contact-value";
+      icon.textContent = node.getAttribute("data-email-icon") || "@";
       label.textContent = node.getAttribute("data-email-label") || "Email";
       value.textContent = address;
       link.href = `mailto:${address}`;
-      link.append(label, value);
+      link.className = "contact-card";
+      copy.append(label, value);
+      link.append(icon, copy);
       node.textContent = "";
       node.appendChild(link);
       node.setAttribute("data-email-ready", "true");

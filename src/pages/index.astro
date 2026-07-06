@@ -10,7 +10,6 @@ const featuredPaper = papers.publications[0];
 const latestEssay = (await getCollection("essays", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 )[0];
-const writingArchiveNote = writingLinks[0]?.archiveNote.zh;
 const essaySlug = latestEssay?.id.replace(/\.mdx?$/, "");
 const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
   year: "numeric",
@@ -25,20 +24,6 @@ const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
       <h1>{profile.zh.name}</h1>
       <p class="role">{profile.zh.role}</p>
       <p>{profile.zh.bio}</p>
-      <p class="contact-links">
-        {
-          contactLinks.zh.map((link) =>
-            "type" in link && link.type === "email" ? (
-              <EmailLink label={link.label} />
-            ) : (
-              <a href={link.href}>
-                <span class="contact-label">{link.label}</span>
-                <span class="contact-value">{link.value}</span>
-              </a>
-            )
-          )
-        }
-      </p>
     </div>
     {
       profile.photo.src && (
@@ -48,6 +33,24 @@ const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
           width={profile.photo.width}
           height={profile.photo.height}
         />
+      )
+    }
+  </section>
+
+  <section class="contact-grid" aria-label="联系方式">
+    {
+      contactLinks.zh.map((link) =>
+        "type" in link && link.type === "email" ? (
+          <EmailLink label={link.label} icon={link.icon} />
+        ) : (
+          <a class="contact-card" href={link.href}>
+            <span class="contact-icon" aria-hidden="true">{link.icon}</span>
+            <span class="contact-copy">
+              <span class="contact-label">{link.label}</span>
+              <span class="contact-value">{link.value}</span>
+            </span>
+          </a>
+        )
       )
     }
   </section>
@@ -116,6 +119,5 @@ const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
         ))
       }
     </div>
-    {writingArchiveNote && <p class="section-note">{writingArchiveNote}</p>}
   </section>
 </SiteLayout>
