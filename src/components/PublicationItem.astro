@@ -10,11 +10,12 @@ interface Props {
 const { paper, lang = "zh" } = Astro.props;
 const separator = lang === "zh" ? "、" : ", ";
 const abstractLabel = lang === "zh" ? "摘要" : "Abstract";
+const citationSuffix = lang === "zh" ? "。" : ".";
+const titleUrl = paper.links[lang][0]?.url;
 ---
 
 <article class="publication">
-  <h3>{paper.title[lang]}</h3>
-  <p class="publication__authors">
+  <p class="publication__citation">
     {
       paper.authors[lang].map((author, index) => (
         <span>
@@ -30,12 +31,23 @@ const abstractLabel = lang === "zh" ? "摘要" : "Abstract";
         </span>
       ))
     }
-  </p>
-  <p class="publication__meta">
+    <span>{lang === "zh" ? "：" : ". "}</span>
+    {
+      titleUrl ? (
+        <a class="publication__title" href={titleUrl} target="_blank" rel="noopener noreferrer">
+          {paper.title[lang]}
+        </a>
+      ) : (
+        <span class="publication__title">{paper.title[lang]}</span>
+      )
+    }
+    <span>{lang === "zh" ? "，" : ", "}</span>
     <span>{paper.year}</span>
+    <span>{lang === "zh" ? "，" : ", "}</span>
     <span>{paper.journal[lang]}</span>
+    <span>{citationSuffix}</span>
   </p>
-  <p class="text-links">
+  <div class="publication__actions">
     {
       paper.links[lang].map((link) => (
         <a href={link.url} target="_blank" rel="noopener noreferrer">
@@ -43,9 +55,9 @@ const abstractLabel = lang === "zh" ? "摘要" : "Abstract";
         </a>
       ))
     }
-  </p>
-  <details class="publication__abstract">
-    <summary>{abstractLabel}</summary>
-    <p>{paper.abstract[lang]}</p>
-  </details>
+    <details class="publication__abstract">
+      <summary>{abstractLabel}</summary>
+      <p>{paper.abstract[lang]}</p>
+    </details>
+  </div>
 </article>
