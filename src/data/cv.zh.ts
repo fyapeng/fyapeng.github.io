@@ -25,7 +25,7 @@ export const cvZh = {
     {
       kind: "tags",
       title: "研究兴趣",
-      items: ["健康经济学", "公共经济学", "医保支付改革", "微观计量"]
+      items: ["健康经济学", "产业组织", "微观理论", "政策评估"]
     },
     {
       kind: "list",

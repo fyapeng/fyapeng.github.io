@@ -25,7 +25,7 @@ export const cvEn = {
     {
       kind: "tags",
       title: "Research Interests",
-      items: ["Health economics", "Public economics", "Medical payment reform", "Applied microeconometrics"]
+      items: ["Health economics", "Industrial organization", "Microeconomic theory", "Policy evaluation"]
     },
     {
       kind: "list",

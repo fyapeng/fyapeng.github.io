@@ -55,13 +55,33 @@ const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
     }
   </section>
 
-  <section class="section section--compact">
-    <h2>研究兴趣</h2>
-    <p>{profile.zh.researchFields.join("，")}</p>
+  <section class="home-section">
+    <header class="home-section__header">
+      <span class="home-section__index">01</span>
+      <div>
+        <h2>研究兴趣</h2>
+        <p>长期关注的问题意识与方法背景。</p>
+      </div>
+    </header>
+    <div class="interest-block">
+      <p class="interest-block__lead">研究领域为健康经济学、产业组织、微观理论与政策评估。</p>
+      <p>
+        当前研究主要围绕医疗服务市场中的支付规则、供需激励与政策后果展开，关注医保支付方式改革如何影响患者负担、医疗机构行为和资源配置效率。
+      </p>
+      <div class="interest-tags" aria-label="研究领域">
+        {profile.zh.researchFields.map((field) => <span>{field}</span>)}
+      </div>
+    </div>
   </section>
 
-  <section class="section section--compact">
-    <h2>近期研究</h2>
+  <section class="home-section">
+    <header class="home-section__header">
+      <span class="home-section__index">02</span>
+      <div>
+        <h2>近期研究</h2>
+        <p>选取一项最新工作及其中的特色图表。</p>
+      </div>
+    </header>
     {
       latestResearch && (
         <div class="feature-card">
@@ -80,8 +100,14 @@ const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
 
   {
     latestEssay && (
-      <section class="section section--compact">
-        <h2>随笔</h2>
+      <section class="home-section">
+        <header class="home-section__header">
+          <span class="home-section__index">03</span>
+          <div>
+            <h2>随笔</h2>
+            <p>近期写作与研究札记。</p>
+          </div>
+        </header>
         <article class="feature-card">
           {
             latestEssay.data.cover && (
@@ -107,14 +133,11 @@ const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
     )
   }
 
-  <section class="section section--quiet section--compact">
-    <h2>文字</h2>
-    <div class="quiet-link-row">
-      {
-        writingLinks.map((item) => (
-          <a class="quiet-link" href={item.url}>{item.displayTitle.zh}</a>
-        ))
-      }
-    </div>
-  </section>
+  <nav class="bottom-writing-link" aria-label="其他文字">
+    {
+      writingLinks.map((item) => (
+        <a class="quiet-link" href={item.url}>{item.displayTitle.zh}</a>
+      ))
+    }
+  </nav>
 </SiteLayout>

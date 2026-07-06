@@ -37,18 +37,18 @@ export const profile = {
     role: "中国社会科学院大学经济学院经济学博士在读",
     shortRole: "经济学博士在读，中国社会科学院大学经济学院",
     location: "北京",
-    bio: "我目前在中国社会科学院大学经济学院攻读经济学博士学位，研究关注健康经济学、公共经济学、医保支付改革与微观计量方法。当前工作主要围绕 DRG/DIP 支付改革、道德风险、供给方诱导需求以及医疗控费政策评估展开。",
-    researchFields: ["健康经济学", "公共经济学", "医保支付改革", "微观计量"],
-    seoDescription: "付亚鹏的个人学术主页，介绍健康经济学、公共经济学、医保支付改革和微观计量相关研究。"
+    bio: "我目前在中国社会科学院大学经济学院攻读经济学博士学位，研究关注健康经济学、产业组织、微观理论与政策评估。当前工作主要围绕 DRG/DIP 支付改革、道德风险、供给方诱导需求以及医疗控费政策评估展开。",
+    researchFields: ["健康经济学", "产业组织", "微观理论", "政策评估"],
+    seoDescription: "付亚鹏的个人学术主页，介绍健康经济学、产业组织、微观理论和政策评估相关研究。"
   },
   en: {
     name: "Yapeng Fu",
     role: "Ph.D. Student in Economics, University of Chinese Academy of Social Sciences",
     shortRole: "Ph.D. Student in Economics, UCASS",
     location: "Beijing, China",
-    bio: "I am a Ph.D. student in Economics at the School of Economics, University of Chinese Academy of Social Sciences. My research interests include health economics, public economics, medical payment reform, and applied microeconometrics, with current work on DRG/DIP reform, moral hazard, supplier-induced demand, and healthcare cost control.",
-    researchFields: ["Health economics", "Public economics", "Medical payment reform", "Applied microeconometrics"],
-    seoDescription: "Academic website of Yapeng Fu, a Ph.D. student in economics working on health economics, public economics, medical payment reform, and applied microeconometrics."
+    bio: "I am a Ph.D. student in Economics at the School of Economics, University of Chinese Academy of Social Sciences. My research interests include health economics, industrial organization, microeconomic theory, and policy evaluation, with current work on DRG/DIP reform, moral hazard, supplier-induced demand, and healthcare cost control.",
+    researchFields: ["Health economics", "Industrial organization", "Microeconomic theory", "Policy evaluation"],
+    seoDescription: "Academic website of Yapeng Fu, a Ph.D. student in economics working on health economics, industrial organization, microeconomic theory, and policy evaluation."
   }
 } as const;
 
