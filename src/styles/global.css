@@ -575,7 +575,7 @@ ul {
   align-items: center;
 }
 
-.project-status {
+.project-badge {
   color: var(--color-muted);
   font-size: 0.78rem;
   line-height: 1.55;

@@ -97,7 +97,7 @@ const navItems = [
         const isWebLink = url.protocol === "http:" || url.protocol === "https:";
         const isExternal = isWebLink && !internalHosts.has(url.hostname);
 
-        if (isExternal) {
+        if (isExternal || link.hasAttribute("data-new-tab")) {
           link.setAttribute("target", "_blank");
           const rel = new Set((link.getAttribute("rel") || "").split(/\s+/).filter(Boolean));
           rel.add("noopener");

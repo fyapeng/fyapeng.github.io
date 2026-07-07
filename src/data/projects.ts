@@ -1,7 +1,6 @@
 import type { Locale } from "./profile";
 
 export type ProjectCategory = "research-workflow" | "experiments";
-export type ProjectStatus = "active" | "maintained" | "prototype" | "experimental";
 
 export interface Project {
   name: string;
@@ -11,7 +10,7 @@ export interface Project {
   repoUrl?: string;
   demoUrl?: string;
   docsUrl?: string;
-  status: ProjectStatus;
+  badge: Record<Locale, string>;
   featured: boolean;
 }
 
@@ -23,25 +22,6 @@ export const projectCategoryLabels: Record<ProjectCategory, Record<Locale, strin
   experiments: {
     zh: "实验项目",
     en: "Experiments"
-  }
-};
-
-export const projectStatusLabels: Record<ProjectStatus, Record<Locale, string>> = {
-  active: {
-    zh: "活跃",
-    en: "Active"
-  },
-  maintained: {
-    zh: "维护中",
-    en: "Maintained"
-  },
-  prototype: {
-    zh: "原型",
-    en: "Prototype"
-  },
-  experimental: {
-    zh: "实验",
-    en: "Experimental"
   }
 };
 
@@ -74,7 +54,10 @@ export const projects: Project[] = [
     },
     repoUrl: "https://github.com/fyapeng/doctors",
     demoUrl: "https://fyapeng.com/doctors/",
-    status: "active",
+    badge: {
+      zh: "资料库",
+      en: "Archive"
+    },
     featured: true
   },
   {
@@ -90,7 +73,10 @@ export const projects: Project[] = [
     },
     repoUrl: "https://github.com/fyapeng/SenLab",
     demoUrl: "https://fyapeng.com/senlab",
-    status: "maintained",
+    badge: {
+      zh: "工作流",
+      en: "Workflow"
+    },
     featured: true
   },
   {
@@ -106,7 +92,10 @@ export const projects: Project[] = [
     },
     repoUrl: "https://github.com/fyapeng/nber",
     demoUrl: "https://fyapeng.com/nber/",
-    status: "maintained",
+    badge: {
+      zh: "自动化",
+      en: "Automation"
+    },
     featured: true
   },
   {
@@ -122,7 +111,10 @@ export const projects: Project[] = [
     },
     repoUrl: "https://github.com/fyapeng/bazi",
     demoUrl: "https://fyapeng.com/bazi/",
-    status: "prototype",
+    badge: {
+      zh: "规则实验",
+      en: "Rule Lab"
+    },
     featured: false
   },
   {
@@ -138,7 +130,10 @@ export const projects: Project[] = [
     },
     repoUrl: "https://github.com/fyapeng/xliuren",
     demoUrl: "https://fyapeng.com/xliuren/",
-    status: "experimental",
+    badge: {
+      zh: "前端实验",
+      en: "Frontend Lab"
+    },
     featured: false
   }
 ];
