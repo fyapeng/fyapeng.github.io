@@ -136,7 +136,7 @@ const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
   <nav class="bottom-writing-link" aria-label="其他文字">
     {
       writingLinks.map((item) => (
-        <a class="quiet-link" href={item.url}>{item.displayTitle.zh}</a>
+        <a class="quiet-link" href={item.url} target="_blank" rel="noopener noreferrer" data-new-tab>{item.displayTitle.zh}</a>
       ))
     }
   </nav>
