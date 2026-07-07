@@ -2,6 +2,13 @@
 import EmailLink from "../../components/EmailLink.astro";
 import { advisor, contactLinks, profile } from "../../data/profile";
 import SiteLayout from "../../layouts/SiteLayout.astro";
+
+const bioParagraphs = profile.en.bio.map((paragraph) =>
+  paragraph.replace(
+    advisor.en.name,
+    `<a href="${advisor.url}" target="_blank" rel="noopener noreferrer">${advisor.en.name}</a>`
+  )
+);
 ---
 
 <SiteLayout lang="en" active="bio" title="Bio" description={profile.en.seoDescription}>
@@ -9,7 +16,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
     <div>
       <h1>{profile.en.name}</h1>
       <p class="role">{profile.en.role}</p>
-      <p set:html={profile.en.bio.replace(advisor.en.name, `<a href="${advisor.url}" target="_blank" rel="noopener noreferrer">${advisor.en.name}</a>`)} />
+      {bioParagraphs.map((paragraph) => <p set:html={paragraph} />)}
     </div>
     {
       profile.photo.src && (

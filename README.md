@@ -26,7 +26,7 @@ npm run preview
   - `/research/`：发表论文与工作论文。
   - `/recent-research/`：近期研究展示。
   - `/essays/`：随笔列表和随笔详情页。
-  - `/fyalab/`：精选代码项目与研究工具。
+  - `/fyalab/`：部分代码项目与研究工具。
   - `/cv/`：网页版中文简历。
   - `/bio/`：英文个人简介。站点不再维护完整英文镜像页。
 - `src/data/`：个人信息、论文、CV、项目和近期研究等结构化内容。
@@ -92,7 +92,7 @@ draft: false
 
 ### FyaLab
 
-项目数据位于 `src/data/projects.ts`。这里是手动精选项目，不自动同步 GitHub 仓库。
+项目数据位于 `src/data/projects.ts`。这里是手动维护的部分项目，不自动同步 GitHub 仓库。
 
 项目链接通常使用：
 

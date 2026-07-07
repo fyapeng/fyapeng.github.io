@@ -58,7 +58,12 @@ export const profile = {
     role: "Ph.D. Student in Economics, University of Chinese Academy of Social Sciences",
     shortRole: "Ph.D. Student in Economics, UCASS",
     location: "Beijing, China",
-    bio: "My doctoral field is Western economics. I am advised by Mingwei Fu, Research Fellow at the Institute of Economics, Chinese Academy of Social Sciences, and expect to receive my Ph.D. in Economics in 2029. My academic training focuses on applied microeconomics and empirical research design, with an emphasis on organizing research around clear questions, identification assumptions, and reproducible materials.",
+    bio: [
+      "I am a Ph.D. student in economics at the University of Chinese Academy of Social Sciences. My doctoral field is Western economics, and I am advised by Mingwei Fu, Research Fellow at the Institute of Economics, Chinese Academy of Social Sciences. I expect to receive my Ph.D. in Economics in 2029.",
+      "My research is broadly situated at the intersection of health economics, industrial organization, microeconomic theory, and policy evaluation. I am especially interested in how payment rules, organizational incentives, and policy design shape provider behavior, patient burden, and resource allocation in healthcare markets.",
+      "Methodologically, my training combines microeconometric evaluation, structural reasoning, and counterfactual policy analysis. I care about research designs that make identifying assumptions explicit, connect empirical patterns to institutional detail, and produce evidence that can be interpreted in policy terms.",
+      "I also maintain research notes, code projects, and reproducible materials for my own workflow. I welcome academic communication and collaboration on related topics."
+    ],
     researchFields: ["Health economics", "Industrial organization", "Microeconomic theory", "Policy evaluation"],
     seoDescription: "Academic website of Yapeng Fu, a Ph.D. student in economics working on health economics, industrial organization, microeconomic theory, policy evaluation, and healthcare cost control."
   }
