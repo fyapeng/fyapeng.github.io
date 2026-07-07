@@ -47,7 +47,7 @@ const navItems = [
     <meta property="og:site_name" content={displayName} />
     <meta name="twitter:card" content="summary" />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{pageTitle}</title>
   </head>
   <body>
@@ -55,6 +55,7 @@ const navItems = [
     <header class="site-header">
       <div class="site-header__inner">
         <a class="site-title" href="/" aria-label={displayName}>
+          <img class="site-logo" src="/favicon.svg" alt="" width="32" height="32" />
           <span>{lang === "zh" ? profile.identity.chineseName : profile.identity.englishName}</span>
         </a>
         <nav class="site-nav" aria-label={lang === "zh" ? "主导航" : "Main navigation"}>

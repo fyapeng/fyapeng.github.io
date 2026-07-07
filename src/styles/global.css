@@ -126,10 +126,19 @@ ul {
 .site-title {
   color: var(--color-text);
   display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   line-height: 1.2;
   text-decoration: none;
   min-width: 5rem;
   border-bottom: 0;
+}
+
+.site-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  flex: 0 0 auto;
 }
 
 .site-title span {
