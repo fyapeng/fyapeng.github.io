@@ -49,7 +49,7 @@ export const profile = {
     role: "中国社会科学院大学经济学院经济学博士在读",
     shortRole: "经济学博士在读，中国社会科学院大学经济学院",
     location: "北京",
-    bio: "专业方向为西方经济学，导师为中国社会科学院经济研究所付明卫研究员，预计于 2029 年获得经济学博士学位。我的学术训练侧重应用微观经济学与经验研究设计，重视从清楚的问题意识、识别假设和可复现材料出发组织研究。",
+    bio: "专业方向为西方经济学，导师为中国社会科学院经济研究所付明卫研究员，预计于 2029 年获得经济学博士学位。我的学术训练侧重应用微观经济学、经验研究设计与可复现研究工作流；研究兴趣、近期工作和简历信息见下方栏目。",
     researchFields: ["健康经济学", "产业组织", "微观理论", "政策评估"],
     seoDescription: "付亚鹏的个人学术主页，介绍健康经济学、产业组织、微观理论、政策评估和医疗控费政策相关研究。"
   },
@@ -59,10 +59,10 @@ export const profile = {
     shortRole: "Ph.D. Student in Economics, UCASS",
     location: "Beijing, China",
     bio: [
-      "I am a Ph.D. student in economics at the University of Chinese Academy of Social Sciences. My doctoral field is Western economics, and I am advised by Mingwei Fu, Research Fellow at the Institute of Economics, Chinese Academy of Social Sciences. I expect to receive my Ph.D. in Economics in 2029.",
-      "My research is broadly situated at the intersection of health economics, industrial organization, microeconomic theory, and policy evaluation. I am especially interested in how payment rules, organizational incentives, and policy design shape provider behavior, patient burden, and resource allocation in healthcare markets.",
-      "Methodologically, my training combines microeconometric evaluation, structural reasoning, and counterfactual policy analysis. I care about research designs that make identifying assumptions explicit, connect empirical patterns to institutional detail, and produce evidence that can be interpreted in policy terms.",
-      "I also maintain research notes, code projects, and reproducible materials for my own workflow. I welcome academic communication and collaboration on related topics."
+      "I am Yapeng Fu, a Ph.D. student in Economics at the School of Economics, University of Chinese Academy of Social Sciences. I am advised by Mingwei Fu at the Institute of Economics, Chinese Academy of Social Sciences, and expect to receive my Ph.D. in 2029.",
+      "My research interests lie at the intersection of health economics, industrial organization, microeconomic theory, and public policy evaluation. I study how healthcare payment reforms and institutional arrangements affect the behavior of patients, hospitals, and physicians, with a particular focus on DRG/DIP reform, healthcare cost containment, moral hazard, supplier-induced demand, and physician behavior.",
+      "My work combines microeconometric methods, structural economic modeling, and counterfactual policy analysis to provide empirical evidence for improving healthcare payment and cost-control policies.",
+      "I am always open to academic discussions and potential collaborations. Please feel free to reach out by email or WeChat."
     ],
     researchFields: ["Health economics", "Industrial organization", "Microeconomic theory", "Policy evaluation"],
     seoDescription: "Academic website of Yapeng Fu, a Ph.D. student in economics working on health economics, industrial organization, microeconomic theory, policy evaluation, and healthcare cost control."
