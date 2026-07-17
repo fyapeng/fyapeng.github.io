@@ -33,6 +33,21 @@ const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
         entry.data.cover && (
           <figure class="cover">
             <img src={entry.data.cover} alt={entry.data.coverAlt ?? ""} />
+            {
+              (entry.data.coverCaption || entry.data.coverCredit) && (
+                <figcaption>
+                  {entry.data.coverCaption}
+                  {entry.data.coverCaption && entry.data.coverCredit && <span aria-hidden="true"> · </span>}
+                  {
+                    entry.data.coverCredit && entry.data.coverCreditUrl ? (
+                      <a href={entry.data.coverCreditUrl}>{entry.data.coverCredit}</a>
+                    ) : (
+                      entry.data.coverCredit
+                    )
+                  }
+                </figcaption>
+              )
+            }
           </figure>
         )
       }

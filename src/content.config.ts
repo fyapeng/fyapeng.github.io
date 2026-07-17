@@ -12,6 +12,9 @@ const essays = defineCollection({
     tags: z.array(z.string()),
     cover: z.string().optional(),
     coverAlt: z.string().optional(),
+    coverCaption: z.string().optional(),
+    coverCredit: z.string().optional(),
+    coverCreditUrl: z.string().url().optional(),
     wechatUrl: z.union([z.string().url(), z.literal("")]).optional(),
     draft: z.boolean().default(false)
   })

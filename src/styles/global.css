@@ -647,7 +647,16 @@ ul {
 }
 
 .essay-article .cover img {
+  display: block;
+  width: 100%;
   border: 1px solid var(--color-line);
+}
+
+.essay-article .cover figcaption {
+  margin-top: 0.42rem;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  line-height: 1.55;
 }
 
 .essay-article .content {
@@ -657,6 +666,12 @@ ul {
 
 .essay-article .content h2 {
   margin-top: 1.8rem;
+}
+
+.essay-article .content h3 {
+  margin: 1.35rem 0 0.55rem;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
 }
 
 .essay-article .content p,
@@ -908,6 +923,11 @@ ul {
 
   .essay-article .content h2 {
     margin-top: 1.45rem;
+  }
+
+  .essay-article .content h3 {
+    margin-top: 1.15rem;
+    font-size: 1rem;
   }
 
   .essay-article .content p,
