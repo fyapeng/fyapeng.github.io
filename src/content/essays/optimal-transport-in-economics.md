@@ -1,5 +1,5 @@
 ---
-title: "经济学中的最优运输：从配置、对偶到分布几何"
+title: "经济学中的最优运输理论"
 date: "2026-07-17"
 summary: "从 Monge–Kantorovich 问题讲到对偶势、Brenier 映射、Wasserstein 几何和 Sinkhorn 算法，并讨论匹配、离散选择、计量经济学及公共服务配置中的具体用法与识别条件。"
 category: "方法笔记"
