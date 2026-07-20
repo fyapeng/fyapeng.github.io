@@ -1,0 +1,55 @@
+<aside class="rss-subscribe" aria-labelledby="rss-subscribe-title">
+  <div class="rss-subscribe__copy">
+    <strong id="rss-subscribe-title">订阅随笔更新</strong>
+    <span>将订阅地址添加到 RSS 阅读器，新文章发布后即可统一查看。</span>
+  </div>
+  <a href="/rss.xml" type="application/rss+xml" aria-label="订阅付亚鹏的随笔 RSS">RSS 订阅</a>
+</aside>
+
+<style>
+  .rss-subscribe {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.9rem;
+    padding: 0.78rem 0.9rem;
+    border: 1px solid var(--color-line);
+    border-radius: 6px;
+    background: var(--color-surface);
+  }
+
+  .rss-subscribe__copy {
+    display: grid;
+    gap: 0.12rem;
+  }
+
+  .rss-subscribe__copy strong {
+    font-family: var(--font-serif);
+    font-size: 0.98rem;
+  }
+
+  .rss-subscribe__copy span {
+    color: var(--color-muted);
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  .rss-subscribe > a {
+    flex: 0 0 auto;
+    padding: 0.28rem 0.68rem;
+    border: 1px solid rgba(123, 36, 31, 0.38);
+    border-radius: 999px;
+    background: var(--color-soft);
+    font-size: 0.9rem;
+    font-weight: 650;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 560px) {
+    .rss-subscribe {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>
