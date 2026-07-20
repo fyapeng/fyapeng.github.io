@@ -9,6 +9,12 @@ interface Props {
   description?: string;
   active?: "home" | "research" | "essays" | "fyalab" | "cv" | "bio";
   canonicalPath?: string;
+  image?: string;
+  imageAlt?: string;
+  pageType?: "website" | "article";
+  publishedTime?: string;
+  modifiedTime?: string;
+  keywords?: string[];
 }
 
 const {
@@ -16,18 +22,111 @@ const {
   title,
   description,
   active,
-  canonicalPath = Astro.url.pathname
+  canonicalPath = Astro.url.pathname,
+  image,
+  imageAlt,
+  pageType = "website",
+  publishedTime,
+  modifiedTime,
+  keywords = []
 } = Astro.props;
 
 const localeProfile = profile[lang];
 const displayName = lang === "zh" ? profile.identity.chineseName : profile.identity.englishName;
-const pageTitle = title ? `${title} | ${displayName}` : displayName;
+const alternateName = lang === "zh" ? profile.identity.englishName : profile.identity.chineseName;
+const isHome = canonicalPath === "/";
+const pageTitle = isHome
+  ? `${displayName} | ${localeProfile.shortRole}`
+  : title
+    ? `${title} | ${displayName}`
+    : `${displayName} | ${localeProfile.shortRole}`;
 const pageDescription = description ?? localeProfile.seoDescription;
 const canonicalUrl = new URL(canonicalPath, site.url).toString();
+const socialImagePath = image ?? profile.photo.src;
+const socialImageUrl = new URL(socialImagePath, site.url).toString();
+const socialImageAlt = imageAlt ?? profile.photo.alt[lang];
+const rssUrl = new URL("/rss.xml", site.url).toString();
+const languageTag = lang === "zh" ? "zh-CN" : "en";
+const openGraphLocale = lang === "zh" ? "zh_CN" : "en_US";
+const allKeywords = Array.from(new Set([...localeProfile.researchFields, ...keywords]));
+
+const cloudflareAnalyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN?.trim();
+const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
+const bingSiteVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION?.trim();
+
+const personId = `${site.url}/#person`;
+const websiteId = `${site.url}/#website`;
+const webpageId = `${canonicalUrl}#webpage`;
+const structuredGraph: Record<string, unknown>[] = [
+  {
+    "@type": "Person",
+    "@id": personId,
+    name: displayName,
+    alternateName,
+    url: site.url,
+    image: new URL(profile.photo.src, site.url).toString(),
+    jobTitle: localeProfile.role,
+    affiliation: {
+      "@type": "CollegeOrUniversity",
+      name:
+        lang === "zh"
+          ? "中国社会科学院大学经济学院"
+          : "School of Economics, University of Chinese Academy of Social Sciences"
+    },
+    sameAs: [profile.github.url],
+    knowsAbout: localeProfile.researchFields
+  },
+  {
+    "@type": "WebSite",
+    "@id": websiteId,
+    url: site.url,
+    name: site.title,
+    description: localeProfile.seoDescription,
+    inLanguage: languageTag,
+    author: { "@id": personId }
+  },
+  {
+    "@type": "WebPage",
+    "@id": webpageId,
+    url: canonicalUrl,
+    name: pageTitle,
+    description: pageDescription,
+    inLanguage: languageTag,
+    isPartOf: { "@id": websiteId },
+    about: { "@id": personId },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: socialImageUrl
+    }
+  }
+];
+
+if (pageType === "article") {
+  structuredGraph.push({
+    "@type": "BlogPosting",
+    "@id": `${canonicalUrl}#article`,
+    headline: title ?? pageTitle,
+    description: pageDescription,
+    image: socialImageUrl,
+    datePublished: publishedTime,
+    dateModified: modifiedTime ?? publishedTime,
+    keywords: allKeywords,
+    inLanguage: languageTag,
+    author: { "@id": personId },
+    publisher: { "@id": personId },
+    mainEntityOfPage: { "@id": webpageId }
+  });
+}
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": structuredGraph
+};
 
 const navItems = [
   { key: "home", label: "首页", href: "/" },
   { key: "research", label: "研究", href: "/research/" },
+  { key: "essays", label: "随笔", href: "/essays/" },
   { key: "fyalab", label: "FyaLab", href: "/fyalab/" },
   { key: "cv", label: "简历", href: "/cv/" },
   { key: "bio", label: "Bio", href: "/bio/" }
@@ -35,19 +134,39 @@ const navItems = [
 ---
 
 <!doctype html>
-<html lang={lang === "zh" ? "zh-CN" : "en"}>
+<html lang={languageTag}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={pageDescription} />
+    <meta name="author" content={displayName} />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    {allKeywords.length > 0 && <meta name="keywords" content={allKeywords.join(", ")} />}
+    {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
+    {bingSiteVerification && <meta name="msvalidate.01" content={bingSiteVerification} />}
+
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={pageType} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:site_name" content={displayName} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:site_name" content={site.title} />
+    <meta property="og:locale" content={openGraphLocale} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:alt" content={socialImageAlt} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+    {pageType === "article" && keywords.map((keyword) => <meta property="article:tag" content={keyword} />)}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
+
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" type="application/rss+xml" title="付亚鹏的随笔" href={rssUrl} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
     <title>{pageTitle}</title>
   </head>
   <body>
@@ -56,7 +175,7 @@ const navItems = [
       <div class="site-header__inner">
         <a class="site-title" href="/" aria-label={displayName}>
           <img class="site-logo" src="/favicon.svg" alt="" width="32" height="32" />
-          <span>{lang === "zh" ? profile.identity.chineseName : profile.identity.englishName}</span>
+          <span>{displayName}</span>
         </a>
         <nav class="site-nav" aria-label={lang === "zh" ? "主导航" : "Main navigation"}>
           {
@@ -74,7 +193,10 @@ const navItems = [
     </main>
     <footer class="site-footer">
       <div class="site-footer__inner">
-        <p>© 2024–2026 {displayName}</p>
+        <p class="site-footer__meta">
+          <span>© 2024–2026 {displayName}</span>
+          <a href="/rss.xml">RSS</a>
+        </p>
       </div>
     </footer>
     <script is:inline>
@@ -109,5 +231,15 @@ const navItems = [
         }
       });
     </script>
+    {
+      cloudflareAnalyticsToken && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({ token: cloudflareAnalyticsToken })}
+        ></script>
+      )
+    }
   </body>
 </html>

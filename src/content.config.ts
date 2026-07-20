@@ -7,6 +7,7 @@ const essays = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
+    updatedAt: z.coerce.date().optional(),
     summary: z.string(),
     category: z.string(),
     tags: z.array(z.string()),

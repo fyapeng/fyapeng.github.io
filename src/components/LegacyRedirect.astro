@@ -1,0 +1,24 @@
+---
+interface Props {
+  target: string;
+  title?: string;
+}
+
+const { target, title = "页面已迁移" } = Astro.props;
+const canonicalUrl = new URL(target, Astro.site ?? Astro.url.origin).toString();
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,follow" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={canonicalUrl} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <p>页面已迁移至 <a href={target}>{canonicalUrl}</a>。</p>
+  </body>
+</html>

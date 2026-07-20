@@ -29,10 +29,13 @@ npm run preview
   - `/fyalab/`：部分代码项目与研究工具。
   - `/cv/`：网页版中文简历。
   - `/bio/`：英文个人简介。站点不再维护完整英文镜像页。
+  - `/rss.xml`：随笔 RSS 订阅源。
 - `src/data/`：个人信息、论文、CV、项目和近期研究等结构化内容。
 - `src/content/essays/`：随笔 Markdown 文件。
-- `public/`：静态资源，包括图片、PDF、`CNAME` 和 favicon。
-- `.github/workflows/deploy.yml`：GitHub Pages 部署流程。
+- `public/`：静态资源，包括图片、PDF、`CNAME`、`robots.txt` 和 favicon。
+- `.github/workflows/deploy.yml`：GitHub Pages 构建与部署流程。
+
+旧版的 `/research.html`、`/cv.html` 和 `/en/` 会生成迁移页，分别指向新版地址，帮助访问者和搜索引擎逐步更新旧链接。
 
 ## 更新内容
 
@@ -73,6 +76,7 @@ Frontmatter 示例：
 ---
 title: "文章标题"
 date: "2026-07-07"
+updatedAt: "2026-07-20"
 summary: "一句话摘要。"
 category: "方法笔记"
 tags: ["DID", "TWFE", "异质性处理效应"]
@@ -86,9 +90,12 @@ draft: false
 说明：
 
 - `draft: true` 的随笔不会生成页面，也不会出现在列表中。
+- `updatedAt` 仅在文章发生实质修订时填写；填写后会显示最后修订日期，并写入文章结构化数据。
 - 首页随笔区默认展示日期最新的一篇非草稿随笔。
+- 随笔页会根据中英文字符数量估算阅读时间。
 - 随笔支持 Markdown 表格和 LaTeX 数学公式，公式由 `remark-math`、`rehype-katex` 和 `katex` 渲染。
 - 封面图片放在 `public/images/essays/`。
+- RSS 由 `src/pages/rss.xml.ts` 在构建时自动生成。
 
 ### FyaLab
 
@@ -114,6 +121,38 @@ PDF 文件位于：
 
 更新 PDF 时直接替换对应文件即可。
 
+## 访问统计
+
+站点支持 Cloudflare Web Analytics，但仓库中不保存统计 token。配置方法：
+
+1. 在 Cloudflare Web Analytics 中添加 `fyapeng.com`。
+2. 复制站点的 Web Analytics token。
+3. 打开仓库 `Settings → Secrets and variables → Actions → Variables`。
+4. 新建变量 `CLOUDFLARE_WEB_ANALYTICS_TOKEN`，值为该 token。
+5. 重新运行部署工作流，或向 `main` 推送一次提交。
+
+构建时，工作流会把该变量传给 `PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN`。变量为空时，统计脚本不会写入网页。
+
+## 搜索引擎与分享元数据
+
+公共布局统一生成：
+
+- 页面标题与描述；
+- canonical URL；
+- Open Graph 和 Twitter 分享卡片；
+- `Person`、`WebSite`、`WebPage` 和随笔 `BlogPosting` JSON-LD；
+- RSS 自动发现链接；
+- Google 与 Bing 的可选站点验证码。
+
+如果选择 HTML meta 标签验证，可以在仓库 Actions Variables 中添加：
+
+- `GOOGLE_SITE_VERIFICATION`
+- `BING_SITE_VERIFICATION`
+
+也可以在域名 DNS 中添加搜索平台提供的 TXT 验证记录；这种方式不依赖网页部署。
+
+站点地图由 `@astrojs/sitemap` 自动生成在 `/sitemap-index.xml`，并已写入 `public/robots.txt`。部署后应分别在 Google Search Console 和 Bing Webmaster Tools 中提交该地址，并对首页及重要页面执行 URL 检查和重新抓取。
+
 ## 链接规则
 
 站内链接在当前页面打开，外部链接新开页面。判断逻辑在 `src/layouts/SiteLayout.astro` 中：
@@ -123,12 +162,17 @@ PDF 文件位于：
 
 ## 部署
 
-GitHub Pages 只在 `main` 分支更新后自动部署：
+GitHub Pages 应使用 GitHub Actions 作为发布源：
 
-1. 在功能分支上修改并运行 `npm run build`。
-2. 提交更改。
+1. 打开仓库 `Settings → Pages`。
+2. 在 `Build and deployment` 下确认 `Source` 为 `GitHub Actions`。
+3. 不要选择 `Deploy from a branch`；后者不会发布 Astro 构建生成的 `dist/`，可能继续显示历史静态文件。
+
+部署流程：
+
+1. 在功能分支上修改。
+2. Pull Request 会自动运行 `npm ci` 和 `npm run build`，但不会部署。
 3. 合并到 `main`。
-4. 推送 `main` 到 GitHub。
-5. GitHub Actions 自动安装依赖、构建 Astro，并部署 `dist/`。
+4. GitHub Actions 构建 Astro 并部署 `dist/`。
 
-自定义域名由 `public/CNAME` 维护。
+自定义域名由 `public/CNAME` 维护。部署完成后，如果浏览器仍显示旧页面，可先检查 Pages 发布源和最近一次部署状态，再进行强制刷新；搜索结果中的旧摘要则需要等待搜索引擎重新抓取。
