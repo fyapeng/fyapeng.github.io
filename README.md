@@ -26,11 +26,10 @@ npm run preview
   - `/research/`：发表论文与工作论文。
   - `/recent-research/`：近期研究展示。
   - `/essays/`：随笔列表和随笔详情页。
-  - `/fyalab/`：部分代码项目与研究工具。
   - `/cv/`：网页版中文简历。
   - `/bio/`：英文个人简介。站点不再维护完整英文镜像页。
   - `/rss.xml`：随笔 RSS 订阅源。
-- `src/data/`：个人信息、论文、CV、项目和近期研究等结构化内容。
+- `src/data/`：个人信息、论文、CV 和近期研究等结构化内容。
 - `src/content/essays/`：随笔 Markdown 文件。
 - `public/`：静态资源，包括图片、PDF、`CNAME`、`robots.txt` 和 favicon。
 - `.github/workflows/deploy.yml`：GitHub Pages 构建与部署流程。
@@ -96,16 +95,6 @@ draft: false
 - 随笔支持 Markdown 表格和 LaTeX 数学公式，公式由 `remark-math`、`rehype-katex` 和 `katex` 渲染。
 - 封面图片放在 `public/images/essays/`。
 - RSS 由 `src/pages/rss.xml.ts` 在构建时自动生成。
-
-### FyaLab
-
-项目数据位于 `src/data/projects.ts`。这里是手动维护的部分项目，不自动同步 GitHub 仓库。
-
-项目链接通常使用：
-
-- `repoUrl`：GitHub 仓库。
-- `demoUrl`：项目网页或演示地址。
-- `docsUrl`：文档地址。
 
 ### CV
 
