@@ -51,7 +51,7 @@ export const profile = {
     location: "北京",
     bio: "我是付亚鹏，中国社会科学院大学经济学院经济学博士研究生，师从中国社会科学院经济研究所付明卫研究员，预计于 2029 年获得经济学博士学位。我的研究围绕医疗服务市场中的支付制度、行为激励与政策后果展开，关注制度规则如何转化为患者、医生和医疗机构的实际决策。更多研究兴趣、近期工作和简历信息见下方栏目。",
     researchFields: ["健康经济学", "产业组织", "微观理论", "政策评估"],
-    seoDescription: "付亚鹏的个人学术主页，介绍健康经济学、产业组织、微观理论、政策评估和医疗控费政策相关研究。"
+    seoDescription: "付亚鹏，中国社会科学院大学经济学院经济学博士研究生，研究健康经济学、产业组织与微观理论，关注医保支付改革、医疗机构行为、政策评估和结构反事实分析。"
   },
   en: {
     name: "Yapeng Fu",
@@ -65,7 +65,7 @@ export const profile = {
       "I am always open to academic discussions and potential collaborations. Please feel free to reach out by email or WeChat."
     ],
     researchFields: ["Health economics", "Industrial organization", "Microeconomic theory", "Policy evaluation"],
-    seoDescription: "Academic website of Yapeng Fu, a Ph.D. student in economics working on health economics, industrial organization, microeconomic theory, policy evaluation, and healthcare cost control."
+    seoDescription: "Yapeng Fu is a Ph.D. student in economics at UCASS studying health economics, industrial organization, healthcare payment reform, provider behavior, policy evaluation, and structural counterfactual analysis."
   }
 } as const;
 
