@@ -10,6 +10,12 @@ node_modules/
 dist/
 .astro/
 npm-debug.log*
+.codex-dev*.log
+
+# Local design QA evidence
+reference-*.png
+implementation-*.png
+design-qa-comparison-*.png
 
 # Local source assets
 source-assets/

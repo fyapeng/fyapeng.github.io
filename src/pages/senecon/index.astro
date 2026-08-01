@@ -1,0 +1,86 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+const books = [
+  {
+    number: "01",
+    title: "结构估计导论",
+    englishTitle: "INTRODUCTION TO STRUCTURAL ESTIMATION",
+    author: "Axel · Sencium",
+    image: "/images/senecon/structural-estimation-book.png",
+    imageAlt: "《结构估计导论》立体书封",
+    href: "/senecon-see/",
+    meta: ["单卷", "21 章", "Python 实验"],
+    description:
+      "从数据、模型与识别出发，把行为机制、均衡结果和政策反事实放进同一条方法链。教材网站提供完整前言、章节目录、配套代码、勘误与版本更新。"
+  },
+  {
+    number: "02",
+    title: "最优运输理论",
+    englishTitle: "OPTIMAL TRANSPORT THEORY",
+    author: "Axel · Sencium",
+    image: "/images/senecon/optimal-transport-three-volumes.png",
+    imageAlt: "《最优运输理论》三卷立体套书",
+    href: "/senecon-ote/",
+    meta: ["三卷", "25 章", "约 2000 页"],
+    description:
+      "系统讨论测度、耦合、对偶、Brenier 理论、Wasserstein 几何、动态方程及其数值方法，并延伸到经济学识别、配置与均衡问题。"
+  }
+];
+---
+
+<SiteLayout
+  lang="zh"
+  active="senecon"
+  title="SenEcon 教材"
+  description="SenEcon 教材计划：结构估计导论与最优运输理论的官方网站入口。"
+  canonicalPath="/senecon/"
+  keywords={["SenEcon", "结构估计", "最优运输", "经济学教材"]}
+>
+  <header class="senecon-header">
+    <h1 class="visually-hidden">SenEcon</h1>
+    <div class="senecon-brand-crop">
+      <img
+        class="senecon-brand"
+        src="/images/senecon/senecon-logo.png"
+        alt="SenEcon — Open Texts for Modern Economics."
+        width="1774"
+        height="887"
+      />
+    </div>
+    <p class="senecon-identity">
+      <span>Sencium Economics</span>
+      <span aria-hidden="true">·</span>
+      <span>经济学方法与开放教材</span>
+    </p>
+  </header>
+
+  <section class="senecon-catalog" aria-label="SenEcon 教材目录">
+    <header class="senecon-catalog__header">
+      <span>TEXTBOOKS</span>
+      <span>02 TITLES</span>
+    </header>
+    {
+      books.map((book) => (
+        <article class="senecon-book">
+          <a class="senecon-book__visual" href={book.href} aria-label={`进入《${book.title}》教材网站`}>
+            <img src={book.image} alt={book.imageAlt} loading="eager" />
+          </a>
+          <div class="senecon-book__body">
+            <p class="senecon-book__number">{book.number}</p>
+            <p class="senecon-book__series">SenEcon Textbook</p>
+            <h2><a href={book.href}>{book.title}</a></h2>
+            <p class="senecon-book__english">{book.englishTitle}</p>
+            <p class="senecon-book__author">{book.author}</p>
+            <p>{book.description}</p>
+            <ul class="senecon-book__meta" aria-label={`${book.title}基本信息`}>
+              {book.meta.map((item) => <li>{item}</li>)}
+            </ul>
+            <p class="senecon-book__action"><a href={book.href}>进入教材网站 <span aria-hidden="true">→</span></a></p>
+          </div>
+        </article>
+      ))
+    }
+  </section>
+
+</SiteLayout>
