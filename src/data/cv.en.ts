@@ -47,10 +47,7 @@ export const cvEn = {
           parts: ["Shifen Cai, ", { title: "Mingwei Fu*", url: advisor.url }, ", Yapeng Fu (June 2026): Social Networks and Healthcare Service Provision."]
         },
         {
-          parts: ["Yapeng Fu, ", { title: "Mingwei Fu*", url: advisor.url }, ", Shasha Yuan: Pricing by Treatment Attributes: Evidence from Diagnosis-Intervention Packet Payment, in progress."]
-        },
-        {
-          parts: ["Qinghong He, Yapeng Fu*, ", { title: "Mingwei Fu", url: advisor.url }, ": Organizational Capability and Incentive Transmission: Evidence from the Cancellation of Drug Markups in Public Hospitals, in progress."]
+          parts: ["Yapeng Fu, ", { title: "Mingwei Fu*", url: advisor.url }, ", Shasha Yuan: Attribute-Based Payment: Evidence from Health Insurance Payment Reform, in progress."]
         }
       ]
     },

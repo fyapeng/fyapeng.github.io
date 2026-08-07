@@ -93,8 +93,8 @@ export const papers: {
     },
     {
       title: {
-        zh: "按诊疗属性定价：来自按病种分值付费的证据",
-        en: "Pricing by Treatment Attributes: Evidence from Diagnosis-Intervention Packet Payment"
+        zh: "按属性支付：来自医保支付改革的证据",
+        en: "Attribute-Based Payment: Evidence from Health Insurance Payment Reform"
       },
       authors: {
         zh: [
@@ -106,28 +106,6 @@ export const papers: {
           { name: "Yapeng Fu", me: true },
           { name: "Mingwei Fu", url: advisor.url, corresponding: true },
           { name: "Shasha Yuan" }
-        ]
-      },
-      status: {
-        zh: "正在进行中",
-        en: "In progress"
-      }
-    },
-    {
-      title: {
-        zh: "组织能力与激励传导：来自公立医院药品加成取消的证据",
-        en: "Organizational Capability and Incentive Transmission: Evidence from the Cancellation of Drug Markups in Public Hospitals"
-      },
-      authors: {
-        zh: [
-          { name: "何庆红" },
-          { name: "付亚鹏", me: true, corresponding: true },
-          { name: "付明卫", url: advisor.url }
-        ],
-        en: [
-          { name: "Qinghong He" },
-          { name: "Yapeng Fu", me: true, corresponding: true },
-          { name: "Mingwei Fu", url: advisor.url }
         ]
       },
       status: {
