@@ -1,5 +1,3 @@
-import { advisor } from "./profile";
-
 export const cvEn = {
   lang: "en",
   title: "CV",
@@ -44,10 +42,10 @@ export const cvEn = {
       title: "Working Papers",
       items: [
         {
-          parts: ["Shifen Cai, ", { title: "Mingwei Fu*", url: advisor.url }, ", Yapeng Fu (June 2026): Social Networks and Healthcare Service Provision."]
+          parts: ["Shifen Cai, Mingwei Fu*, Yapeng Fu (June 2026): Social Networks and Healthcare Service Provision."]
         },
         {
-          parts: ["Yapeng Fu, ", { title: "Mingwei Fu*", url: advisor.url }, ", Shasha Yuan: Attribute-Based Payment: Evidence from Health Insurance Payment Reform, in progress."]
+          parts: ["Yapeng Fu, Mingwei Fu*, Shasha Yuan: Attribute-Based Payment: Evidence from Provider Payment Reform, in progress."]
         }
       ]
     },

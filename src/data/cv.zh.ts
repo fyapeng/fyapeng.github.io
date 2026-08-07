@@ -1,5 +1,3 @@
-import { advisor } from "./profile";
-
 export const cvZh = {
   lang: "zh",
   title: "简历",
@@ -44,10 +42,10 @@ export const cvZh = {
       title: "工作论文",
       items: [
         {
-          parts: ["蔡诗芬、", { title: "付明卫*", url: advisor.url }, "、付亚鹏（2026年6月）：社会网络与医疗服务供给。"]
+          parts: ["蔡诗芬、付明卫*、付亚鹏（2026年6月）：社会网络与医疗服务供给。"]
         },
         {
-          parts: ["付亚鹏、", { title: "付明卫*", url: advisor.url }, "、袁莎莎：按属性支付：来自医保支付改革的证据，正在进行中。"]
+          parts: ["付亚鹏、付明卫*、袁莎莎：按属性支付：来自医保支付改革的证据，正在进行中。"]
         }
       ]
     },

@@ -94,7 +94,7 @@ export const papers: {
     {
       title: {
         zh: "按属性支付：来自医保支付改革的证据",
-        en: "Attribute-Based Payment: Evidence from Health Insurance Payment Reform"
+        en: "Attribute-Based Payment: Evidence from Provider Payment Reform"
       },
       authors: {
         zh: [
