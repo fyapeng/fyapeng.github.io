@@ -23,7 +23,7 @@ export const profile = {
     chineseName: "付亚鹏",
     englishName: "Yapeng Fu"
   },
-  emailParts: ["yp.fu", "qq", "com"],
+  emailParts: ["yp", "fyapeng", "com"],
   photo: {
     src: "/images/profile/bio.webp",
     width: 640,
