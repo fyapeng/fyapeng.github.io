@@ -1,143 +1,317 @@
 ---
-import { getCollection } from "astro:content";
-import EmailLink from "../components/EmailLink.astro";
-import { advisor, contactLinks, profile } from "../data/profile";
-import { researchHighlights } from "../data/researchHighlights";
-import { writingLinks } from "../data/writing";
-import SiteLayout from "../layouts/SiteLayout.astro";
-
-const latestEssay = (await getCollection("essays", ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-)[0];
-const latestResearch = researchHighlights[0];
-const essaySlug = latestEssay?.id.replace(/\.mdx?$/, "");
-const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit"
-});
+const year = new Date().getFullYear();
 ---
 
-<SiteLayout lang="zh" active="home" title="首页" description={profile.zh.seoDescription}>
-  <section class="profile-block">
-    <div>
-      <h1>{profile.zh.name}</h1>
-      <p class="role">{profile.zh.role}</p>
-      <p>我是付亚鹏，中国社会科学院大学经济学院经济学博士研究生，师从中国社会科学院经济研究所<a href={advisor.url} target="_blank" rel="noopener noreferrer">{advisor.zh.name}</a>研究员，预计于 2029 年获得经济学博士学位。我的研究围绕医疗服务市场中的支付制度、行为激励与政策后果展开，关注制度规则如何转化为患者、医生和医疗机构的实际决策。更多研究兴趣、近期工作和简历信息见下方栏目。</p>
-    </div>
-    {
-      profile.photo.src && (
-        <img
-          src={profile.photo.src}
-          alt={profile.photo.alt.zh}
-          width={profile.photo.width}
-          height={profile.photo.height}
-        />
-      )
-    }
-  </section>
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="付亚鹏（Yapeng Fu），经济学博士研究生。研究兴趣包括健康经济学、产业组织与应用微观经济学。" />
+    <meta name="author" content="Yapeng Fu / 付亚鹏" />
+    <meta name="robots" content="index,follow" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="canonical" href="https://fyapeng.com/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Yapeng Fu / 付亚鹏</title>
+  </head>
 
-  <section class="contact-grid" aria-label="联系方式">
-    {
-      contactLinks.zh.map((link) =>
-        "type" in link && link.type === "email" ? (
-          <EmailLink label={link.label} icon={link.icon} />
-        ) : (
-          <a class="contact-card" href={link.href}>
-            <span class="contact-icon" aria-hidden="true">{link.icon}</span>
-            <span class="contact-copy">
-              <span class="contact-label">{link.label}</span>
-              <span class="contact-value">{link.value}</span>
-            </span>
-          </a>
-        )
-      )
-    }
-  </section>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <a class="domain" href="/" aria-label="fyapeng.com">
+          <span class="dot" aria-hidden="true"></span>
+          fyapeng.com
+        </a>
 
-  <section class="home-section">
-    <header class="home-section__header">
-      <span class="home-section__index">01</span>
-      <div>
-        <h2>研究兴趣</h2>
-        <p>长期关注的问题意识与方法背景。</p>
-      </div>
-    </header>
-    <div class="interest-block">
-      <p class="interest-block__lead">研究领域为健康经济学、产业组织、微观理论与政策评估。</p>
-      <p>
-        当前研究主要围绕医疗服务市场中的支付规则、供需激励与政策后果展开，关注医保支付方式改革如何影响患者负担、医疗机构行为和资源配置效率。方法上结合微观计量、结构估计与政策反事实模拟，尝试识别医疗保险市场中的行为反应，并为医疗控费政策评估提供经验证据。
-      </p>
-      <div class="interest-tags" aria-label="研究领域">
-        {profile.zh.researchFields.map((field) => <span>{field}</span>)}
-      </div>
-    </div>
-  </section>
+        <div class="lang-switch" aria-label="Language switcher">
+          <button type="button" data-lang-button="zh" aria-pressed="true">中</button>
+          <span aria-hidden="true">/</span>
+          <button type="button" data-lang-button="en" aria-pressed="false">EN</button>
+        </div>
+      </header>
 
-  <section class="home-section">
-    <header class="home-section__header">
-      <span class="home-section__index">02</span>
-      <div>
-        <h2>近期研究</h2>
-        <p>选取一项最新工作及其中的特色图表。</p>
-      </div>
-    </header>
-    {
-      latestResearch && (
-        <div class="feature-card">
-          <a class="feature-card__figure" href={`/recent-research/#${latestResearch.slug}`} aria-label={latestResearch.title}>
-            <img src={latestResearch.image} alt={latestResearch.imageAlt} loading="lazy" />
-          </a>
-          <div class="feature-card__body">
-            <h3><a href={`/recent-research/#${latestResearch.slug}`}>{latestResearch.title}</a></h3>
-            <p>{latestResearch.description}</p>
-            <p class="text-links"><a href="/recent-research/">全部近期研究</a></p>
+      <section class="hero" aria-labelledby="name">
+        <div class="content">
+          <p class="eyebrow">Economics · UCASS</p>
+
+          <h1 id="name">
+            <span class="zh">付亚鹏</span>
+            <span class="en">Yapeng Fu</span>
+          </h1>
+
+          <p class="alt-name" aria-hidden="true">
+            <span class="zh">Yapeng Fu</span>
+            <span class="en">付亚鹏</span>
+          </p>
+
+          <div class="rule" aria-hidden="true"></div>
+
+          <div class="copy zh">
+            <p class="role">中国社会科学院大学 · 经济学博士研究生</p>
+            <p class="fields">健康经济学 · 产业组织 · 应用微观经济学</p>
+            <a class="contact" href="mailto:yp@fyapeng.com">邮箱</a>
+          </div>
+
+          <div class="copy en">
+            <p class="role">Ph.D. Student in Economics · UCASS</p>
+            <p class="fields">Health Economics · Industrial Organization · Applied Microeconomics</p>
+            <a class="contact" href="mailto:yp@fyapeng.com">Email</a>
           </div>
         </div>
-      )
-    }
-  </section>
 
-  {
-    latestEssay && (
-      <section class="home-section">
-        <header class="home-section__header">
-          <span class="home-section__index">03</span>
-          <div>
-            <h2>随笔</h2>
-            <p>近期写作与研究札记。</p>
-          </div>
-        </header>
-        <article class="feature-card">
-          {
-            latestEssay.data.cover && (
-              <a class="feature-card__figure" href={`/essays/${essaySlug}/`} aria-label={latestEssay.data.title}>
-                <img src={latestEssay.data.cover} alt={latestEssay.data.coverAlt ?? ""} loading="lazy" />
-              </a>
-            )
-          }
-          <div class="feature-card__body">
-            <p class="eyebrow">
-              <time datetime={latestEssay.data.date.toISOString()}>{dateFormatter.format(latestEssay.data.date)}</time>
-              <span>{latestEssay.data.category}</span>
-            </p>
-            <h3><a href={`/essays/${essaySlug}/`}>{latestEssay.data.title}</a></h3>
-            <p>{latestEssay.data.summary}</p>
-            <p class="text-links">
-              <a href={`/essays/${essaySlug}/`}>阅读</a>
-              <a href="/essays/">全部随笔</a>
-            </p>
-          </div>
-        </article>
+        <aside class="marker" aria-hidden="true">
+          <span></span>
+          <div>ECON<br />BEIJING</div>
+        </aside>
       </section>
-    )
+
+      <footer>© {year} Yapeng Fu</footer>
+    </main>
+
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const buttons = [...document.querySelectorAll('[data-lang-button]')];
+
+        const setLanguage = (value) => {
+          const lang = value === 'en' ? 'en' : 'zh';
+          root.dataset.lang = lang;
+          root.lang = lang === 'en' ? 'en' : 'zh-CN';
+          buttons.forEach((button) => {
+            button.setAttribute('aria-pressed', String(button.dataset.langButton === lang));
+          });
+          try { localStorage.setItem('fyapeng-lang', lang); } catch {}
+        };
+
+        let initial = 'zh';
+        try {
+          const saved = localStorage.getItem('fyapeng-lang');
+          if (saved === 'zh' || saved === 'en') initial = saved;
+          else if (!navigator.language.toLowerCase().startsWith('zh')) initial = 'en';
+        } catch {
+          if (!navigator.language.toLowerCase().startsWith('zh')) initial = 'en';
+        }
+
+        setLanguage(initial);
+        buttons.forEach((button) => button.addEventListener('click', () => setLanguage(button.dataset.langButton)));
+      })();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --paper: #f4f1ea;
+    --ink: #171716;
+    --muted: #706d67;
+    --line: rgba(23, 23, 22, 0.17);
+    --accent: #7c3030;
   }
 
-  <nav class="bottom-writing-link" aria-label="其他文字">
-    {
-      writingLinks.map((item) => (
-        <a class="quiet-link" href={item.url} target="_blank" rel="noopener noreferrer" data-new-tab>{item.displayTitle.zh}</a>
-      ))
+  * { box-sizing: border-box; }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  body {
+    min-height: 100svh;
+    font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a { color: inherit; }
+
+  .shell {
+    width: min(1160px, calc(100% - 64px));
+    min-height: 100svh;
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 0;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .domain {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+  }
+
+  .lang-switch button {
+    appearance: none;
+    border: 0;
+    padding: 4px 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    cursor: pointer;
+  }
+
+  .lang-switch button[aria-pressed="true"] { color: var(--ink); }
+
+  .hero {
+    align-self: center;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 140px;
+    align-items: center;
+    gap: clamp(48px, 9vw, 120px);
+    padding: 8vh 0 12vh;
+  }
+
+  .content { max-width: 820px; }
+
+  .eyebrow {
+    margin: 0 0 28px;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0;
+    font-family: "Iowan Old Style", "Palatino Linotype", "Noto Serif SC", "Songti SC", STSong, Georgia, serif;
+    font-size: clamp(62px, 10vw, 128px);
+    font-weight: 500;
+    line-height: 0.9;
+    letter-spacing: -0.055em;
+  }
+
+  html[data-lang="zh"] h1 { letter-spacing: -0.08em; }
+
+  .alt-name {
+    margin: 24px 0 0;
+    color: var(--muted);
+    font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    font-size: clamp(20px, 2vw, 28px);
+    letter-spacing: 0.025em;
+  }
+
+  .rule {
+    width: min(500px, 76%);
+    height: 1px;
+    margin: 38px 0 30px;
+    background: var(--line);
+  }
+
+  .copy { display: grid; gap: 9px; }
+  .copy p { margin: 0; }
+
+  .role {
+    font-size: clamp(16px, 1.5vw, 19px);
+    line-height: 1.7;
+  }
+
+  .fields {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .contact {
+    width: fit-content;
+    margin-top: 30px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid currentColor;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .marker {
+    height: 250px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 18px;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    writing-mode: vertical-rl;
+  }
+
+  .marker > span {
+    width: 1px;
+    background: var(--line);
+  }
+
+  .marker > div {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  footer {
+    padding: 22px 0 28px;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  html[data-lang="zh"] .en,
+  html[data-lang="en"] .zh { display: none !important; }
+
+  .domain:focus-visible,
+  .contact:focus-visible,
+  .lang-switch button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 5px;
+  }
+
+  @media (max-width: 720px) {
+    .shell { width: min(100% - 40px, 620px); }
+    .topbar { padding-top: 22px; }
+    .hero { grid-template-columns: 1fr; padding: 10vh 0 14vh; }
+    h1 { font-size: clamp(58px, 20vw, 90px); }
+    .rule { width: 88%; }
+    .marker { display: none; }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #171716;
+      --ink: #f1eee6;
+      --muted: #a9a49a;
+      --line: rgba(241, 238, 230, 0.18);
+      --accent: #c57870;
     }
-  </nav>
-</SiteLayout>
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
