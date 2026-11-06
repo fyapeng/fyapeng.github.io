@@ -2,84 +2,82 @@ export type Locale = "zh" | "en";
 
 export const site = {
   url: "https://fyapeng.com",
-  domain: "fyapeng.com",
-  title: "Yapeng Fu / 付亚鹏"
+  domain: "fyapeng.com"
 };
 
-export const advisor = {
-  url: "http://ie.cssn.cn/kygz/zaizhixuezhe/202510/t20251028_5921239.shtml",
-  zh: {
-    name: "付明卫",
-    title: "中国社会科学院经济研究所研究员"
-  },
-  en: {
-    name: "Mingwei Fu",
-    title: "Research Fellow at the Institute of Economics, Chinese Academy of Social Sciences"
-  }
-} as const;
+export const advisorUrl = "http://ie.cssn.cn/kygz/zaizhixuezhe/202510/t20251028_5921239.shtml";
 
 export const profile = {
   identity: {
     chineseName: "付亚鹏",
     englishName: "Yapeng Fu"
   },
-  emailParts: ["i", "fyapeng", "com"],
-  photo: {
-    src: "/images/profile/bio.webp",
-    width: 640,
-    height: 960,
-    alt: {
-      zh: "付亚鹏近照",
-      en: "Portrait of Yapeng Fu"
-    }
-  },
-  github: {
-    username: "fyapeng",
-    url: "https://github.com/fyapeng"
-  },
-  wechat: {
-    officialName: "申椿",
-    officialId: "sencium",
-    qrImage: "/images/profile/wechat-sencium.png",
-    personalId: "",
-    personalIdUpdateAfter: "2026-07-18"
-  },
+  email: "i@fyapeng.com",
+  github: "https://github.com/fyapeng",
+  photo: { src: "/images/profile/bio.webp", width: 640, height: 960 },
+  // Add Google Scholar / ORCID profile URLs here once they exist.
+  sameAs: ["https://github.com/fyapeng"],
   zh: {
-    name: "付亚鹏",
-    role: "中国社会科学院大学经济学院经济学博士研究生",
-    shortRole: "简介",
-    location: "北京",
-    bio: "我是付亚鹏，中国社会科学院大学经济学院经济学博士研究生，师从中国社会科学院经济研究所付明卫研究员，预计于 2029 年获得经济学博士学位。我的研究围绕医疗服务市场中的支付制度、行为激励与政策后果展开，关注制度规则如何转化为患者、医生和医疗机构的实际决策。更多研究兴趣、近期工作和简历信息见下方栏目。",
-    researchFields: ["健康经济学", "产业组织", "微观理论", "政策评估"],
-    seoDescription: "付亚鹏，中国社会科学院大学经济学院经济学博士研究生，研究健康经济学、产业组织与微观理论，关注医保支付改革、医疗机构行为、政策评估和结构反事实分析。"
+    role: "中国社会科学院大学经济学博士研究生",
+    researchFields: ["健康经济学", "产业组织"],
+    seoDescription:
+      "付亚鹏（Yapeng Fu），中国社会科学院大学经济学博士研究生，研究健康经济学与产业组织，关注医保支付改革（DRG/DIP）、医疗机构行为与医疗控费。"
   },
   en: {
-    name: "Yapeng Fu",
     role: "Ph.D. Student in Economics, University of Chinese Academy of Social Sciences",
-    shortRole: "Ph.D. Student in Economics, UCASS",
-    location: "Beijing, China",
-    bio: [
-      "I am Yapeng Fu, a Ph.D. student in Economics at the School of Economics, University of Chinese Academy of Social Sciences. I am advised by Mingwei Fu at the Institute of Economics, Chinese Academy of Social Sciences, and expect to receive my Ph.D. in 2029.",
-      "My research interests lie at the intersection of health economics, industrial organization, microeconomic theory, and public policy evaluation. I study how healthcare payment reforms and institutional arrangements affect the behavior of patients, hospitals, and physicians, with a particular focus on DRG/DIP reform, healthcare cost containment, moral hazard, supplier-induced demand, and physician behavior.",
-      "My work combines microeconometric methods, structural economic modeling, and counterfactual policy analysis to provide empirical evidence for improving healthcare payment and cost-control policies.",
-      "I am always open to academic discussions and potential collaborations. Please feel free to reach out by email or WeChat."
-    ],
-    researchFields: ["Health economics", "Industrial organization", "Microeconomic theory", "Policy evaluation"],
-    seoDescription: "Yapeng Fu is a Ph.D. student in economics at UCASS studying health economics, industrial organization, healthcare payment reform, provider behavior, policy evaluation, and structural counterfactual analysis."
+    researchFields: ["Health economics", "Industrial organization"],
+    seoDescription:
+      "Yapeng Fu (付亚鹏) is a Ph.D. student in economics at the University of Chinese Academy of Social Sciences, working on health economics and industrial organization: provider payment reform (DRG/DIP), hospital behavior, and healthcare cost control."
   }
 } as const;
 
-export const contactLinks = {
-  zh: [
-    { type: "email", label: "邮箱", icon: "@" },
-    { label: "GitHub", value: "fyapeng", href: profile.github.url, icon: "GH" },
-    { label: "简历", value: "查看", href: "/files/cv_zh.pdf", icon: "CV" },
-    { label: "公众号", value: "申椿 Sencium", href: profile.wechat.qrImage, icon: "申" }
-  ],
-  en: [
-    { type: "email", label: "Email", icon: "@" },
-    { label: "GitHub", value: "fyapeng", href: profile.github.url, icon: "GH" },
-    { label: "CV", value: "View", href: "/files/cv_en.pdf", icon: "CV" },
-    { label: "WeChat", value: "Shen Chun / Sencium", href: profile.wechat.qrImage, icon: "申" }
-  ]
+export const publication = {
+  doi: "https://link.cnki.net/doi/10.19744/j.cnki.11-1235/f.2026.0040",
+  wechat: "https://mp.weixin.qq.com/s/nJC7JVAfS7oIsPJu7niPKg",
+  figure: "/images/research/drg-dip-heterogeneity.png",
+  zh: {
+    title: "医保支付改革、道德风险与医疗控费",
+    authors: [
+      { name: "付亚鹏", me: true },
+      { name: "倪晨旭" },
+      { name: "丛正龙", url: "https://www.zhenglongcong.com/", corresponding: true },
+      { name: "王震" }
+    ],
+    venue: "《管理世界》，2026 年第 3 期，141–155 页",
+    summary: "本文将供给侧支付改革与需求侧非线性激励纳入统一分析框架，揭示了制度拐点对政策评估的潜在干扰机制，为优化医疗控费政策工具组合提供方法论启示与经验证据。",
+    abstract:
+      "医保制度中的起付线等非线性成本分担规则可能与供给侧医保支付方式改革产生复杂交互，从而影响医疗控费的效果与可持续性。本文基于2015~2019年全国医保结算微观数据，采用群聚—双重差分（Bunching-DID）方法，系统评估医保按疾病诊断组付费（Diagnosis Related Groups，DRG）与按病种分值付费（Diagnosis-Intervention Packet，DIP）改革对医疗费用与个人负担的影响，并重点考察起付线附近的策略性费用调整（道德风险）及其对改革绩效的干扰。研究发现：第一，起付线显著诱导费用在门槛右侧群聚，约5.7%的就诊费用被策略性推高至起付线以上，使相关样本的人均医疗总费用上升14.3%，而患者自付费用未显著下降，表明医患双方共同作用下存在道德风险；第二，在考虑行为反应异质性后，DRG/DIP改革的控费效应呈现明显分布依赖：起付线附近患者的自付负担不降反升，且医疗机构出现一定的病例选择迹象；第三，相较于DRG，DIP在抑制门槛附近的策略性费用调整方面更为有效。本文将供给侧支付改革与需求侧非线性激励纳入统一分析框架，揭示了制度拐点对政策评估的潜在干扰机制，为优化医疗控费政策工具组合提供方法论启示与经验证据。",
+    figureAlt: "DRG 与 DIP 对人均总费用和自付费用的分组效应"
+  },
+  en: {
+    title: "Health Insurance Payment Reform, Moral Hazard, and Medical Cost Containment",
+    authors: [
+      { name: "Yapeng Fu", me: true },
+      { name: "Chenxu Ni" },
+      { name: "Zhenglong Cong", url: "https://www.zhenglongcong.com/", corresponding: true },
+      { name: "Zhen Wang" }
+    ],
+    venue: "Journal of Management World (管理世界), 2026(3): 141–155",
+    summary:
+      "This study integrates supply-side payment reforms with demand-side nonlinear incentives into a unified analytical framework, revealing the potential interference mechanism of institutional thresholds in policy evaluation.",
+    abstract:
+      "Nonlinear cost-sharing rules such as deductibles in medical insurance systems may have complex interactions with supply-side payment reforms, thereby affecting the effectiveness and sustainability of healthcare cost containment. Using nationwide micro-level medical insurance settlement data from 2015 to 2019, this study employs the Bunching-DID method and systematically evaluates the impact of Diagnosis Related Groups (DRG) and Diagnosis-Intervention Packet (DIP) payment reforms on medical expenditures and individual out-of-pocket costs. It specifically examines strategic cost adjustments near deductible thresholds (moral hazard) and their interference with reform performance. The findings are as follows. First, deductibles significantly induce cost bunching to the right of the threshold. Approximately 5.7% of treatment costs are strategically increased above the deductible, increasing per-patient total medical expenditures by 14.3% in the affected samples. Patient out-of-pocket costs show no significant reduction, indicating moral hazard driven by joint actions of providers and patients. Second, after accounting for behavioral response heterogeneity, the cost-containment effects of DRG/DIP reforms exhibit distributional dependence: out-of-pocket burdens increase rather than decrease for patients near the deductible threshold, alongside signs of patient selection by healthcare institutions. Third, compared to DRG, DIP proves more effective in curbing strategic fee adjustments near the threshold. This study integrates supply-side payment reforms with demand-side nonlinear incentives into a unified analytical framework, revealing the potential interference mechanism of institutional thresholds in policy evaluation. This study provides methodological insights and empirical evidence for optimizing the policy mix of healthcare cost control policies.",
+    figureAlt: "Effects of DRG and DIP on total and out-of-pocket spending by expenditure bin"
+  }
 } as const;
+
+const mingwei = { name: { zh: "付明卫", en: "Mingwei Fu" }, url: advisorUrl, corresponding: true };
+const me = { name: { zh: "付亚鹏", en: "Yapeng Fu" }, me: true };
+
+export const workingPapers = [
+  {
+    title: { zh: "医疗实践差异的效率含义", en: "The Efficiency Implications of Medical Practice Variation" },
+    authors: [me, mingwei],
+    date: { zh: "2026 年 10 月", en: "October 2026" }
+  },
+  {
+    title: { zh: "按属性付费：来自医保支付改革的证据", en: "Attribute-Based Payment: Evidence from Provider Payment Reform" },
+    authors: [me, mingwei, { name: { zh: "袁莎莎", en: "Shasha Yuan" } }],
+    date: { zh: "2026 年 10 月", en: "October 2026" }
+  }
+] as const;

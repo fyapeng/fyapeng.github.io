@@ -1,0 +1,30 @@
+---
+import { advisorUrl, publication } from "../data/profile";
+import ProfileCard from "./ProfileCard.astro";
+
+const pub = publication.zh;
+---
+
+<ProfileCard lang="zh" />
+
+<section class="bio">
+  <p>
+    付亚鹏，中国社会科学院大学经济学院西方经济学专业博士研究生（2024 年入学，预计 2029 年毕业），导师为中国社会科学院经济研究所<a href={advisorUrl}>付明卫</a>研究员。
+  </p>
+  <p>
+    研究领域为健康经济学与产业组织理论，关注医保支付方式如何影响医疗机构与医生的诊疗决策，以及这些决策对医疗费用、患者负担与医疗资源配置的影响，成果发表于《管理世界》。近期正在学习<a href="/senecon-see/">结构估计方法</a>。
+  </p>
+  <p>
+    2024 年获中国社会科学院大学经济学学士学位。
+  </p>
+</section>
+
+<h2>近期研究</h2>
+<article class="highlight">
+  <a href="/research/"><img src={publication.figure} alt={pub.figureAlt} width="3300" height="2400" loading="lazy" /></a>
+  <div>
+    <h3><a href="/research/">{pub.title}</a></h3>
+    <div class="venue">{pub.venue}</div>
+    <p>{pub.summary}</p>
+  </div>
+</article>

@@ -1,0 +1,48 @@
+---
+import { profile } from "../data/profile";
+
+interface Props { lang: "zh" | "en" }
+const { lang } = Astro.props;
+const isZh = lang === "zh";
+---
+
+<section class="profile-card">
+  <img
+    class="portrait"
+    src={profile.photo.src}
+    width={profile.photo.width}
+    height={profile.photo.height}
+    alt={isZh ? "付亚鹏近照" : "Portrait of Yapeng Fu"}
+  />
+  <div class="card-body">
+    <p class="eyebrow">{isZh ? "中国社会科学院大学 · 经济学院" : "University of Chinese Academy of Social Sciences"}</p>
+    <p class="headline">{isZh ? "经济学博士研究生" : "Ph.D. Student in Economics"}</p>
+    <p class="fields">{isZh ? "健康经济学 · 产业组织理论" : "Health Economics · Industrial Organization"}</p>
+    <div class="actions">
+      <a class="btn btn-primary" href={`mailto:${profile.email}`}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5h18v11H3z" /><path d="m3.5 7 8.5 6.5L20.5 7" /></svg>
+        {profile.email}
+      </a>
+      {
+        isZh ? (
+          <a class="btn" href="/files/cv_zh.pdf">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z" /><path d="M14 3v4h4M9 12h6M9 16h6" /></svg>
+            简历
+          </a>
+        ) : (
+          <a class="btn" href="/files/cv_en.pdf">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z" /><path d="M14 3v4h4M9 12h6M9 16h6" /></svg>
+            CV
+          </a>
+        )
+      }
+      <a class="btn" href={profile.github}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14" /></svg>
+        GitHub
+      </a>
+    </div>
+    <p class="address">
+      {isZh ? "北京市房山区长于大街 11 号 · 102488" : "11 Changyu Street, Fangshan District, Beijing 102488, China"}
+    </p>
+  </div>
+</section>

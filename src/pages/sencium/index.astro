@@ -1,0 +1,90 @@
+---
+import Page from "../../layouts/Page.astro";
+
+// Descriptions are taken from the projects' own pages and repository descriptions.
+const series = [
+  {
+    name: "SenLab",
+    tag: "SenciumLab · 申椿文献库",
+    desc: "文献库，五大期刊与 NBER 前沿。",
+    items: [
+      { title: "文献星图", en: "Library", href: "/senlab/", desc: "我的文献库：健康经济学与产业组织文献，含中文简介、评分与笔记。" },
+      { title: "五大期刊", en: "Top Five", href: "/top5papers/", desc: "AER、JPE、QJE、REStud、Econometrica 最新论文的中文导读。" },
+      { title: "NBER 周报", en: "NBER Weekly", href: "/nber/", desc: "每周 NBER Working Papers 中文导读。" }
+    ]
+  },
+  {
+    name: "SenEcon",
+    tag: "Sencium Economics",
+    desc: "经济学方法与开放教材。",
+    items: [
+      {
+        title: "《结构估计导论》",
+        href: "/senecon-see/",
+        desc: "结构估计的导论教材，上册讲方法，下册回顾各领域文献怎样使用结构估计。全书 PDF、各章内容、论文案例与配套程序。"
+      },
+      {
+        title: "《最优运输理论》",
+        desc: "系统讨论测度、耦合、对偶、Brenier 理论、Wasserstein 几何、动态方程及其数值方法，并延伸到经济学识别、配置与均衡问题。",
+        status: "即将上线"
+      }
+    ]
+  }
+];
+---
+
+<Page page="sencium" title="Sencium 申椿">
+  <header class="sencium-hero">
+    <h2>Sencium · 申椿</h2>
+    <p class="motto">逐浪大化中，应尽便须尽</p>
+  </header>
+
+  {
+    series.map((s) => (
+      <section class="series">
+        <div class="series-head">
+          <h3 lang="en">{s.name}</h3>
+          <span class="series-tag">{s.tag}</span>
+          <p>{s.desc}</p>
+        </div>
+        <ul class="series-list">
+          {s.items.map((item) => (
+            <li>
+              {"href" in item && item.href ? (
+                <a class="series-item" href={item.href}>
+                  <span class="item-title">
+                    {item.title}
+                    {"en" in item && <span class="item-en" lang="en">{item.en}</span>}
+                  </span>
+                  <span class="item-desc">{item.desc}</span>
+                  <span class="item-go" aria-hidden="true">→</span>
+                </a>
+              ) : (
+                <div class="series-item is-pending">
+                  <span class="item-title">{item.title}</span>
+                  <span class="item-desc">{item.desc}</span>
+                  <span class="item-status">{"status" in item ? item.status : ""}</span>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+
+  <section class="series">
+    <div class="series-head">
+      <h3>公众号</h3>
+      <span class="series-tag">扫码关注</span>
+    </div>
+    <img
+      class="wechat"
+      src="/images/profile/wechat-sencium.png"
+      width="1600"
+      height="520"
+      alt="微信公众号「申椿 Sencium」二维码，微信扫码关注"
+      loading="lazy"
+    />
+  </section>
+</Page>

@@ -1,0 +1,53 @@
+---
+import { publication, workingPapers } from "../data/profile";
+
+const lang = "zh";
+const isZh = true;
+const pub = publication.zh;
+const sep = "、";
+---
+
+<h2>{isZh ? "发表论文" : "Publications"}</h2>
+<article class="paper">
+  <h3>{pub.title}</h3>
+  <div class="authors">
+    {
+      pub.authors.map((a, i) => (
+        <>
+          {i > 0 && sep}
+          {"me" in a && a.me ? <b>{a.name}</b> : "url" in a && a.url ? <a href={a.url}>{a.name}</a> : a.name}
+          {"corresponding" in a && a.corresponding && "*"}
+        </>
+      ))
+    }
+  </div>
+  <div class="meta">
+    <em>{pub.venue}</em>
+    <a href={publication.doi}>DOI</a>
+    {isZh && <a href={publication.wechat}>推文</a>}
+    <details>
+      <summary>{isZh ? "摘要" : "Abstract"}</summary>
+      <p>{pub.abstract}</p>
+    </details>
+  </div>
+</article>
+<h2>{isZh ? "工作论文" : "Working Papers"}</h2>
+{
+  workingPapers.map((wp) => (
+    <article class="paper">
+      <h3>{wp.title[lang]}</h3>
+      <div class="authors">
+        {wp.authors.map((a, i) => (
+          <>
+            {i > 0 && sep}
+            {"me" in a ? <b>{a.name[lang]}</b> : "url" in a ? <a href={a.url}>{a.name[lang]}</a> : a.name[lang]}
+            {"corresponding" in a && "*"}
+          </>
+        ))}
+      </div>
+      <div class="meta"><span>{wp.date[lang]}</span></div>
+    </article>
+  ))
+}
+
+<p class="note">{isZh ? "* 通讯作者" : "* Corresponding author"}</p>

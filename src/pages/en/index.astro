@@ -1,5 +1,21 @@
 ---
-import LegacyRedirect from "../../components/LegacyRedirect.astro";
+import Page from "../../layouts/Page.astro";
+import { advisorUrl } from "../../data/profile";
+import ProfileCard from "../../components/ProfileCard.astro";
 ---
 
-<LegacyRedirect target="/bio/" title="English profile moved" />
+<Page page="english">
+  <ProfileCard lang="en" />
+
+  <section class="bio">
+    <p>
+      I am a Ph.D. student in Economics at the School of Economics, University of Chinese Academy of Social Sciences (UCASS). I entered the program in 2024 and expect to graduate in 2029. My advisor is <a href={advisorUrl}>Mingwei Fu</a> of the Institute of Economics, Chinese Academy of Social Sciences.
+    </p>
+    <p>
+      My research lies in health economics and industrial organization. I study how provider payment rules shape the treatment decisions of hospitals and physicians, and what those decisions mean for healthcare spending, patient burden, and the allocation of care. My work has been published in the <em>Journal of Management World</em> (管理世界). I am currently learning <a href="/senecon-see/">structural estimation</a>.
+    </p>
+    <p>
+      I received a B.A. in Economics from UCASS in 2024.
+    </p>
+  </section>
+</Page>

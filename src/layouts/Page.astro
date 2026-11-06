@@ -1,0 +1,283 @@
+---
+import { profile, site } from "../data/profile";
+
+type PageKey = "home" | "research" | "teaching" | "sencium" | "english" | "404";
+
+interface Props {
+  page: PageKey;
+  title?: string;
+}
+
+const { page, title: pageTitle } = Astro.props;
+// The site is Chinese; /en/ is a single English bio page, as on many Chinese economists' sites.
+const isZh = page !== "english";
+const p = profile[isZh ? "zh" : "en"];
+const noindex = page === "404";
+
+const paths: Record<Exclude<PageKey, "404">, string> = {
+  home: "/",
+  research: "/research/",
+  teaching: "/teaching/",
+  sencium: "/sencium/",
+  english: "/en/"
+};
+const nav = [
+  { key: "home", label: "首页", href: paths.home },
+  { key: "research", label: "研究", href: paths.research },
+  { key: "teaching", label: "教学", href: paths.teaching },
+  { key: "cv", label: "简历", href: "/files/cv_zh.pdf" },
+  { key: "sencium", label: "Sencium", href: paths.sencium, lang: "en" },
+  { key: "english", label: "English", href: paths.english, lang: "en" }
+];
+
+const baseTitle = isZh
+  ? "付亚鹏 Yapeng Fu｜中国社会科学院大学经济学博士研究生"
+  : "Yapeng Fu 付亚鹏 | Ph.D. Student in Economics, UCASS";
+const title = pageTitle ? `${pageTitle} | 付亚鹏 Yapeng Fu` : baseTitle;
+const canonical = new URL(page === "404" ? "/" : paths[page], site.url).toString();
+const photoUrl = new URL(profile.photo.src, site.url).toString();
+const pairedLanguages = page === "home" || page === "english";
+
+const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
+const bingSiteVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION?.trim();
+const cloudflareAnalyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN?.trim();
+
+const person = {
+  "@type": "Person",
+  "@id": `${site.url}/#person`,
+  name: isZh ? profile.identity.chineseName : profile.identity.englishName,
+  alternateName: isZh ? profile.identity.englishName : profile.identity.chineseName,
+  url: site.url,
+  email: `mailto:${profile.email}`,
+  image: photoUrl,
+  jobTitle: p.role,
+  affiliation: {
+    "@type": "CollegeOrUniversity",
+    name: isZh ? "中国社会科学院大学" : "University of Chinese Academy of Social Sciences"
+  },
+  knowsAbout: p.researchFields,
+  sameAs: profile.sameAs
+};
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": pairedLanguages ? "ProfilePage" : "WebPage",
+  url: canonical,
+  name: title,
+  inLanguage: isZh ? "zh-CN" : "en",
+  [pairedLanguages ? "mainEntity" : "about"]: person
+};
+---
+
+<!doctype html>
+<html lang={isZh ? "zh-CN" : "en"}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={p.seoDescription} />
+    <meta name="author" content="Yapeng Fu / 付亚鹏" />
+    <meta name="robots" content={noindex ? "noindex,follow" : "index,follow"} />
+    {!noindex && <link rel="canonical" href={canonical} />}
+    {pairedLanguages && <link rel="alternate" hreflang="zh-CN" href={new URL("/", site.url).toString()} />}
+    {pairedLanguages && <link rel="alternate" hreflang="en" href={new URL("/en/", site.url).toString()} />}
+    {pairedLanguages && <link rel="alternate" hreflang="x-default" href={new URL("/", site.url).toString()} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={p.seoDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={photoUrl} />
+    <meta property="og:locale" content={isZh ? "zh_CN" : "en_US"} />
+    <meta name="twitter:card" content="summary" />
+    {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
+    {bingSiteVerification && <meta name="msvalidate.01" content={bingSiteVerification} />}
+    {!noindex && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" lang="zh-CN">付亚鹏<span lang="en">Yapeng Fu</span></a>
+      <nav aria-label="主导航" lang="zh-CN">
+        {
+          nav.map((item) => (
+            <a href={item.href} lang={item.lang} aria-current={item.key === page ? "page" : undefined}>
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        <a href={`mailto:${profile.email}`}>{profile.email}</a>
+        <span aria-hidden="true">·</span>
+        <a href={profile.github}>GitHub</a>
+        <span aria-hidden="true">·</span>
+        <a href="/sencium/">Sencium 申椿</a>
+      </p>
+      <p>© 2026 付亚鹏 · 更新于 2026 年 11 月</p>
+    </footer>
+    {
+      cloudflareAnalyticsToken && (
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({ token: cloudflareAnalyticsToken })}
+        />
+      )
+    }
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --ink: #1d1d1f;
+    --soft: #45464a;
+    --muted: #86868b;
+    --line: #e5e5e7;
+    --accent: #1b3a5c;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    --serif: Georgia, "Times New Roman", "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", SimSun, serif;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: #fff; color: var(--ink); font: 16px/1.8 var(--sans); }
+  a { color: var(--accent); text-decoration: none; }
+  /* Links in running text: always underlined, with a tinted highlight on hover */
+  main p a, main .authors a {
+    color: var(--accent);
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: rgba(27, 58, 92, .35);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 4px;
+    border-radius: 2px;
+    transition: background-color .15s, text-decoration-color .15s, color .15s;
+  }
+  main p a:hover, main p a:focus-visible, main .authors a:hover, main .authors a:focus-visible {
+    background: rgba(27, 58, 92, .09);
+    text-decoration-color: var(--accent);
+  }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  img { max-width: 100%; height: auto; display: block; }
+
+  /* Header: centered name + navigation, in the style of classic economist homepages */
+  .site-header { max-width: 920px; margin: 0 auto; padding: 44px 24px 0; text-align: center; }
+  .brand { display: inline-block; color: var(--ink); font-size: 30px; font-weight: 600; letter-spacing: .06em; line-height: 1.3; }
+  .brand:hover { text-decoration: none; }
+  .brand span { margin-left: .6em; font-size: 17px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px 30px; margin-top: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--line); font-size: 13.5px; letter-spacing: .12em; }
+  nav a { color: var(--muted); padding: 4px 0; border-bottom: 2px solid transparent; }
+  nav a:hover { color: var(--ink); text-decoration: none; }
+  nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+  nav a:lang(en) { letter-spacing: .04em; }
+
+  main { max-width: 920px; margin: 0 auto; padding: 44px 24px 24px; }
+  h2 { font: 600 21px/1.4 var(--serif); color: var(--accent); margin: 48px 0 18px; }
+  h2:first-child { margin-top: 0; }
+  p { margin: 0 0 14px; color: var(--soft); }
+
+  /* Home: profile card */
+  .profile-card { display: grid; grid-template-columns: 190px 1fr; gap: 44px; align-items: center; }
+  .portrait { width: 190px; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 22%; border-radius: 6px; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06); }
+  .card-body p { margin: 0; }
+  .eyebrow { font-size: 13px; letter-spacing: .12em; color: var(--muted); }
+  :lang(en) .eyebrow { text-transform: uppercase; font-size: 12px; }
+  .headline { font: 600 28px/1.35 var(--serif); color: var(--ink) !important; margin-top: 6px !important; }
+  .fields { font-size: 16px; color: var(--soft); margin-top: 4px !important; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 7px 14px; border: 1px solid #d2d2d7; border-radius: 999px; font-size: 14px; line-height: 1.2; color: var(--ink); background: #fff; transition: border-color .15s, background-color .15s, color .15s, transform .15s; }
+  .btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .btn:hover, .btn:focus-visible { border-color: var(--accent); color: var(--accent); text-decoration: none; transform: translateY(-1px); }
+  .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn-primary:hover, .btn-primary:focus-visible { background: #24507d; border-color: #24507d; color: #fff; }
+  .address { margin-top: 16px !important; font-size: 13px; color: var(--muted); }
+  .bio { margin-top: 32px; max-width: 760px; }
+  .bio p { margin-bottom: 12px; text-align: justify; }
+
+  .highlight { display: grid; grid-template-columns: 300px 1fr; gap: 28px; align-items: start; padding: 22px; border: 1px solid var(--line); border-radius: 4px; }
+  .highlight img { width: 100%; border: 1px solid var(--line); background: #fff; }
+  .highlight h3 { font: 600 18px/1.5 var(--serif); margin: 0 0 6px; }
+  .highlight h3 a { color: var(--ink); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; transition: text-decoration-color .15s, color .15s; }
+  .highlight h3 a:hover { color: var(--accent); text-decoration-color: currentColor; }
+  .highlight .venue { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
+
+  /* Sencium */
+  .sencium-hero { padding: 8px 0 34px; border-bottom: 1px solid var(--line); }
+  .sencium-hero h2 { margin: 0; }
+  .motto { margin: 14px 0 0 !important; font: 400 26px/1.5 var(--serif); letter-spacing: .18em; color: var(--ink) !important; }
+  .series { display: grid; grid-template-columns: 190px 1fr; gap: 32px; padding: 34px 0; border-bottom: 1px solid var(--line); }
+  .series:last-child { border-bottom: 0; }
+  .series-head h3 { margin: 0; font: 600 22px/1.3 var(--serif); color: var(--accent); }
+  .series-tag { display: block; margin-top: 4px; font-size: 12.5px; letter-spacing: .06em; color: var(--muted); }
+  .series-head p { margin: 10px 0 0; font-size: 14px; }
+  .series-list { list-style: none; margin: 0; padding: 0; }
+  .series-item { display: grid; grid-template-columns: 9.5em 1fr 24px; gap: 4px 20px; align-items: baseline; padding: 14px 16px; margin: 0 -16px; border-radius: 8px; color: var(--ink); transition: background-color .15s; }
+  a.series-item:hover, a.series-item:focus-visible { background: #f3f5f8; text-decoration: none; }
+  .item-title { font: 600 17px/1.5 var(--serif); }
+  .item-en { display: block; font: 400 11.5px/1.4 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+  a.series-item:hover .item-title { color: var(--accent); }
+  .item-desc { font-size: 14.5px; line-height: 1.75; color: var(--soft); }
+  .item-go { color: var(--accent); font-size: 16px; transition: transform .15s; }
+  a.series-item:hover .item-go { transform: translateX(4px); }
+  .is-pending .item-title, .is-pending .item-desc { color: var(--muted); }
+  .item-status { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .wechat { width: 100%; max-width: 620px; border-radius: 10px; }
+
+  /* Papers */
+  .paper { padding: 0 0 14px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .paper:last-child { border-bottom: 0; }
+  .paper h3 { font: 600 18px/1.5 var(--serif); margin: 0 0 4px; color: var(--ink); }
+  .authors { font-size: 15px; color: var(--soft); }
+  .authors b { font-weight: 600; color: var(--ink); }
+  .meta { font-size: 14px; color: var(--muted); margin-top: 2px; }
+  .meta > * { margin-right: 8px; }
+  .meta em { margin-right: 14px; }
+  .meta a, .meta summary {
+    display: inline-block; padding: 0 10px; border: 1px solid #d2d2d7; border-radius: 999px;
+    font-size: 13px; line-height: 22px; color: var(--accent); background: #fff;
+    transition: background-color .15s, border-color .15s, color .15s;
+  }
+  .meta a:hover, .meta a:focus-visible, .meta summary:hover, .meta summary:focus-visible, details[open] summary {
+    background: var(--accent); border-color: var(--accent); color: #fff; text-decoration: none;
+  }
+  .meta em { font-style: normal; color: var(--soft); }
+  /* Inline <details>: the 摘要 toggle stays on the venue line; the abstract opens as a block below it. */
+  details { display: inline; }
+  summary { cursor: pointer; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  details p { display: block; margin: 10px 0 0; font-size: 15px; padding: 14px 16px; background: #f7f7f8; border-left: 2px solid var(--accent); }
+  .note { font-size: 13px; color: var(--muted); }
+
+  .entry { display: grid; grid-template-columns: 9em 1fr; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); color: var(--soft); }
+  .entry .when { color: var(--muted); font-size: 14px; padding-top: 2px; }
+
+  .site-footer { max-width: 920px; margin: 40px auto 0; padding: 22px 24px 40px; border-top: 1px solid var(--line); text-align: center; font-size: 13px; color: var(--muted); }
+  .site-footer p { margin: 0 0 4px; color: var(--muted); }
+  .site-footer a { color: var(--muted); }
+  .site-footer span { margin: 0 8px; }
+
+  @media (max-width: 720px) {
+    .site-header { padding-top: 32px; }
+    .brand { font-size: 26px; }
+    .brand span { display: block; margin: 2px 0 0; font-size: 14px; }
+    nav { gap: 2px 20px; font-size: 13px; letter-spacing: .08em; }
+    main { padding-top: 32px; }
+    .profile-card { grid-template-columns: 1fr; gap: 22px; }
+    .portrait { width: 140px; }
+    .headline { font-size: 24px; }
+    .highlight { grid-template-columns: 1fr; padding: 16px; gap: 16px; }
+    .entry { grid-template-columns: 1fr; gap: 0; }
+    .series { grid-template-columns: 1fr; gap: 14px; }
+    .series-item { grid-template-columns: 1fr auto; }
+    .item-title { grid-column: 1; grid-row: 1; }
+    .item-go, .item-status { grid-column: 2; grid-row: 1; }
+    .item-desc { grid-column: 1 / -1; grid-row: 2; }
+    .motto { font-size: 21px; letter-spacing: .1em; }
+  }
+</style>
