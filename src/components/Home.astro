@@ -20,11 +20,13 @@ import ProfileCard from "./ProfileCard.astro";
 
 <h2>近期研究</h2>
 <article class="highlight">
-  <a href="/research/"><img src={highlight.figure} alt={highlight.figureAlt} width="3300" height="2400" loading="lazy" /></a>
+  <a href={highlight.anchor}><img src={highlight.figure} alt={highlight.figureAlt} width={highlight.width} height={highlight.height} loading="lazy" /></a>
   <div>
     <h3>{highlight.title}</h3>
-    <div class="venue">{highlight.source}</div>
-    {highlight.text.map((t) => <p>{t}</p>)}
-    <a class="more" href="/research/">查看论文 <span aria-hidden="true">→</span></a>
+    <p>{highlight.text}</p>
+    <a class="more" href={highlight.anchor}>
+      <span class="more-label">出自</span>《{highlight.paper}》<span class="arrow" aria-hidden="true">→</span>
+      <span class="more-src">{highlight.source}</span>
+    </a>
   </div>
 </article>

@@ -200,17 +200,22 @@ const jsonLd = {
   .bio { margin-top: 32px; max-width: 760px; }
   .bio p { margin-bottom: 12px; text-align: justify; }
 
-  .highlight { display: grid; grid-template-columns: 300px 1fr; gap: 28px; align-items: start; padding: 22px; border: 1px solid var(--line); border-radius: 4px; }
-  .highlight img { width: 100%; border: 1px solid var(--line); background: #fff; }
+  .highlight { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 32px; align-items: center; padding: 24px; border: 1px solid var(--line); border-radius: 10px; }
+  .highlight img { width: 100%; background: #fff; }
   .highlight h3 { font: 600 18px/1.5 var(--serif); margin: 0 0 6px; }
   .highlight h3 a { color: var(--ink); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; transition: text-decoration-color .15s, color .15s; }
   .highlight h3 a:hover { color: var(--accent); text-decoration-color: currentColor; }
-  .highlight .venue { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
   .highlight p { font-size: 15px; line-height: 1.85; margin-bottom: 10px; }
-  .highlight .more { display: inline-block; margin-top: 4px; font-size: 14px; font-weight: 500; }
-  .highlight .more span { display: inline-block; transition: transform .15s; }
-  .highlight .more:hover { text-decoration: none; }
-  .highlight .more:hover span { transform: translateX(4px); }
+  .highlight .more { display: block; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.7; color: var(--ink); }
+  .highlight .more-label { color: var(--muted); margin-right: 2px; }
+  .highlight .more-src { display: block; font-size: 13px; color: var(--muted); }
+  .highlight .more .arrow { display: inline-block; margin-left: 6px; color: var(--accent); transition: transform .15s; }
+  .highlight .more:hover { text-decoration: none; color: var(--accent); }
+  .highlight .more:hover .arrow { transform: translateX(4px); }
+  /* Paper reached from a highlight link */
+  .paper { scroll-margin-top: 24px; }
+  .paper:target { animation: target-flash 2.4s ease-out; border-radius: 8px; }
+  @keyframes target-flash { 0%, 35% { background: #eef3f9; box-shadow: 0 0 0 12px #eef3f9; } 100% { background: transparent; box-shadow: 0 0 0 12px transparent; } }
 
   /* Sencium */
   .sencium-hero { padding: 8px 0 34px; border-bottom: 1px solid var(--line); }
