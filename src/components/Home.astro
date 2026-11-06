@@ -1,8 +1,7 @@
 ---
-import { advisorUrl, publication } from "../data/profile";
+import { advisorUrl, highlight } from "../data/profile";
 import ProfileCard from "./ProfileCard.astro";
 
-const pub = publication.zh;
 ---
 
 <ProfileCard lang="zh" />
@@ -21,10 +20,11 @@ const pub = publication.zh;
 
 <h2>近期研究</h2>
 <article class="highlight">
-  <a href="/research/"><img src={publication.figure} alt={pub.figureAlt} width="3300" height="2400" loading="lazy" /></a>
+  <a href="/research/"><img src={highlight.figure} alt={highlight.figureAlt} width="3300" height="2400" loading="lazy" /></a>
   <div>
-    <h3><a href="/research/">{pub.title}</a></h3>
-    <div class="venue">{pub.venue}</div>
-    <p>{pub.summary}</p>
+    <h3>{highlight.title}</h3>
+    <div class="venue">{highlight.source}</div>
+    {highlight.text.map((t) => <p>{t}</p>)}
+    <a class="more" href="/research/">查看论文 <span aria-hidden="true">→</span></a>
   </div>
 </article>

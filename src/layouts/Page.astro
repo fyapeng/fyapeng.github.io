@@ -206,6 +206,11 @@ const jsonLd = {
   .highlight h3 a { color: var(--ink); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; transition: text-decoration-color .15s, color .15s; }
   .highlight h3 a:hover { color: var(--accent); text-decoration-color: currentColor; }
   .highlight .venue { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
+  .highlight p { font-size: 15px; line-height: 1.85; margin-bottom: 10px; }
+  .highlight .more { display: inline-block; margin-top: 4px; font-size: 14px; font-weight: 500; }
+  .highlight .more span { display: inline-block; transition: transform .15s; }
+  .highlight .more:hover { text-decoration: none; }
+  .highlight .more:hover span { transform: translateX(4px); }
 
   /* Sencium */
   .sencium-hero { padding: 8px 0 34px; border-bottom: 1px solid var(--line); }
