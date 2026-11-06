@@ -78,12 +78,12 @@ export const workingPapers = [
   }
 ] as const;
 
-// Homepage research highlights. Each title is the figure caption in the paper;
-// each line follows the paper's own discussion of that figure.
+// Homepage research highlights: headline-style titles and one-line blurbs written for the site,
+// grounded in each paper's discussion of the figure (numbers checked against the papers).
 export const highlights = [
   {
-    title: "DRG/DIP 对起付线附近患者人均总费用的影响",
-    text: "改革后，群聚区间（高于起付线 320 元以内）患者的人均总费用显著降低，塌陷区间（低于起付线 200 元以内）则显著增加，且 DRG 带来的增幅更大。",
+    title: "同一项控费改革，起付线两侧走向相反",
+    text: "DRG/DIP 改革后，费用略高于起付线的患者人均总费用明显下降，略低于起付线的患者反而上升，DRG 下的上升更多。",
     figure: "/images/research/drg-dip-threshold-event.png",
     width: 3207,
     height: 1536,
@@ -93,8 +93,8 @@ export const highlights = [
     anchor: "/research/#mw-2026"
   },
   {
-    title: "属性之间相对支付与患者净收益",
-    text: "患者净收益随两类相对支付比的拉大先升后降，网格内最高点比现行三路径每例高 151.2 元（95% 可信区间 135.8–167.4 元）。",
+    title: "治疗之间的支付差，拉大到一定程度反而有害",
+    text: "适度拉开操作与保守治疗、高低等级操作之间的支付差，患者净收益随之上升，拉得过大则回落；峰值比现行规则每例高约 151 元，这部分收益由医院让出。",
     figure: "/images/research/abp-policy-curve.png",
     width: 1220,
     height: 796,
@@ -104,8 +104,8 @@ export const highlights = [
     anchor: "/research/#wp-abp"
   },
   {
-    title: "医生层面的检查率与检出",
-    text: "每位医生的检查率与检出数沿一条斜率接近平均阳性率的直线分布（主治 0.35、主任 0.33），医生多做的检查按平均阳性率分为检出与阴性。",
+    title: "检查做得多的医生，查出的病也按比例更多",
+    text: "每位医生的检查率与检出数几乎落在同一条直线上，多出来的那部分检查，阳性率与平均水平相当。",
     figure: "/images/research/pv-doctor-test-detect.png",
     width: 1366,
     height: 699,
@@ -115,8 +115,8 @@ export const highlights = [
     anchor: "/research/#wp-variation"
   },
   {
-    title: "医生之间检查率差异的来源",
-    text: "在病变待定与症状待查等诊断不确定的病例中，检查偏好分别占团队之间差异的 56% 与 67%，诊断能力只占 5% 与 16%。",
+    title: "检查多做还是少做，主要看医生偏好而非能力",
+    text: "在病情尚不明确的病例中，医生之间检查率差异的 56%–67% 来自检查偏好，诊断能力只解释 5%–16%。",
     figure: "/images/research/pv-variation-sources.png",
     width: 1368,
     height: 612,

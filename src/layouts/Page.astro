@@ -30,10 +30,8 @@ const nav = [
   { key: "english", label: "English", href: paths.english, lang: "en" }
 ];
 
-const baseTitle = isZh
-  ? "付亚鹏 Yapeng Fu｜中国社会科学院大学经济学博士研究生"
-  : "Yapeng Fu 付亚鹏 | Ph.D. Student in Economics, UCASS";
-const title = pageTitle ? `${pageTitle} | 付亚鹏 Yapeng Fu` : baseTitle;
+const baseTitle = isZh ? "付亚鹏 Yapeng Fu" : "Yapeng Fu 付亚鹏";
+const title = pageTitle ? `${pageTitle} | 付亚鹏` : baseTitle;
 const canonical = new URL(page === "404" ? "/" : paths[page], site.url).toString();
 const photoUrl = new URL(profile.photo.src, site.url).toString();
 const pairedLanguages = page === "home" || page === "english";
