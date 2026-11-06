@@ -1,5 +1,5 @@
 ---
-import { advisorUrl, highlight } from "../data/profile";
+import { advisorUrl, highlights } from "../data/profile";
 import ProfileCard from "./ProfileCard.astro";
 
 ---
@@ -19,14 +19,20 @@ import ProfileCard from "./ProfileCard.astro";
 </section>
 
 <h2>近期研究</h2>
-<article class="highlight">
-  <a href={highlight.anchor}><img src={highlight.figure} alt={highlight.figureAlt} width={highlight.width} height={highlight.height} loading="lazy" /></a>
-  <div>
-    <h3>{highlight.title}</h3>
-    <p>{highlight.text}</p>
-    <a class="more" href={highlight.anchor}>
-      <span class="more-label">出自</span>《{highlight.paper}》<span class="arrow" aria-hidden="true">→</span>
-      <span class="more-src">{highlight.source}</span>
-    </a>
-  </div>
-</article>
+<div class="highlights">
+  {
+    highlights.map((h) => (
+      <article class="highlight">
+        <a class="hl-figure" href={h.anchor}>
+          <img src={h.figure} alt={h.figureAlt} width={h.width} height={h.height} loading="lazy" />
+        </a>
+        <h3>{h.title}</h3>
+        <p>{h.text}</p>
+        <a class="more" href={h.anchor}>
+          <span class="more-label">出自</span>《{h.paper}》<span class="arrow" aria-hidden="true">→</span>
+          <span class="more-src">{h.source}</span>
+        </a>
+      </article>
+    ))
+  }
+</div>

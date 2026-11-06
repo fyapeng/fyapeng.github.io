@@ -65,27 +65,64 @@ const me = { name: { zh: "付亚鹏", en: "Yapeng Fu" }, me: true };
 
 export const workingPapers = [
   {
+    id: "wp-variation",
     title: { zh: "医疗实践差异的效率含义", en: "The Efficiency Implications of Medical Practice Variation" },
     authors: [me, mingwei],
     date: { zh: "2026 年 10 月", en: "October 2026" }
   },
   {
+    id: "wp-abp",
     title: { zh: "按属性付费：来自医保支付改革的证据", en: "Attribute-Based Payment: Evidence from Provider Payment Reform" },
     authors: [me, mingwei, { name: { zh: "袁莎莎", en: "Shasha Yuan" } }],
     date: { zh: "2026 年 10 月", en: "October 2026" }
   }
 ] as const;
 
-// Homepage research highlight: Figure 5 of the Management World paper (p. 149).
-// Title is the figure caption; the line follows the paper's discussion of Figure 5.
-export const highlight = {
-  title: "DRG/DIP 对起付线附近患者人均总费用的影响",
-  paper: "医保支付改革、道德风险与医疗控费",
-  source: "《管理世界》2026 年第 3 期，图 5",
-  anchor: "/research/#mw-2026",
-  figure: "/images/research/drg-dip-threshold-event.png",
-  width: 3207,
-  height: 1536,
-  figureAlt: "图 5：DRG/DIP 改革前后，起付线附近塌陷区间与群聚区间样本人均总费用的事件研究估计",
-  text: "改革后，群聚区间（高于起付线 320 元以内）患者的人均总费用显著降低，塌陷区间（低于起付线 200 元以内）则显著增加，且 DRG 带来的增幅更大。"
-} as const;
+// Homepage research highlights. Each title is the figure caption in the paper;
+// each line follows the paper's own discussion of that figure.
+export const highlights = [
+  {
+    title: "DRG/DIP 对起付线附近患者人均总费用的影响",
+    text: "改革后，群聚区间（高于起付线 320 元以内）患者的人均总费用显著降低，塌陷区间（低于起付线 200 元以内）则显著增加，且 DRG 带来的增幅更大。",
+    figure: "/images/research/drg-dip-threshold-event.png",
+    width: 3207,
+    height: 1536,
+    figureAlt: "DRG/DIP 改革前后，起付线附近塌陷区间与群聚区间样本人均总费用的事件研究估计",
+    paper: "医保支付改革、道德风险与医疗控费",
+    source: "《管理世界》2026 年第 3 期，图 5",
+    anchor: "/research/#mw-2026"
+  },
+  {
+    title: "属性之间相对支付与患者净收益",
+    text: "患者净收益随两类相对支付比的拉大先升后降，网格内最高点比现行三路径每例高 151.2 元（95% 可信区间 135.8–167.4 元）。",
+    figure: "/images/research/abp-policy-curve.png",
+    width: 1220,
+    height: 796,
+    figureAlt: "操作相对保守治疗、高等级相对低等级操作的支付比变化时，患者净收益相对现行三路径的变化",
+    paper: "按属性付费：来自医保支付改革的证据",
+    source: "工作论文，2026 年 10 月",
+    anchor: "/research/#wp-abp"
+  },
+  {
+    title: "医生层面的检查率与检出",
+    text: "每位医生的检查率与检出数沿一条斜率接近平均阳性率的直线分布（主治 0.35、主任 0.33），医生多做的检查按平均阳性率分为检出与阴性。",
+    figure: "/images/research/pv-doctor-test-detect.png",
+    width: 1366,
+    height: 699,
+    figureAlt: "主治与主任医生风险调整后的检查率与每百例住院检出数散点图",
+    paper: "医疗实践差异的效率含义",
+    source: "工作论文，2026 年 10 月",
+    anchor: "/research/#wp-variation"
+  },
+  {
+    title: "医生之间检查率差异的来源",
+    text: "在病变待定与症状待查等诊断不确定的病例中，检查偏好分别占团队之间差异的 56% 与 67%，诊断能力只占 5% 与 16%。",
+    figure: "/images/research/pv-variation-sources.png",
+    width: 1368,
+    height: 612,
+    figureAlt: "团队之间检查率差异按病人构成、诊断能力、检查偏好与风险信念的分解",
+    paper: "医疗实践差异的效率含义",
+    source: "工作论文，2026 年 10 月",
+    anchor: "/research/#wp-variation"
+  }
+] as const;

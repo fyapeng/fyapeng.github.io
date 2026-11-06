@@ -34,7 +34,7 @@ const sep = "、";
 <h2>{isZh ? "工作论文" : "Working Papers"}</h2>
 {
   workingPapers.map((wp) => (
-    <article class="paper">
+    <article class="paper" id={wp.id}>
       <h3>{wp.title[lang]}</h3>
       <div class="authors">
         {wp.authors.map((a, i) => (
