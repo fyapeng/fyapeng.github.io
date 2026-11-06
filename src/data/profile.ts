@@ -82,8 +82,8 @@ export const workingPapers = [
 // grounded in each paper's discussion of the figure (numbers checked against the papers).
 export const highlights = [
   {
-    title: "同一项控费改革，起付线两侧走向相反",
-    text: "DRG/DIP 改革后，费用略高于起付线的患者人均总费用明显下降，略低于起付线的患者反而上升，DRG 下的上升更多。",
+    title: "控费改革后，有的病人花得少了，有的反而更多",
+    text: "医保有一条“起付线”，看病花费超过它才开始报销。DRG/DIP 改革后，花费刚过这条线的病人总费用降了，差一点到线的病人总费用反而涨了。",
     figure: "/images/research/drg-dip-threshold-event.png",
     width: 3207,
     height: 1536,
@@ -93,8 +93,8 @@ export const highlights = [
     anchor: "/research/#mw-2026"
   },
   {
-    title: "治疗之间的支付差，拉大到一定程度反而有害",
-    text: "适度拉开操作与保守治疗、高低等级操作之间的支付差，患者净收益随之上升，拉得过大则回落；峰值比现行规则每例高约 151 元，这部分收益由医院让出。",
+    title: "医保给不同治疗定价，差价不是越大越好",
+    text: "同一种病，做手术等操作和保守治疗，医保付给医院的钱不一样。研究发现，把这个差价适度拉大对病人更有利，拉得太大反而不好；差价最合适时，比现在每位病人平均多得约 151 元的好处。",
     figure: "/images/research/abp-policy-curve.png",
     width: 1220,
     height: 796,
@@ -104,8 +104,8 @@ export const highlights = [
     anchor: "/research/#wp-abp"
   },
   {
-    title: "检查做得多的医生，查出的病也按比例更多",
-    text: "每位医生的检查率与检出数几乎落在同一条直线上，多出来的那部分检查，阳性率与平均水平相当。",
+    title: "爱开检查的医生，查出的病也更多",
+    text: "同一家医院里，有的医生检查开得多，有的开得少。开得多的医生，查出的病也按比例更多，多开的检查并不是白做的。",
     figure: "/images/research/pv-doctor-test-detect.png",
     width: 1366,
     height: 699,
@@ -115,8 +115,8 @@ export const highlights = [
     anchor: "/research/#wp-variation"
   },
   {
-    title: "检查多做还是少做，主要看医生偏好而非能力",
-    text: "在病情尚不明确的病例中，医生之间检查率差异的 56%–67% 来自检查偏好，诊断能力只解释 5%–16%。",
+    title: "检查开多开少，更多取决于医生的习惯",
+    text: "病情还不明确时，医生之间检查开多开少的差别，五到七成来自各自的偏好，和诊断水平有关的不到两成。",
     figure: "/images/research/pv-variation-sources.png",
     width: 1368,
     height: 612,

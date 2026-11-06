@@ -120,6 +120,22 @@ const jsonLd = {
       </p>
       <p>© 2026 付亚鹏 · 更新于 2026 年 11 月</p>
     </footer>
+    <script is:inline>
+      // Links that leave this homepage (other sites, sibling project sites on this domain, PDFs) open in a new tab.
+      (() => {
+        const own = new Set(["/", "/research/", "/teaching/", "/sencium/", "/en/"]);
+        for (const a of document.querySelectorAll("a[href]")) {
+          const href = a.getAttribute("href");
+          if (href.startsWith("mailto:") || href.startsWith("#")) continue;
+          const url = new URL(href, location.href);
+          const leaves = url.origin !== location.origin || !own.has(url.pathname);
+          if (leaves) {
+            a.target = "_blank";
+            a.rel = "noopener";
+          }
+        }
+      })();
+    </script>
     {
       cloudflareAnalyticsToken && (
         <script
