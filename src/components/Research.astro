@@ -30,6 +30,12 @@ const sep = "、";
       <p>{pub.abstract}</p>
     </details>
   </div>
+  <div class="meta presentations">
+    <span>宣讲会议</span>
+    <ul>
+      {publication.presentations.map((presentation) => <li>{presentation}</li>)}
+    </ul>
+  </div>
 </article>
 <h2>{isZh ? "工作论文" : "Working Papers"}</h2>
 {
@@ -45,9 +51,30 @@ const sep = "、";
           </>
         ))}
       </div>
-      <div class="meta"><span>{wp.date[lang]}</span></div>
+      <div class="meta">
+        <span>{wp.date[lang]}</span>
+        {wp.abstract[lang] && (
+          <details>
+            <summary>{isZh ? "摘要" : "Abstract"}</summary>
+            <p>{wp.abstract[lang]}</p>
+          </details>
+        )}
+      </div>
+      {"presentations" in wp && (
+        <div class="meta presentations">
+          <span>早期版本宣讲</span>
+          <ul>
+            {wp.presentations.map(({ venue, title }) => <li>{venue}（《{title}》）</li>)}
+          </ul>
+        </div>
+      )}
     </article>
   ))
 }
 
 <p class="note">{isZh ? "* 通讯作者" : "* Corresponding author"}</p>
+
+<style>
+  .presentations { margin-top: 8px; }
+  .presentations ul { margin: 2px 0 0; padding-inline-start: 1.3em; }
+</style>
