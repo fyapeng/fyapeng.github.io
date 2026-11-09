@@ -34,6 +34,7 @@ export const profile = {
 export const publication = {
   doi: "https://link.cnki.net/doi/10.19744/j.cnki.11-1235/f.2026.0040",
   wechat: "https://mp.weixin.qq.com/s/nJC7JVAfS7oIsPJu7niPKg",
+  presentations: ["2024年第二届香樟社会保障论坛", "2024年第八届中国劳动经济学者论坛年会"],
   zh: {
     title: "医保支付改革、道德风险与医疗控费",
     authors: [
@@ -68,13 +69,23 @@ export const workingPapers = [
     id: "wp-variation",
     title: { zh: "医疗实践差异的效率含义", en: "The Efficiency Implications of Medical Practice Variation" },
     authors: [me, mingwei],
-    date: { zh: "2026 年 10 月", en: "October 2026" }
+    date: { zh: "2026 年 10 月", en: "October 2026" },
+    abstract: {
+      zh: "医疗实践差异的效率含义取决于其来源。我们利用一家三级医院的病案与医生组合，建立两层医生共同决定检查的模型，区分病人构成、诊断能力、检查偏好与风险信念，并比较统一标准与调整检查强度的效果。研究发现，不确定病例的医生差异较多来自检查偏好，主任的影响更大，相近疾病内的边际结果与共同临界概率的预测相符，统一风格在固定检查量下增加的检出较少。压缩医生之间的差异与调整检查的整体水平具有不同的效率含义，政策选择取决于边际检查的净收益。"
+    }
   },
   {
     id: "wp-abp",
     title: { zh: "按属性付费：来自医保支付改革的证据", en: "Attribute-Based Payment: Evidence from Provider Payment Reform" },
     authors: [me, mingwei, { name: { zh: "袁莎莎", en: "Shasha Yuan" } }],
-    date: { zh: "2026 年 10 月", en: "October 2026" }
+    date: { zh: "2026 年 10 月", en: "October 2026" },
+    abstract: {
+      zh: "医保按病种付费根据病例属性确定支付标准，而部分病例属性由服务供给方而非患者选择。我们建立按属性付费的概念框架，利用一次将治疗方式纳入病例分组的地方改革，研究按属性付费相对于统一付费的福利后果。结构估计显示，按属性付费能够缓解手术治疗不足，提高患者健康收益；但手术操作的增加中仅有约18%—27%来自对手术操作的额外补偿，其余来自医患互动实践惯性等非价格因素。反事实模拟发现，在医保支出不变时，边际患者的福利改善主要来自医院净收益的下降，即分组与分值调整的作用主要是医院与患者间的再分配。这为评估医保支付改革提供了分析框架。"
+    },
+    presentations: [
+      { venue: "2025年第十一届中国组织经济学研讨会", title: "分解过度医疗：道德风险与说服误导" },
+      { venue: "2025年第八届中国健康经济学论坛", title: "为“标准”付费：医保支付方式改革与供给方诱导需求" }
+    ]
   }
 ] as const;
 
