@@ -29,12 +29,14 @@ const sep = "、";
       <summary>{isZh ? "摘要" : "Abstract"}</summary>
       <p>{pub.abstract}</p>
     </details>
-  </div>
-  <div class="meta presentations">
-    <span>宣讲会议</span>
-    <ul>
-      {publication.presentations.map((presentation) => <li>{presentation}</li>)}
-    </ul>
+    <details>
+      <summary>宣讲（{publication.presentations.length}）</summary>
+      <div class="presentations">
+        <ul>
+          {publication.presentations.map((presentation) => <li>{presentation}</li>)}
+        </ul>
+      </div>
+    </details>
   </div>
 </article>
 <h2>{isZh ? "工作论文" : "Working Papers"}</h2>
@@ -59,15 +61,23 @@ const sep = "、";
             <p>{wp.abstract[lang]}</p>
           </details>
         )}
+        {"presentations" in wp && (
+          <details>
+            <summary>宣讲（{wp.presentations.length}）</summary>
+            <div class="presentations">
+              <span>早期版本</span>
+              <ul>
+                {wp.presentations.map(({ venue, title }) => (
+                  <li>
+                    {venue}
+                    <span class="presentation-title">《{title}》</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </details>
+        )}
       </div>
-      {"presentations" in wp && (
-        <div class="meta presentations">
-          <span>早期版本宣讲</span>
-          <ul>
-            {wp.presentations.map(({ venue, title }) => <li>{venue}（《{title}》）</li>)}
-          </ul>
-        </div>
-      )}
     </article>
   ))
 }
@@ -75,6 +85,22 @@ const sep = "、";
 <p class="note">{isZh ? "* 通讯作者" : "* Corresponding author"}</p>
 
 <style>
-  .presentations { margin-top: 8px; }
-  .presentations ul { margin: 2px 0 0; padding-inline-start: 1.3em; }
+  .presentations {
+    margin-top: 10px;
+    padding: 12px 16px;
+    background: #f7f7f8;
+    border-left: 2px solid var(--accent);
+  }
+  .presentations ul { margin: 0; padding-inline-start: 1.3em; }
+  .presentations > span + ul { margin-top: 4px; }
+  .presentations li + li { margin-top: 4px; }
+  .presentation-title { display: block; }
+
+  @supports selector(details::details-content) {
+    .meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+    .meta > * { margin-inline-end: 0; }
+    .meta details { display: contents; }
+    .meta details::details-content { order: 1; flex: 0 0 100%; min-width: 0; }
+    .meta details:not([open])::details-content { display: none; }
+  }
 </style>
