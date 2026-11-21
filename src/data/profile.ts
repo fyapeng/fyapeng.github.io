@@ -77,10 +77,10 @@ export const workingPapers = [
   {
     id: "wp-abp",
     title: { zh: "按属性付费：来自医保支付改革的证据", en: "Attribute-Based Payment: Evidence from Provider Payment Reform" },
-    authors: [me, mingwei, { name: { zh: "袁莎莎", en: "Shasha Yuan" } }],
-    date: { zh: "2026 年 10 月", en: "October 2026" },
+    authors: [me, mingwei],
+    date: { zh: "2026 年 11 月", en: "November 2026" },
     abstract: {
-      zh: "医保按病种付费根据病例属性确定支付标准，而部分病例属性由服务供给方而非患者选择。我们建立按属性付费的概念框架，利用一次将治疗方式纳入病例分组的地方改革，研究按属性付费相对于统一付费的福利后果。结构估计显示，按属性付费能够缓解手术治疗不足，提高患者健康收益；但手术操作的增加中仅有约18%—27%来自对手术操作的额外补偿，其余来自医患互动实践惯性等非价格因素。反事实模拟发现，在医保支出不变时，边际患者的福利改善主要来自医院净收益的下降，即分组与分值调整的作用主要是医院与患者间的再分配。这为评估医保支付改革提供了分析框架。"
+      zh: "医保按病种付费根据病例属性确定支付标准，但部分病例属性由服务供给方而非患者选择。我们建立按属性付费的概念框架，利用一次将治疗方式纳入病例分组的地方改革，研究按属性付费相对于统一付费的福利后果。按属性付费改变了治疗方式的配置，使部分原本接受保守治疗的患者转向操作治疗，但仅有17%的增幅直接来自对操作治疗的额外补偿。在医保支出不变的条件下，患者净收益的提高与医院净收益的下降幅度接近，按属性付费的福利效应主要体现为患者与医院之间的再分配。这为评估医保支付改革提供了理论依据与分析框架。"
     },
     presentations: [
       { venue: "2025年第十一届中国组织经济学研讨会", title: "分解过度医疗：道德风险与说服误导" },
@@ -93,6 +93,28 @@ export const workingPapers = [
 // grounded in each paper's discussion of the figure (numbers checked against the papers).
 export const highlights = [
   {
+    title: "医保按治疗方式分组后，操作更多，两类病例的平均费用都降了",
+    text: "试点公告后，支付分组细化较多的病种，操作比例上升得更快。与此同时，有操作和无操作的住院病例，各自的平均费用都下降了。",
+    figure: "/images/research/abp-treatment-spending.png",
+    width: 1351,
+    height: 653,
+    figureAlt: "试点公告前后，按病种分组细化程度比较操作率，并按是否接受操作比较住院费用的季度变化",
+    paper: "按属性付费：来自医保支付改革的证据",
+    source: "工作论文，2026 年 11 月，图 2",
+    anchor: "/research/#wp-abp"
+  },
+  {
+    title: "差别付费和控费收紧，对患者净收益的作用相反",
+    text: "模型估计显示，单看不同治疗之间的支付差，患者净收益每次住院增加约 204 元。计入同期控费收紧后，改革的合计效应是每次住院净收益减少约 294 元。",
+    figure: "/images/research/abp-patient-benefit.png",
+    width: 1260,
+    height: 630,
+    figureAlt: "模型估计的例均患者净收益变化。支付变化增加 204 元，控费收紧减少 497 元，合计减少 294 元。误差线为 95% 可信区间",
+    paper: "按属性付费：来自医保支付改革的证据",
+    source: "据工作论文（2026 年 11 月）图 6(c)、表 A20 绘制",
+    anchor: "/research/#wp-abp"
+  },
+  {
     title: "控费改革后，有的病人花得少了，有的反而更多",
     text: "医保有一条“起付线”，看病花费超过它才开始报销。DRG/DIP 改革后，花费刚过这条线的病人总费用降了，差一点到线的病人总费用反而涨了。",
     figure: "/images/research/drg-dip-threshold-event.png",
@@ -102,28 +124,6 @@ export const highlights = [
     paper: "医保支付改革、道德风险与医疗控费",
     source: "《管理世界》2026 年第 3 期，图 5",
     anchor: "/research/#mw-2026"
-  },
-  {
-    title: "医保给不同治疗定价，差价不是越大越好",
-    text: "同一种病，做手术等操作和保守治疗，医保付给医院的钱不一样。研究发现，把这个差价适度拉大对病人更有利，拉得太大反而不好；差价最合适时，比现在每位病人平均多得约 151 元的好处。",
-    figure: "/images/research/abp-policy-curve.png",
-    width: 1220,
-    height: 796,
-    figureAlt: "操作相对保守治疗、高等级相对低等级操作的支付比变化时，患者净收益相对现行三路径的变化",
-    paper: "按属性付费：来自医保支付改革的证据",
-    source: "工作论文，2026 年 10 月",
-    anchor: "/research/#wp-abp"
-  },
-  {
-    title: "爱开检查的医生，查出的病也更多",
-    text: "同一家医院里，有的医生检查开得多，有的开得少。开得多的医生，查出的病也按比例更多，多开的检查并不是白做的。",
-    figure: "/images/research/pv-doctor-test-detect.png",
-    width: 1366,
-    height: 699,
-    figureAlt: "主治与主任医生风险调整后的检查率与每百例住院检出数散点图",
-    paper: "医疗实践差异的效率含义",
-    source: "工作论文，2026 年 10 月",
-    anchor: "/research/#wp-variation"
   },
   {
     title: "检查开多开少，更多取决于医生的习惯",
